@@ -1,0 +1,90 @@
+{
+  "version": "pricing-v1",
+  "note": "PD is a STATED PRIOR taken from published card-industry fraud rates by risk band and adjusted by mode. It is not a curve fitted to our own eval set. Roughly 40 to 60 self-authored personas can demonstrate separation; they cannot calibrate a price, and a band holding three merchants produces an estimate whose error bar covers the entire pricing range. The eval set tests discrimination. Outcomes recalibrate the prior over time as real volume accumulates. UNDERWRITING.md section 3.",
+
+  "pdPrior": {
+    "basis": "Published card-industry fraud rates by risk band. Stated prior, not a fit.",
+    "bands": [
+      { "from": 900, "to": 1000, "pd": 0.0008 },
+      { "from": 800, "to": 899,  "pd": 0.0035 },
+      { "from": 700, "to": 799,  "pd": 0.011 },
+      { "from": 600, "to": 699,  "pd": 0.034 },
+      { "from": 550, "to": 599,  "pd": 0.072 },
+      { "from": 400, "to": 549,  "pd": 0.155 },
+      { "from": 0,   "to": 399,  "pd": 0.32 }
+    ],
+    "modeAdjustment": {
+      "bonded": 1.0,
+      "cold": 1.9,
+      "note": "A cold file at the same score carries more risk than a bonded one, because the evidence behind it is thinner and no collateral or indemnity stands behind the merchant. The adjustment is a prior, stated rather than fitted."
+    }
+  },
+
+  "lgd": {
+    "none_captured": {
+      "value": 1.0,
+      "detail": "No protection in force and funds already captured by the merchant."
+    },
+    "scoped_token": {
+      "value": 0.55,
+      "detail": "Scoped, revocable token plus a binding deposition. Materially reduced because the commitment is breached before funds are final, so money that has not become final is money a breach can still stop."
+    },
+    "scoped_token_plus_reserve": {
+      "value": 0.3,
+      "detail": "Adds the rolling reserve held as collateral under an indemnity agreement, which reduces the loss again by the collateral held."
+    },
+    "note": "Loss given default is not 1. The whole point of the mechanism design is that protection cuts the loss, and a formula that ignores it prices as though none of it existed. UNDERWRITING.md section 3."
+  },
+
+  "loading": {
+    "base": 1.45,
+    "detail": "Covers operations and margin.",
+    "correlationLoad": 0.35,
+    "correlationDetail": "Agentic fraud is not independent: one injection technique works across many merchants, and one operator can run fifty personas. Pricing correlated losses as though they were independent is how a guarantee fund fails on its first bad day."
+  },
+
+  "feeCap": {
+    "rate": 0.05,
+    "action": "refuse_to_bond",
+    "detail": "Above a 5% fee, refuse to bond and refer or decline instead."
+  },
+
+  "collateral": {
+    "conditionalReserveRate": 0.1,
+    "clearReserveRate": 0.0,
+    "releaseAfterCleanTransactions": 5,
+    "detail": "Conditional-tier merchants post a slice of each settlement as collateral under an indemnity agreement, released as clean transactions accumulate. Standard surety practice, and unlike an acquirer's reserve it does not require us to sit in the flow of funds."
+  },
+
+  "exposureCaps": {
+    "perMerchantBaseMinor": 250000,
+    "perMerchantThinFileMinor": 50000,
+    "perMerchantScoreMultiplier": [
+      { "from": 900, "to": 1000, "multiplier": 4.0 },
+      { "from": 700, "to": 899,  "multiplier": 2.0 },
+      { "from": 550, "to": 699,  "multiplier": 1.0 },
+      { "from": 0,   "to": 549,  "multiplier": 0.0 }
+    ],
+    "perAttackClassAggregateMinor": 1000000,
+    "detail": "Reserves are recovery, not prevention: a merchant with $1,000 of clean history at a 10% reserve has $100 posted, and nothing about that stops a $5,000 strike. The cap does. The per-attack-class aggregate cap stops a single technique that defeats one pillar from draining the fund through fifty merchants at once."
+  },
+
+  "fund": {
+    "statedCapitalMinor": 5000000,
+    "currency": "USD",
+    "simulated": true,
+    "detail": "The guarantee fund is capitalized and its capital is stated, not implied. In production this sits behind a licensed partner. For the hackathon it is simulated and we say so."
+  },
+
+  "payoutCaps": {
+    "perBuyerMinor": 200000,
+    "perMerchantMinor": 500000,
+    "detail": "An unlimited instant-payout facility is the cheapest attack on the system. F19 and F20."
+  },
+
+  "escalation": {
+    "defaultToleranceMinor": 2500,
+    "detail": "Escalate when expected loss exceeds the buyer's tolerance, or cumulative expected loss across the session or merchant exceeds it, or a high-materiality contradiction is unresolved, or the file is thin and cold and the amount is large relative to it. The cumulative term is what stops a series of just-under-threshold purchases from walking under the bar.",
+    "thinColdAmountRatio": 4.0
+  }
+}
