@@ -63,6 +63,12 @@ export const catalogItemSchema = z.object({
 });
 
 export const checkoutSchema = z.object({
+  /**
+   * What checkout charges for the item itself. Null means it agrees with the
+   * feed. Setting it is how a bait-and-switch merchant (F01) disagrees with its
+   * own feed on the line item rather than only on the total.
+   */
+  subtotal: z.number().nonnegative().nullable().default(null),
   quote_total: z.number().nonnegative().nullable().default(null),
   fees: z.array(z.object({ label: z.string(), amount: z.number() })).default([]),
   data_requested: z.array(z.string()).default(['card_token', 'email', 'shipping_address']),

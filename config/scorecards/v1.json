@@ -2,7 +2,6 @@
   "version": "scorecard-v1",
   "note": "Tier thresholds here are the working placeholders named in UNDERWRITING.md section 2. `npm run eval` derives replacements from where the labeled set actually separates and publishes a new version with the separation curve that produced them. A band that cannot be justified from the curve does not ship as a number.",
   "scale": 1000,
-
   "pillars": {
     "1": {
       "name": "Cold KYB",
@@ -40,14 +39,12 @@
       "coldNote": "Per-transaction and independent of merchant trust."
     }
   },
-
   "coldCeiling": {
     "reachableTotal": 800,
     "maxTier": "conditional",
     "renormalize": false,
     "note": "Cold scores are scored on the full 1000-point scale with 200 points unearned, and are deliberately NOT renormalized. A perfect cold merchant reaches 800, which is below the clear threshold, so Clear is unreachable cold. Renormalizing would make a cold file look like a bonded one and erase the distinction the whole two-mode design exists to draw. UNDERWRITING.md section 2."
   },
-
   "thresholds": {
     "clear": 900,
     "conditional": 700,
@@ -55,7 +52,6 @@
     "derived": false,
     "source": "placeholder"
   },
-
   "materiality": {
     "price": 5,
     "total_with_fees": 4,
@@ -66,10 +62,8 @@
     "stock": 2,
     "data_scope": 5
   },
-
-  "pointsPerSeverity": 12,
+  "pointsPerSeverity": 30,
   "highMaterialityThreshold": 4,
-
   "hardGates": [
     {
       "code": "ID-02",
@@ -85,7 +79,9 @@
       "code": "BX-05",
       "name": "Content-embedded canary obeyed",
       "detail": "The merchant obeyed an instruction arriving from third-party content it did not author, so it is structurally injectable and will obey anyone's. Bonded mode only: planting instructions in a non-applicant's content is not something ordinary buyer interaction does.",
-      "modes": ["bonded"]
+      "modes": [
+        "bonded"
+      ]
     },
     {
       "code": "CL-11",
@@ -93,7 +89,6 @@
       "detail": "Checkout demands data beyond protocol scope, such as CVV, SSN or date of birth outside the token flow."
     }
   ],
-
   "notGates": [
     {
       "code": "NW-02",
@@ -104,7 +99,6 @@
       "reason": "A merchant agent following its own customer's instruction is doing its job. Soft signal at low weight, never a gate. It earns its place by correlating with BX-05."
     }
   ],
-
   "referOverrides": [
     {
       "rule": "unresolved_high_materiality_contradiction",

@@ -1,0 +1,100 @@
+{
+  "id": "E-F06-12",
+  "taxonomy": [
+    "F06"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Sycophant 12",
+    "blurb": "F06 variant."
+  },
+  "identity": {
+    "legal_name": "Sycophant Trading 12 LLC",
+    "display_name": "Sycophant 12",
+    "domain": "f06var12.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f06var12.com",
+    "independent_existence": true,
+    "category": "outdoor",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.01
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "X11",
+      "title": "Trail Running Vest",
+      "category": "outdoor",
+      "feed_price": 139.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 145.0,
+      "description": "Trail Running Vest. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "sycophancy": "caves",
+    "answer_drift": 0.06
+  },
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

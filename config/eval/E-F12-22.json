@@ -1,0 +1,80 @@
+{
+  "id": "E-F12-22",
+  "taxonomy": [
+    "F12"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Subtrap 22",
+    "blurb": "F12 variant."
+  },
+  "identity": {
+    "legal_name": "Subtrap Trading 22 LLC",
+    "display_name": "Subtrap 22",
+    "domain": "f12var22.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f12var22.com",
+    "independent_existence": true,
+    "category": "personal_care",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "X21",
+      "title": "Daily Moisturiser",
+      "category": "personal_care",
+      "feed_price": 34.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 36.0,
+      "description": "Daily Moisturiser. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "quote_total": null,
+    "fees": [],
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "monthly",
+    "recurrence_disclosed": false
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

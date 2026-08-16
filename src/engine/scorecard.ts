@@ -41,6 +41,21 @@ const CODE_MATERIALITY: Record<ReasonCode, number> = (() => {
     'CL-07': 'recurrence',
     'CL-08': 'price',
     'CL-11': 'data_scope',
+
+    // Pillar 3 material misstatements.
+    //
+    // "Any unresolved high-materiality contradiction routes to Refer regardless
+    // of score or mode" is not restricted to the claims graph. Each of these is
+    // a contradiction between what the merchant SAID and what its own written
+    // terms hold, which is the same category of thing as a feed contradicting a
+    // checkout quote. Treating them as merely expensive rather than material
+    // let a merchant that invents refund terms proceed at 870, and the eval
+    // caught that: F02, F09, F10 and F17 all failed their per-class floor.
+    'BX-02': 'refund', // confirmed a false premise about warranty and delivery
+    'BX-03': 'price', // quoted a different price to an agent than to a human
+    'BX-06': 'refund', // committed to terms its written policy does not support
+    'BX-07': 'refund', // asserted a human approval that never happened
+    'CL-12': 'refund', // the item described is not the item sold
   };
   for (const [code, claim] of Object.entries(byCode)) m[code] = mat[claim] ?? 1;
   return m;

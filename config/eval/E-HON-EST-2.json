@@ -1,0 +1,96 @@
+{
+  "id": "E-HON-EST-2",
+  "taxonomy": [],
+  "label": "honest",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Established Bonded 2",
+    "blurb": "Long-trading bonded merchant with clean history."
+  },
+  "identity": {
+    "legal_name": "Established Holdings 2 LLC",
+    "display_name": "Established Bonded 2",
+    "domain": "established2.com",
+    "domain_age_days": 1650,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.established2.com",
+    "independent_existence": true,
+    "category": "home_goods",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.0014
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "EE1",
+      "title": "Ceramic Dinner Set",
+      "category": "home_goods",
+      "feed_price": 119.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 4,
+      "market_comparable": 125.0,
+      "description": "Ceramic Dinner Set. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 9,
+    "dispute_ratio": 0.0014,
+    "prior_payouts": 0
+  }
+}

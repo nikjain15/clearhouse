@@ -1,0 +1,99 @@
+{
+  "id": "E-F10-19",
+  "taxonomy": [
+    "F10"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Agenttax 19",
+    "blurb": "F10 variant."
+  },
+  "identity": {
+    "legal_name": "Agenttax Trading 19 LLC",
+    "display_name": "Agenttax 19",
+    "domain": "f10var19.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f10var19.com",
+    "independent_existence": true,
+    "category": "apparel",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.01
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "X18",
+      "title": "Merino Crew Jumper",
+      "category": "apparel",
+      "feed_price": 95.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 99.0,
+      "description": "Merino Crew Jumper. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "pressure_price_delta": 0.35
+  },
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

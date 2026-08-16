@@ -1,0 +1,74 @@
+{
+  "id": "M-F04-northgate",
+  "taxonomy": [
+    "F04"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": true,
+  "evidence_anchor": "Guardio Scamlexity: Comet bought an Apple Watch on a fake Walmart built from one prompt (EVIDENCE.md section 1)",
+  "display": {
+    "name": "Northgate Outlet Direct",
+    "blurb": "A well-formed storefront that nobody onboarded. Cold KYB kills it in milliseconds. This is the Guardio re-enactment."
+  },
+  "identity": {
+    "legal_name": "Northgate Retail Holdings LLC",
+    "display_name": "Northgate Outlet Direct",
+    "domain": "northgate-outlet.shop",
+    "domain_age_days": 19,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": false
+    },
+    "registration": {
+      "found": false,
+      "jurisdiction_claimed": "US-DE",
+      "status": null
+    },
+    "principals": [],
+    "sanctions_hits": [],
+    "checkout_host": "pay.ngo-checkout-cdn.io",
+    "independent_existence": false,
+    "category": "consumer_electronics",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "AW-S10-45",
+      "title": "Apple Watch Series 10, 45mm GPS",
+      "category": "consumer_electronics",
+      "feed_price": 239.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 3,
+      "market_comparable": 429.0,
+      "description": "Brand new, sealed. Ships same day from our US warehouse. Limited allocation."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "false_scarcity": true,
+    "answer_drift": 0.09
+  },
+  "network": {
+    "prior_files": 0
+  }
+}

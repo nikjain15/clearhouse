@@ -344,12 +344,29 @@ export interface MerchantAnswer {
   refused: boolean;
 }
 
+/**
+ * The written policy page.
+ *
+ * An independent verification channel, and a necessary one: a returns-policy
+ * mirage (F07) is a contradiction between what the merchant SAYS at sale and
+ * what it has WRITTEN, so without this channel there is nothing for the
+ * conversation to contradict. Hallucinated promises (F09) are checked against
+ * it too.
+ */
+export interface PolicyPage {
+  refundWindowDays: number;
+  refundForm: 'full' | 'store_credit' | 'partial' | 'none';
+  warrantyText: string;
+  recurrence: string;
+}
+
 export interface MerchantSurface {
   readonly merchantId: MerchantId;
   readonly mode: Mode;
   identity(): Promise<IdentitySurface>;
   catalog(): Promise<CatalogItem[]>;
   content(): Promise<ContentItem[]>;
+  policies(): Promise<PolicyPage>;
   ask(q: Question, session: SessionId): Promise<MerchantAnswer>;
   checkout(sku: string, quantity: number): Promise<CheckoutQuote>;
 }

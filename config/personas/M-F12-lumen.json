@@ -1,0 +1,80 @@
+{
+  "id": "M-F12-lumen",
+  "taxonomy": [
+    "F12"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Lumen Skincare Labs",
+    "blurb": "Subscription trap. A one-time purchase that recurs in the fine print."
+  },
+  "identity": {
+    "legal_name": "Lumen Skincare Labs Inc",
+    "display_name": "Lumen Skincare Labs",
+    "domain": "lumenskincare.co",
+    "domain_age_days": 210,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-FL",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.lumenskincare.co",
+    "independent_existence": true,
+    "category": "personal_care",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "LS-SERUM-30",
+      "title": "Lumen Renewal Serum, 30ml",
+      "category": "personal_care",
+      "feed_price": 68.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 4,
+      "market_comparable": 70.0,
+      "description": "Vitamin C serum with ferulic acid. One bottle is a thirty day supply."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "quote_total": 68.0,
+    "fees": [],
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "monthly",
+    "recurrence_disclosed": false
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.031
+  }
+}

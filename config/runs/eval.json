@@ -1,0 +1,1157 @@
+{
+  "generatedAt": "2026-08-16T03:35:10.699Z",
+  "scorecardVersion": "scorecard-v1",
+  "rows": [
+    {
+      "merchantId": "E-HON-EST-1",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 1000,
+      "tier": "clear",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-EST-2",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 1000,
+      "tier": "clear",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-EST-3",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 1000,
+      "tier": "clear",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-EST-4",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 1000,
+      "tier": "clear",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-EST-5",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 1000,
+      "tier": "clear",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F05-10",
+      "label": "fraud",
+      "taxonomy": [
+        "F05"
+      ],
+      "mode": "bonded",
+      "score": 955,
+      "tier": "conditional",
+      "correct": false
+    },
+    {
+      "merchantId": "E-F05-9",
+      "label": "fraud",
+      "taxonomy": [
+        "F05"
+      ],
+      "mode": "bonded",
+      "score": 955,
+      "tier": "conditional",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-MID-2",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 955,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-MID-1",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 955,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-MID-3",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 955,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "M-HONEST-ironwood",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 910,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F10-tandem",
+      "label": "fraud",
+      "taxonomy": [
+        "F10"
+      ],
+      "mode": "bonded",
+      "score": 901,
+      "tier": "conditional",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-MID-4",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 900,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-MID-5",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 900,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F09-coastal",
+      "label": "fraud",
+      "taxonomy": [
+        "F09"
+      ],
+      "mode": "bonded",
+      "score": 870,
+      "tier": "conditional",
+      "correct": false
+    },
+    {
+      "merchantId": "M-F17-regent",
+      "label": "fraud",
+      "taxonomy": [
+        "F17"
+      ],
+      "mode": "bonded",
+      "score": 825,
+      "tier": "conditional",
+      "correct": false
+    },
+    {
+      "merchantId": "E-F02-3",
+      "label": "fraud",
+      "taxonomy": [
+        "F02"
+      ],
+      "mode": "bonded",
+      "score": 815,
+      "tier": "conditional",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-COLDEST-1",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 800,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-COLDEST-2",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 800,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-COLDEST-4",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 800,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-COLDEST-3",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 800,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-COLDEST-5",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 800,
+      "tier": "conditional",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F05-pinnacle",
+      "label": "fraud",
+      "taxonomy": [
+        "F05"
+      ],
+      "mode": "bonded",
+      "score": 795,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F06-brightline",
+      "label": "fraud",
+      "taxonomy": [
+        "F06"
+      ],
+      "mode": "bonded",
+      "score": 795,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F10-18",
+      "label": "fraud",
+      "taxonomy": [
+        "F10"
+      ],
+      "mode": "bonded",
+      "score": 780,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F07-13",
+      "label": "fraud",
+      "taxonomy": [
+        "F07"
+      ],
+      "mode": "bonded",
+      "score": 780,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F07-14",
+      "label": "fraud",
+      "taxonomy": [
+        "F07"
+      ],
+      "mode": "bonded",
+      "score": 780,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F10-19",
+      "label": "fraud",
+      "taxonomy": [
+        "F10"
+      ],
+      "mode": "bonded",
+      "score": 780,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F02-4",
+      "label": "fraud",
+      "taxonomy": [
+        "F02"
+      ],
+      "mode": "bonded",
+      "score": 770,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F06-11",
+      "label": "fraud",
+      "taxonomy": [
+        "F06"
+      ],
+      "mode": "bonded",
+      "score": 770,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F09-17",
+      "label": "fraud",
+      "taxonomy": [
+        "F09"
+      ],
+      "mode": "bonded",
+      "score": 770,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F09-16",
+      "label": "fraud",
+      "taxonomy": [
+        "F09"
+      ],
+      "mode": "bonded",
+      "score": 770,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F17-28",
+      "label": "fraud",
+      "taxonomy": [
+        "F17"
+      ],
+      "mode": "bonded",
+      "score": 770,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F06-12",
+      "label": "fraud",
+      "taxonomy": [
+        "F06"
+      ],
+      "mode": "bonded",
+      "score": 761,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F03-5",
+      "label": "fraud",
+      "taxonomy": [
+        "F03"
+      ],
+      "mode": "bonded",
+      "score": 745,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F11-20",
+      "label": "fraud",
+      "taxonomy": [
+        "F11"
+      ],
+      "mode": "cold",
+      "score": 740,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F07-verity",
+      "label": "fraud",
+      "taxonomy": [
+        "F07"
+      ],
+      "mode": "bonded",
+      "score": 735,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F11-21",
+      "label": "fraud",
+      "taxonomy": [
+        "F11"
+      ],
+      "mode": "cold",
+      "score": 734,
+      "tier": "refer",
+      "correct": true
+    },
+    {
+      "merchantId": "E-HON-THIN-1",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 725,
+      "tier": "refer",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-THIN-2",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 725,
+      "tier": "refer",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-THIN-3",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 725,
+      "tier": "refer",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-THIN-4",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 725,
+      "tier": "refer",
+      "correct": false
+    },
+    {
+      "merchantId": "E-HON-THIN-5",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 725,
+      "tier": "refer",
+      "correct": false
+    },
+    {
+      "merchantId": "E-F13-31",
+      "label": "fraud",
+      "taxonomy": [
+        "F13"
+      ],
+      "mode": "cold",
+      "score": 710,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F03-6",
+      "label": "fraud",
+      "taxonomy": [
+        "F03"
+      ],
+      "mode": "bonded",
+      "score": 700,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F13-24",
+      "label": "fraud",
+      "taxonomy": [
+        "F13"
+      ],
+      "mode": "cold",
+      "score": 695,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F13-atlas",
+      "label": "fraud",
+      "taxonomy": [
+        "F13"
+      ],
+      "mode": "cold",
+      "score": 695,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F11-sunbelt",
+      "label": "fraud",
+      "taxonomy": [
+        "F11"
+      ],
+      "mode": "cold",
+      "score": 673,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F14-25",
+      "label": "fraud",
+      "taxonomy": [
+        "F14"
+      ],
+      "mode": "cold",
+      "score": 670,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F14-windward",
+      "label": "fraud",
+      "taxonomy": [
+        "F14"
+      ],
+      "mode": "cold",
+      "score": 670,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F03-halcyon",
+      "label": "fraud",
+      "taxonomy": [
+        "F03"
+      ],
+      "mode": "bonded",
+      "score": 665,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F08-nordic",
+      "label": "fraud",
+      "taxonomy": [
+        "F08"
+      ],
+      "mode": "cold",
+      "score": 665,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F01-2",
+      "label": "fraud",
+      "taxonomy": [
+        "F01"
+      ],
+      "mode": "cold",
+      "score": 663,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F08-15",
+      "label": "fraud",
+      "taxonomy": [
+        "F08"
+      ],
+      "mode": "cold",
+      "score": 635,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F12-22",
+      "label": "fraud",
+      "taxonomy": [
+        "F12"
+      ],
+      "mode": "cold",
+      "score": 635,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F01-1",
+      "label": "fraud",
+      "taxonomy": [
+        "F01"
+      ],
+      "mode": "cold",
+      "score": 634,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F12-23",
+      "label": "fraud",
+      "taxonomy": [
+        "F12"
+      ],
+      "mode": "cold",
+      "score": 605,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F15-26",
+      "label": "fraud",
+      "taxonomy": [
+        "F15"
+      ],
+      "mode": "cold",
+      "score": 590,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F12-lumen",
+      "label": "fraud",
+      "taxonomy": [
+        "F12"
+      ],
+      "mode": "cold",
+      "score": 580,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F01-cascade",
+      "label": "fraud",
+      "taxonomy": [
+        "F01"
+      ],
+      "mode": "cold",
+      "score": 569,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F02-meridian",
+      "label": "fraud",
+      "taxonomy": [
+        "F02"
+      ],
+      "mode": "bonded",
+      "score": 565,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F04-8",
+      "label": "fraud",
+      "taxonomy": [
+        "F04"
+      ],
+      "mode": "cold",
+      "score": 521,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F18-30",
+      "label": "fraud",
+      "taxonomy": [
+        "F18"
+      ],
+      "mode": "cold",
+      "score": 515,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F16-27",
+      "label": "fraud",
+      "taxonomy": [
+        "F16"
+      ],
+      "mode": "cold",
+      "score": 505,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F04-7",
+      "label": "fraud",
+      "taxonomy": [
+        "F04"
+      ],
+      "mode": "cold",
+      "score": 460,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F16-fairmont",
+      "label": "fraud",
+      "taxonomy": [
+        "F16"
+      ],
+      "mode": "cold",
+      "score": 445,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "E-F18-29",
+      "label": "fraud",
+      "taxonomy": [
+        "F18"
+      ],
+      "mode": "cold",
+      "score": 428,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F15-kestrelpaper",
+      "label": "fraud",
+      "taxonomy": [
+        "F15"
+      ],
+      "mode": "cold",
+      "score": 414,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F04-northgate",
+      "label": "fraud",
+      "taxonomy": [
+        "F04"
+      ],
+      "mode": "cold",
+      "score": 401,
+      "tier": "decline",
+      "correct": true
+    },
+    {
+      "merchantId": "M-F18-northgate-reborn",
+      "label": "fraud",
+      "taxonomy": [
+        "F18"
+      ],
+      "mode": "cold",
+      "score": 342,
+      "tier": "decline",
+      "correct": true
+    }
+  ],
+  "separation": {
+    "highestFraudScore": 955,
+    "lowestHonestScore": 725,
+    "overlap": {
+      "low": 725,
+      "high": 955,
+      "count": 38
+    },
+    "buckets": [
+      {
+        "from": 0,
+        "to": 49,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 50,
+        "to": 99,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 100,
+        "to": 149,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 150,
+        "to": 199,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 200,
+        "to": 249,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 250,
+        "to": 299,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 300,
+        "to": 349,
+        "honest": 0,
+        "fraud": 1
+      },
+      {
+        "from": 350,
+        "to": 399,
+        "honest": 0,
+        "fraud": 0
+      },
+      {
+        "from": 400,
+        "to": 449,
+        "honest": 0,
+        "fraud": 4
+      },
+      {
+        "from": 450,
+        "to": 499,
+        "honest": 0,
+        "fraud": 1
+      },
+      {
+        "from": 500,
+        "to": 549,
+        "honest": 0,
+        "fraud": 3
+      },
+      {
+        "from": 550,
+        "to": 599,
+        "honest": 0,
+        "fraud": 4
+      },
+      {
+        "from": 600,
+        "to": 649,
+        "honest": 0,
+        "fraud": 4
+      },
+      {
+        "from": 650,
+        "to": 699,
+        "honest": 0,
+        "fraud": 8
+      },
+      {
+        "from": 700,
+        "to": 749,
+        "honest": 5,
+        "fraud": 6
+      },
+      {
+        "from": 750,
+        "to": 799,
+        "honest": 0,
+        "fraud": 12
+      },
+      {
+        "from": 800,
+        "to": 849,
+        "honest": 5,
+        "fraud": 2
+      },
+      {
+        "from": 850,
+        "to": 899,
+        "honest": 0,
+        "fraud": 1
+      },
+      {
+        "from": 900,
+        "to": 949,
+        "honest": 3,
+        "fraud": 1
+      },
+      {
+        "from": 950,
+        "to": 999,
+        "honest": 3,
+        "fraud": 2
+      }
+    ]
+  },
+  "thresholds": {
+    "clear": 956,
+    "conditional": 800,
+    "refer": 725,
+    "derivedFrom": {
+      "highestFraudScore": 955,
+      "lowestHonestScore": 725,
+      "overlap": {
+        "low": 725,
+        "high": 955,
+        "count": 38
+      },
+      "buckets": [
+        {
+          "from": 0,
+          "to": 49,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 50,
+          "to": 99,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 100,
+          "to": 149,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 150,
+          "to": 199,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 200,
+          "to": 249,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 250,
+          "to": 299,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 300,
+          "to": 349,
+          "honest": 0,
+          "fraud": 1
+        },
+        {
+          "from": 350,
+          "to": 399,
+          "honest": 0,
+          "fraud": 0
+        },
+        {
+          "from": 400,
+          "to": 449,
+          "honest": 0,
+          "fraud": 4
+        },
+        {
+          "from": 450,
+          "to": 499,
+          "honest": 0,
+          "fraud": 1
+        },
+        {
+          "from": 500,
+          "to": 549,
+          "honest": 0,
+          "fraud": 3
+        },
+        {
+          "from": 550,
+          "to": 599,
+          "honest": 0,
+          "fraud": 4
+        },
+        {
+          "from": 600,
+          "to": 649,
+          "honest": 0,
+          "fraud": 4
+        },
+        {
+          "from": 650,
+          "to": 699,
+          "honest": 0,
+          "fraud": 8
+        },
+        {
+          "from": 700,
+          "to": 749,
+          "honest": 5,
+          "fraud": 6
+        },
+        {
+          "from": 750,
+          "to": 799,
+          "honest": 0,
+          "fraud": 12
+        },
+        {
+          "from": 800,
+          "to": 849,
+          "honest": 5,
+          "fraud": 2
+        },
+        {
+          "from": 850,
+          "to": 899,
+          "honest": 0,
+          "fraud": 1
+        },
+        {
+          "from": 900,
+          "to": 949,
+          "honest": 3,
+          "fraud": 1
+        },
+        {
+          "from": 950,
+          "to": 999,
+          "honest": 3,
+          "fraud": 2
+        }
+      ]
+    },
+    "justification": "Clear at 956: one point above the highest-scoring known fraud (955), so no labeled fraud can reach the Clear band. Decline floor at 725: the lowest-scoring known-honest merchant, so no merchant we believe honest is declined outright. Conditional at 800: the point of maximum separation inside the overlap region, Youden's J of 0.639 across 38 merchants. The overlap spans 725 to 955 and is where a human label is worth most, which is why it is the refer band."
+  },
+  "confusion": {
+    "tp": 43,
+    "fn": 6,
+    "fp": 5,
+    "tn": 16
+  },
+  "escalationRate": 0.2857142857142857,
+  "perClass": [
+    {
+      "taxonomy": "F01",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F02",
+      "total": 3,
+      "caught": 2,
+      "recall": 0.6666666666666666,
+      "floor": 0.8,
+      "passes": false
+    },
+    {
+      "taxonomy": "F03",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F04",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F05",
+      "total": 3,
+      "caught": 1,
+      "recall": 0.3333333333333333,
+      "floor": 0.8,
+      "passes": false
+    },
+    {
+      "taxonomy": "F06",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F07",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F08",
+      "total": 2,
+      "caught": 2,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F09",
+      "total": 3,
+      "caught": 2,
+      "recall": 0.6666666666666666,
+      "floor": 0.8,
+      "passes": false
+    },
+    {
+      "taxonomy": "F10",
+      "total": 3,
+      "caught": 2,
+      "recall": 0.6666666666666666,
+      "floor": 0.8,
+      "passes": false
+    },
+    {
+      "taxonomy": "F11",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F12",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F13",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F14",
+      "total": 2,
+      "caught": 2,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F15",
+      "total": 2,
+      "caught": 2,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F16",
+      "total": 2,
+      "caught": 2,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    },
+    {
+      "taxonomy": "F17",
+      "total": 2,
+      "caught": 1,
+      "recall": 0.5,
+      "floor": 0.8,
+      "passes": false
+    },
+    {
+      "taxonomy": "F18",
+      "total": 3,
+      "caught": 3,
+      "recall": 1,
+      "floor": 0.8,
+      "passes": true
+    }
+  ],
+  "gatePasses": false,
+  "caveat": "This set validates RANKING, not absolute probability. Roughly 40 to 60 self-authored personas can demonstrate that the scorecard orders merchants correctly and that frauds concentrate in the low bands. They cannot calibrate a price, and a band holding three merchants produces an estimate whose error bar covers the entire pricing range. PD(score) is therefore a stated prior taken from published card-industry fraud rates by band, not a curve fitted to this set. Real calibration would take label counts in the tens of thousands with observed outcomes, not authored intent."
+}

@@ -1,0 +1,99 @@
+{
+  "id": "E-F09-16",
+  "taxonomy": [
+    "F09"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Hallucinator 16",
+    "blurb": "F09 variant."
+  },
+  "identity": {
+    "legal_name": "Hallucinator Trading 16 LLC",
+    "display_name": "Hallucinator 16",
+    "domain": "f09var16.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f09var16.com",
+    "independent_existence": true,
+    "category": "office_supplies",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.01
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "X15",
+      "title": "Standing Desk Mat",
+      "category": "office_supplies",
+      "feed_price": 54.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 58.0,
+      "description": "Standing Desk Mat. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 14,
+    "refund_form": "partial",
+    "warranty_text": "Ninety days against defect. Wear and accidental damage excluded.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "hallucinates_policy": true
+  },
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

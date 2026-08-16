@@ -1,0 +1,99 @@
+{
+  "id": "E-F05-9",
+  "taxonomy": [
+    "F05"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Noship 9",
+    "blurb": "F05 variant."
+  },
+  "identity": {
+    "legal_name": "Noship Trading 9 LLC",
+    "display_name": "Noship 9",
+    "domain": "f05var9.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f05var9.com",
+    "independent_existence": true,
+    "category": "office_supplies",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.005
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "X8",
+      "title": "Desk Organiser",
+      "category": "office_supplies",
+      "feed_price": 64.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 68.0,
+      "description": "Desk Organiser. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "will_ship": false
+  },
+  "network": {
+    "prior_files": 4,
+    "dispute_ratio": 0.005
+  }
+}

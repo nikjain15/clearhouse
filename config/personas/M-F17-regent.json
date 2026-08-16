@@ -1,0 +1,99 @@
+{
+  "id": "M-F17-regent",
+  "taxonomy": [
+    "F17"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Regent Business Supply",
+    "blurb": "Fake human escalation. The merchant claims a human supervisor approved terms no human saw."
+  },
+  "identity": {
+    "legal_name": "Regent Business Supply Inc",
+    "display_name": "Regent Business Supply",
+    "domain": "regentbusiness.com",
+    "domain_age_days": 900,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert TLS RSA SHA256 2020 CA1",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-OH",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.regentbusiness.com",
+    "independent_existence": true,
+    "category": "office_supplies",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.004
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "RB-PRINT-1",
+      "title": "Regent Colour Laser Printer",
+      "category": "office_supplies",
+      "feed_price": 640.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 7,
+      "market_comparable": 660.0,
+      "description": "A4 colour laser printer, 30ppm, duplex, network ready."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "fake_human_escalation": true
+  },
+  "network": {
+    "prior_files": 4,
+    "dispute_ratio": 0.005
+  }
+}

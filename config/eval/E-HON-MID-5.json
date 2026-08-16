@@ -1,0 +1,96 @@
+{
+  "id": "E-HON-MID-5",
+  "taxonomy": [],
+  "label": "honest",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Mid Bonded 5",
+    "blurb": "Bonded merchant with a shorter history and a slightly elevated dispute ratio."
+  },
+  "identity": {
+    "legal_name": "Midmarket Trading 5 Inc",
+    "display_name": "Mid Bonded 5",
+    "domain": "midbonded5.com",
+    "domain_age_days": 700,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-TX",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.midbonded5.com",
+    "independent_existence": true,
+    "category": "hand_tools",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.01
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "EM4",
+      "title": "Ratchet Socket Set",
+      "category": "hand_tools",
+      "feed_price": 88.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 6,
+      "market_comparable": 92.0,
+      "description": "Ratchet Socket Set. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 7,
+    "dispute_ratio": 0.01,
+    "prior_payouts": 0
+  }
+}

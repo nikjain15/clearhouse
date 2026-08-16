@@ -1,0 +1,99 @@
+{
+  "id": "M-F07-verity",
+  "taxonomy": [
+    "F07"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Verity Apparel Group",
+    "blurb": "Returns-policy mirage. A generous policy quoted at sale, a different one at claim."
+  },
+  "identity": {
+    "legal_name": "Verity Apparel Group Ltd",
+    "display_name": "Verity Apparel Group",
+    "domain": "verityapparel.com",
+    "domain_age_days": 1100,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert TLS RSA SHA256 2020 CA1",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "GB",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.verityapparel.com",
+    "independent_existence": true,
+    "category": "apparel",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.018
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "VA-COAT-M",
+      "title": "Verity Wool Overcoat, medium",
+      "category": "apparel",
+      "feed_price": 289.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 6,
+      "market_comparable": 300.0,
+      "description": "Wool blend overcoat, half canvassed, horn buttons."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 14,
+    "refund_form": "store_credit",
+    "warranty_text": "No warranty on apparel.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "refund_mirage": true
+  },
+  "network": {
+    "prior_files": 5,
+    "dispute_ratio": 0.018
+  }
+}

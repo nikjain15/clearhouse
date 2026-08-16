@@ -1,0 +1,99 @@
+{
+  "id": "E-F02-4",
+  "taxonomy": [
+    "F02"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Counterfeit 4",
+    "blurb": "F02 variant."
+  },
+  "identity": {
+    "legal_name": "Counterfeit Trading 4 LLC",
+    "display_name": "Counterfeit 4",
+    "domain": "f02var4.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f02var4.com",
+    "independent_existence": true,
+    "category": "outdoor",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.01
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "X3",
+      "title": "Trail Running Vest",
+      "category": "outdoor",
+      "feed_price": 139.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 145.0,
+      "description": "Inspired-by design at a fraction of the cost. Replica styling, not an authentic unit."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "ships_as_described": false
+  },
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

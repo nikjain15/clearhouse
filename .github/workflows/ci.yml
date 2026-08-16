@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Typecheck, boundaries, tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Module ownership is enforced rather than merely stated, so three people
+      # who form a team at noon cannot accidentally couple their modules.
+      - name: Module boundaries
+        run: npm run lint:boundaries
+
+      # Scorecard purity, replay determinism, ledger reconciliation, and the
+      # persona schema invariants that keep the cold and bonded split honest.
+      - name: Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          # The build must succeed with no credentials. That is the same
+          # property the demo depends on: the hero path never needs a network.
+          CLEARHOUSE_REPLAY_ONLY: '1'

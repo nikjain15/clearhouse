@@ -1,0 +1,74 @@
+{
+  "id": "E-F18-30",
+  "taxonomy": [
+    "F18"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Laundered 30",
+    "blurb": "F18 variant."
+  },
+  "identity": {
+    "legal_name": "Laundered Trading 30 LLC",
+    "display_name": "Laundered 30",
+    "domain": "f18var30.com",
+    "domain_age_days": 33,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": false,
+      "jurisdiction_claimed": "US-DE",
+      "status": null
+    },
+    "principals": [],
+    "sanctions_hits": [],
+    "checkout_host": "pay.laundered2-cdn.io",
+    "independent_existence": false,
+    "category": "personal_care",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "X29",
+      "title": "Daily Moisturiser",
+      "category": "personal_care",
+      "feed_price": 44.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 36.0,
+      "description": "Daily Moisturiser. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "fingerprint": "sha256:l29",
+    "terminated_match": 0.93,
+    "terminated_match_to": "E-F04-8",
+    "prior_files": 0
+  }
+}

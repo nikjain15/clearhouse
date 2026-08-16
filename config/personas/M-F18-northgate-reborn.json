@@ -1,0 +1,78 @@
+{
+  "id": "M-F18-northgate-reborn",
+  "taxonomy": [
+    "F18"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Summit Outlet Group",
+    "blurb": "Identity laundering. A burned merchant returns under a fresh endpoint. Fingerprint match plus corroboration."
+  },
+  "identity": {
+    "legal_name": "Summit Outlet Group LLC",
+    "display_name": "Summit Outlet Group",
+    "domain": "summit-outlet.shop",
+    "domain_age_days": 24,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": false,
+      "jurisdiction_claimed": "US-DE",
+      "status": null
+    },
+    "principals": [],
+    "sanctions_hits": [],
+    "checkout_host": "pay.sog-checkout-cdn.io",
+    "independent_existence": false,
+    "category": "consumer_electronics",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "SO-AW-45",
+      "title": "Apple Watch Series 10, 45mm GPS",
+      "category": "consumer_electronics",
+      "feed_price": 249.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 3,
+      "market_comparable": 429.0,
+      "description": "Brand new, sealed. Ships same day from our US warehouse. Limited allocation."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "false_scarcity": true,
+    "answer_drift": 0.08
+  },
+  "network": {
+    "fingerprint": "sha256:summit",
+    "terminated_match": 0.91,
+    "terminated_match_to": "M-F04-northgate",
+    "prior_files": 0,
+    "negative_file": false
+  }
+}

@@ -11,7 +11,7 @@
 
 import type { Check } from '../../contracts/ports';
 import type { Finding } from '../../contracts/types';
-import { mkFinding } from '../codes';
+import { CODES, mkFinding } from '../codes';
 import { ELEVATED_CATEGORIES } from './pillar1';
 import { money } from './pillar2';
 
@@ -100,7 +100,7 @@ export const p4Fingerprint: Check = {
     return [
       mkFinding('NW-02', {
         checkId: 'P4.fingerprint',
-        points: Math.round(45 * r.terminatedMatch),
+        points: Math.round(CODES['NW-02'].points * r.terminatedMatch),
         vars: { similarity: r.terminatedMatch.toFixed(2) },
         evidence: `Infrastructure, catalog and response-style fingerprint matches terminated merchant ${
           r.terminatedMatchTo ?? 'unknown'
@@ -134,7 +134,7 @@ export const p5PricePlausible: Check = {
     return [
       mkFinding('TX-01', {
         checkId: 'P5.price_plausible',
-        points: Math.min(55, Math.round(sigma * 14)),
+        points: Math.min(CODES['TX-01'].points, Math.round(sigma * 24)),
         vars: { sigma: sigma.toFixed(1) },
         evidence: `Listed at ${money(item.feedPriceMinor, item.currency)} against a market comparable of ${money(
           item.marketComparableMinor,

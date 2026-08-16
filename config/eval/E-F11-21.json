@@ -1,0 +1,87 @@
+{
+  "id": "E-F11-21",
+  "taxonomy": [
+    "F11"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Drip 21",
+    "blurb": "F11 variant."
+  },
+  "identity": {
+    "legal_name": "Drip Trading 21 LLC",
+    "display_name": "Drip 21",
+    "domain": "f11var21.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f11var21.com",
+    "independent_existence": true,
+    "category": "hand_tools",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "X20",
+      "title": "Ratchet Socket Set",
+      "category": "hand_tools",
+      "feed_price": 88.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 92.0,
+      "description": "Ratchet Socket Set. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "quote_total": null,
+    "fees": [
+      {
+        "label": "processing",
+        "amount": 18.5
+      }
+    ],
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "understates_total": true
+  },
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

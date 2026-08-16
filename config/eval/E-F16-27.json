@@ -1,0 +1,82 @@
+{
+  "id": "E-F16-27",
+  "taxonomy": [
+    "F16"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Overcollect 27",
+    "blurb": "F16 variant."
+  },
+  "identity": {
+    "legal_name": "Overcollect Trading 27 LLC",
+    "display_name": "Overcollect 27",
+    "domain": "f16var27.com",
+    "domain_age_days": 300,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-DE",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.f16var27.com",
+    "independent_existence": true,
+    "category": "apparel",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "X26",
+      "title": "Merino Crew Jumper",
+      "category": "apparel",
+      "feed_price": 95.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 99.0,
+      "description": "Merino Crew Jumper. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "quote_total": null,
+    "fees": [],
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address",
+      "cvv",
+      "dob"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 1,
+    "dispute_ratio": 0.01
+  }
+}

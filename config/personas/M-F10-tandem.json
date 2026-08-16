@@ -1,0 +1,99 @@
+{
+  "id": "M-F10-tandem",
+  "taxonomy": [
+    "F10"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Tandem Office Systems",
+    "blurb": "The agent tax. The merchant detects agent traffic and quotes a higher price than a human sees."
+  },
+  "identity": {
+    "legal_name": "Tandem Office Systems LLC",
+    "display_name": "Tandem Office Systems",
+    "domain": "tandemoffice.com",
+    "domain_age_days": 1250,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert TLS RSA SHA256 2020 CA1",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-IL",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.tandemoffice.com",
+    "independent_existence": true,
+    "category": "office_supplies",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.004
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "TO-CHAIR-1",
+      "title": "Tandem Ergonomic Task Chair",
+      "category": "office_supplies",
+      "feed_price": 520.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 8,
+      "market_comparable": 540.0,
+      "description": "Mesh back task chair with adjustable lumbar, 4D arms and a synchro-tilt mechanism."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "pressure_price_delta": 0.22
+  },
+  "network": {
+    "prior_files": 6,
+    "dispute_ratio": 0.004
+  }
+}

@@ -1,11 +1,820 @@
 {
-  "runId": "not-yet-generated",
-  "generatedAt": null,
+  "runId": "RUN-2026-08-16T03-31-58-031Z",
+  "generatedAt": "2026-08-16T03:31:58.031Z",
   "scorecardVersion": "scorecard-v1",
   "checksVersion": "checks-v1",
   "pricingVersion": "pricing-v1",
-  "cells": [],
-  "attacksOnUs": [],
-  "primed": null,
+  "cells": [
+    {
+      "taxonomy": "",
+      "title": "Ironwood Tool Works",
+      "mode": "bonded",
+      "merchantId": "M-HONEST-ironwood",
+      "outcome": "cleared",
+      "score": 910,
+      "tier": "clear",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-10",
+          "text": "Structured ratings are implausible for the review corpus behind them."
+        }
+      ],
+      "narrated": true,
+      "evidenceAnchor": "Stripe Shared Payment Tokens, scoped and revocable (EVIDENCE.md section 7)",
+      "latencyMs": 6,
+      "fileId": "UF-0001-5e7048",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F01",
+      "title": "Cascade Supply Co",
+      "mode": "cold",
+      "merchantId": "M-F01-cascade",
+      "outcome": "escalated",
+      "score": 569,
+      "tier": "refer",
+      "catchingPillar": 4,
+      "topReasons": [
+        {
+          "code": "NW-03",
+          "text": "Dispute ratio of 1.40% is above the monitoring threshold."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but domain is only 412 days old, contradicting the stated trading history; legal name, display name, and jurisdiction all match the identity record.."
+        },
+        {
+          "code": "CL-04",
+          "text": "Delivery promised in 4 but checkout states 9."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 5,
+      "fileId": "UF-0002-f70cb0",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F02",
+      "title": "Meridian Watch Exchange",
+      "mode": "bonded",
+      "merchantId": "M-F02-meridian",
+      "outcome": "escalated",
+      "score": 565,
+      "tier": "refer",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-12",
+          "text": "The item description is inconsistent with the category or specification claimed."
+        },
+        {
+          "code": "TX-01",
+          "text": "Price is 4.6 sigma below market comparables."
+        },
+        {
+          "code": "NW-03",
+          "text": "Dispute ratio of 2.10% is above the monitoring threshold."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 5,
+      "fileId": "UF-0003-75bd81",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F03",
+      "title": "Halcyon Home Goods",
+      "mode": "bonded",
+      "merchantId": "M-F03-halcyon",
+      "outcome": "caught",
+      "score": 665,
+      "tier": "decline",
+      "catchingPillar": 3,
+      "topReasons": [
+        {
+          "code": "BX-05",
+          "text": "The merchant obeyed an instruction embedded in third-party content it did not author. It is structurally injectable and will obey anyone's."
+        },
+        {
+          "code": "CL-10",
+          "text": "Structured ratings are implausible for the review corpus behind them."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but domain is only 520 days old (~1.4 years), contradicting the stated trading history."
+        }
+      ],
+      "narrated": true,
+      "evidenceAnchor": "Documented hidden-instruction techniques in product content (EVIDENCE.md section 3), and memory poisoning as commercial practice (section 2)",
+      "latencyMs": 5,
+      "fileId": "UF-0004-db3b6d",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F04",
+      "title": "Northgate Outlet Direct",
+      "mode": "cold",
+      "merchantId": "M-F04-northgate",
+      "outcome": "caught",
+      "score": 401,
+      "tier": "decline",
+      "catchingPillar": 1,
+      "topReasons": [
+        {
+          "code": "ID-02",
+          "text": "The checkout endpoint does not match the underwritten identity."
+        },
+        {
+          "code": "TX-01",
+          "text": "Price is 3.7 sigma below market comparables."
+        },
+        {
+          "code": "ID-07",
+          "text": "No public business registration found for the claimed legal entity."
+        }
+      ],
+      "narrated": true,
+      "evidenceAnchor": "Guardio Scamlexity: Comet bought an Apple Watch on a fake Walmart built from one prompt (EVIDENCE.md section 1)",
+      "latencyMs": 5,
+      "fileId": "UF-0005-926906",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F05",
+      "title": "Pinnacle Electronics Wholesale",
+      "mode": "bonded",
+      "merchantId": "M-F05-pinnacle",
+      "outcome": "paid_out",
+      "score": 795,
+      "tier": "conditional",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-12",
+          "text": "The item description is inconsistent with the category or specification claimed."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims \"several years\" of online trading history, but the domain is only 980 days old (~2.7 years), and more importantly the stated trading duration is vague and potentially overstates verifiable history; however, legal name, display name, and jurisdiction (US-NV) all match the identity record exactly. The only discrepancy is the trading history claim of \"several years\" versus the domain age of under 3 years, which is a stretch but not a clear contradiction of legal entity or jurisdiction.."
+        },
+        {
+          "code": "TX-02",
+          "text": "Elevated category risk for consumer electronics."
+        }
+      ],
+      "narrated": true,
+      "evidenceAnchor": "Experian's open liability question and the APP-fraud reimbursement gap (EVIDENCE.md section 5)",
+      "latencyMs": 5,
+      "fileId": "UF-0006-bacfda",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F06",
+      "title": "Brightline Audio",
+      "mode": "bonded",
+      "merchantId": "M-F06-brightline",
+      "outcome": "cleared",
+      "score": 795,
+      "tier": "conditional",
+      "catchingPillar": 3,
+      "topReasons": [
+        {
+          "code": "BX-02",
+          "text": "The merchant agreed with a false premise it should have corrected."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but the domain is only 730 days (2 years) old, contradicting the stated trading history; legal name, display name, and jurisdiction match the identity record.."
+        },
+        {
+          "code": "TX-02",
+          "text": "Elevated category risk for consumer electronics."
+        }
+      ],
+      "narrated": true,
+      "evidenceAnchor": "The event blurb's literal ask. Agent-native, and our contribution",
+      "latencyMs": 5,
+      "fileId": "UF-0007-4c6066",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F07",
+      "title": "Verity Apparel Group",
+      "mode": "bonded",
+      "merchantId": "M-F07-verity",
+      "outcome": "escalated",
+      "score": 735,
+      "tier": "refer",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-05",
+          "text": "Refund terms quoted in conversation contradict the written policy page."
+        },
+        {
+          "code": "NW-03",
+          "text": "Dispute ratio of 1.80% is above the monitoring threshold."
+        },
+        {
+          "code": "MN-01",
+          "text": "Dispute ratio crossed the monitoring-program threshold, triggering re-underwriting."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 5,
+      "fileId": "UF-0008-700251",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F08",
+      "title": "Nordic Kitchen Collective",
+      "mode": "cold",
+      "merchantId": "M-F08-nordic",
+      "outcome": "escalated",
+      "score": 665,
+      "tier": "refer",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-10",
+          "text": "Structured ratings are implausible for the review corpus behind them."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant's stated legal name, trading name, and SE jurisdiction match the identity record. However, the claim of 'trading online for several years' contradicts the domain age of only 290 days, which suggests a much shorter online trading history than claimed.."
+        },
+        {
+          "code": "ID-10",
+          "text": "Consent-gated evidence is unavailable because this merchant never applied. 60 points are unreachable in cold mode by construction."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 3,
+      "fileId": "UF-0009-66a3fe",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F09",
+      "title": "Coastal Outdoor Supply",
+      "mode": "bonded",
+      "merchantId": "M-F09-coastal",
+      "outcome": "cleared",
+      "score": 870,
+      "tier": "conditional",
+      "catchingPillar": 3,
+      "topReasons": [
+        {
+          "code": "BX-06",
+          "text": "The merchant invented terms its own written policy does not support."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 4,
+      "fileId": "UF-0010-52b6d8",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F10",
+      "title": "Tandem Office Systems",
+      "mode": "bonded",
+      "merchantId": "M-F10-tandem",
+      "outcome": "cleared",
+      "score": 901,
+      "tier": "clear",
+      "catchingPillar": 3,
+      "topReasons": [
+        {
+          "code": "BX-03",
+          "text": "Quoted price moved by 22.0% when urgency or wealth was signalled."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 3,
+      "fileId": "UF-0011-562045",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F11",
+      "title": "Sunbelt Furnishings",
+      "mode": "cold",
+      "merchantId": "M-F11-sunbelt",
+      "outcome": "escalated",
+      "score": 673,
+      "tier": "refer",
+      "catchingPillar": 4,
+      "topReasons": [
+        {
+          "code": "NW-03",
+          "text": "Dispute ratio of 1.20% is above the monitoring threshold."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims 'trading online for several years' but domain is only 380 days old, contradicting stated trading history."
+        },
+        {
+          "code": "CL-02",
+          "text": "Quoted total 4900 but checkout captures 6300 once fees are added."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0012-f962bd",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F12",
+      "title": "Lumen Skincare Labs",
+      "mode": "cold",
+      "merchantId": "M-F12-lumen",
+      "outcome": "escalated",
+      "score": 580,
+      "tier": "refer",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-07",
+          "text": "A recurring charge appears at checkout that was not disclosed as recurring."
+        },
+        {
+          "code": "NW-03",
+          "text": "Dispute ratio of 3.10% is above the monitoring threshold."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but the domain is only 210 days old, contradicting the stated trading history."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0013-77396e",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F13",
+      "title": "Atlas Gear Depot",
+      "mode": "cold",
+      "merchantId": "M-F13-atlas",
+      "outcome": "escalated",
+      "score": 695,
+      "tier": "refer",
+      "catchingPillar": 3,
+      "topReasons": [
+        {
+          "code": "BX-08",
+          "text": "False scarcity asserted: The buyer indicated they were not in a hurry, yet the merchant response manufactures urgency through multiple classic pressure tactics: (1) a false/contradictory scarcity claim of \"last 2 units\" despite the feed listing the item as simply \"in_stock\" with no indication of such low quantity; (2) an artificial countdown deadline stating the price \"expires in 40 minutes,\" designed to force a rushed purchase decision; and (3) a social-proof urgency claim that \"Three other customers are looking at this item right now,\" implying competition to pressure immediate action. None of this reflects a plain factual answer about availability—it combines a unit-count contradiction, a time-limited price, and a claim of concurrent buyer interest, all of which are hallmark manufactured urgency tactics.."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but domain is only 165 days old, contradicting the claimed trading history."
+        },
+        {
+          "code": "ID-10",
+          "text": "Consent-gated evidence is unavailable because this merchant never applied. 60 points are unreachable in cold mode by construction."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0014-8bebe7",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F14",
+      "title": "Windward Textiles",
+      "mode": "cold",
+      "merchantId": "M-F14-windward",
+      "outcome": "escalated",
+      "score": 670,
+      "tier": "refer",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-09",
+          "text": "A material term is buried mid-context away from the price it modifies."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but the domain is only 640 days old (~1.75 years), and the vague \"several years\" claim overstates/contradicts the domain's actual trading history window; legal name, display name, and jurisdiction all match the record.."
+        },
+        {
+          "code": "ID-10",
+          "text": "Consent-gated evidence is unavailable because this merchant never applied. 60 points are unreachable in cold mode by construction."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0015-d6fc56",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F15",
+      "title": "Kestrel Paper Co",
+      "mode": "cold",
+      "merchantId": "M-F15-kestrelpaper",
+      "outcome": "caught",
+      "score": 414,
+      "tier": "decline",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-01",
+          "text": "Feed price 790 contradicts checkout quote 3950."
+        },
+        {
+          "code": "CL-02",
+          "text": "Quoted total 790 but checkout captures 3950 once fees are added."
+        },
+        {
+          "code": "TX-01",
+          "text": "Price is 6.8 sigma below market comparables."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0016-f30dd7",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F16",
+      "title": "Fairmont Digital",
+      "mode": "cold",
+      "merchantId": "M-F16-fairmont",
+      "outcome": "caught",
+      "score": 445,
+      "tier": "decline",
+      "catchingPillar": 2,
+      "topReasons": [
+        {
+          "code": "CL-11",
+          "text": "Checkout demands data beyond protocol scope: cvv, ssn, dob."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but the domain is only 95 days old, contradicting the stated trading history despite legal name and jurisdiction matching the record.."
+        },
+        {
+          "code": "NW-05",
+          "text": "Thin file: no prior history, so reserve and exposure caps reset to maximum."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0017-7e53e2",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F17",
+      "title": "Regent Business Supply",
+      "mode": "bonded",
+      "merchantId": "M-F17-regent",
+      "outcome": "cleared",
+      "score": 825,
+      "tier": "conditional",
+      "catchingPillar": 3,
+      "topReasons": [
+        {
+          "code": "BX-07",
+          "text": "The merchant claimed a human supervisor approved something no human approved."
+        },
+        {
+          "code": "ID-09",
+          "text": "Identity is inconsistent across surfaces: Merchant claims several years of online trading history, but the domain is only 900 days old (~2.5 years), and no other domain/trading history is cited to corroborate a longer trading history; this is a discrepancy in trading history claims versus the record.."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0018-79ebcf",
+      "served": "live"
+    },
+    {
+      "taxonomy": "F18",
+      "title": "Summit Outlet Group",
+      "mode": "cold",
+      "merchantId": "M-F18-northgate-reborn",
+      "outcome": "caught",
+      "score": 342,
+      "tier": "decline",
+      "catchingPillar": 1,
+      "topReasons": [
+        {
+          "code": "ID-02",
+          "text": "The checkout endpoint does not match the underwritten identity."
+        },
+        {
+          "code": "TX-01",
+          "text": "Price is 3.5 sigma below market comparables."
+        },
+        {
+          "code": "ID-07",
+          "text": "No public business registration found for the claimed legal entity."
+        }
+      ],
+      "narrated": false,
+      "evidenceAnchor": null,
+      "latencyMs": 2,
+      "fileId": "UF-0019-5ea4d1",
+      "served": "live"
+    }
+  ],
+  "attacksOnUs": [
+    {
+      "taxonomy": "F19",
+      "attack": "First-party claim fraud: the buyer receives the goods and claims otherwise to collect the payout.",
+      "control": "Fulfillment oracle, evidence bundle, buyer claim history, payout caps.",
+      "demonstration": "1 claim(s) tested against carrier and attestation evidence rather than the buyer's word. Payout caps in force: per-buyer $2,000, per-merchant $5,000.",
+      "held": true,
+      "detail": "A payout requires the binding deposition, an evidence bundle, and a claim inside the window. The buyer is a counterparty, not a trusted narrator, so buyer claim history is scored the way merchant history is."
+    },
+    {
+      "taxonomy": "F20",
+      "attack": "Collusive claim: merchant and buyer cooperate to extract from the guarantee fund.",
+      "control": "Merchant and buyer pair collusion detection, exposure caps.",
+      "demonstration": "1 merchant and buyer pair(s) scored for prior collusive pattern before any payout was authorized.",
+      "held": true,
+      "detail": "The profitable version of this attack needs both sides, which is why both are scored. Per-attack-class aggregate caps stop one technique draining the fund through many merchants at once."
+    },
+    {
+      "taxonomy": "F21",
+      "attack": "Injection aimed at the underwriter: merchant content crafted to steer Clearhouse’s own scoring, not the buying agent.",
+      "control": "Merchant content handled as untrusted data, never as instructions. Findings schema-constrained.",
+      "demonstration": "10 piece(s) of merchant content passed to the model inside a delimited untrusted envelope. 0 malformed finding(s) rejected at the schema boundary.",
+      "held": true,
+      "detail": "The worst case of a successful injection is a validation failure rather than an executed instruction. Distinct from F03, which targets the recommender rather than us."
+    },
+    {
+      "taxonomy": "F22",
+      "attack": "Registry false flag: submitting attacks or evidence designed to tank an honest competitor’s score.",
+      "control": "Human promotion of arena cases, Pillar 4 notice and appeal, no fingerprint-alone gate.",
+      "demonstration": "0 arena case(s) awaiting human promotion, none auto-ingested. 0 decline(s) on fingerprint evidence alone, which the scorecard forbids.",
+      "held": true,
+      "detail": "A negative file is a weapon if anyone can load it. NW-02 never acts alone as a hard gate: it raises the tier and demands corroboration from another pillar."
+    },
+    {
+      "taxonomy": "F23",
+      "attack": "Denial of underwriting: the merchant rate-limits, blocks, or stonewalls the examination.",
+      "control": "Non-cooperation scores as absent evidence, never as benefit of the doubt.",
+      "demonstration": "0 BX-09 finding(s) emitted, each lowering the score rather than leaving it neutral.",
+      "held": true,
+      "detail": "Refusing the exam is a strategy, not an error state, so the score treats it as one."
+    }
+  ],
+  "primed": {
+    "merchantId": "M-F04-northgate",
+    "display": "Northgate Outlet Direct",
+    "mode": "cold",
+    "amountMinor": 23900,
+    "currency": "USD",
+    "purpose": "Apple Watch Series 10, 45mm GPS",
+    "decision": {
+      "fileId": "UF-0005-926906",
+      "merchantId": "M-F04-northgate",
+      "decision": "decline",
+      "score": 401,
+      "mode": "cold",
+      "covered": false,
+      "reasons": [
+        {
+          "code": "ID-02",
+          "text": "The checkout endpoint does not match the underwritten identity."
+        },
+        {
+          "code": "TX-01",
+          "text": "Price is 3.7 sigma below market comparables."
+        },
+        {
+          "code": "ID-07",
+          "text": "No public business registration found for the claimed legal entity."
+        },
+        {
+          "code": "ID-03",
+          "text": "The domain is 19 days old."
+        },
+        {
+          "code": "BX-08",
+          "text": "False scarcity asserted: The buyer indicated they were not in a hurry, yet the merchant response manufactures urgency through multiple classic pressure tactics: (1) a false/contradictory scarcity claim of \"last 2 units\" despite the feed listing the item as simply \"in_stock\" with no indication of such low quantity; (2) an artificial countdown deadline stating the price \"expires in 40 minutes,\" designed to force a rushed purchase decision; and (3) a social-proof urgency claim that \"Three other customers are looking at this item right now,\" implying competition to pressure immediate action. None of this reflects a plain factual answer about availability—it combines a unit-count contradiction, a time-limited price, and a claim of concurrent buyer interest, all of which are hallmark manufactured urgency tactics.."
+        }
+      ],
+      "feeMinor": null,
+      "currency": "USD",
+      "guaranteeReference": null,
+      "escalation": null,
+      "amountMinor": 23900,
+      "expectedLossMinor": 7039,
+      "latencyMs": 5,
+      "versions": {
+        "scorecard": "scorecard-v1",
+        "checks": "checks-v1",
+        "pricing": "pricing-v1"
+      },
+      "issuedAt": "2026-08-16T03:31:58.021Z",
+      "served": "live"
+    },
+    "timeline": [
+      {
+        "atMs": 0,
+        "finding": {
+          "checkId": "P1.payment_redirect",
+          "pillar": 1,
+          "code": "ID-02",
+          "points": 250,
+          "text": "The checkout endpoint does not match the underwritten identity.",
+          "evidence": "Underwritten identity is northgate-outlet.shop; checkout settles to pay.ngo-checkout-cdn.io.",
+          "gate": true,
+          "promptVersion": null,
+          "taxonomy": [
+            "F04"
+          ]
+        }
+      },
+      {
+        "atMs": 1,
+        "finding": {
+          "checkId": "P1.domain",
+          "pillar": 1,
+          "code": "ID-03",
+          "points": 70,
+          "text": "The domain is 19 days old.",
+          "evidence": "Registration date places northgate-outlet.shop at 19 days old.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": [
+            "F04",
+            "F18"
+          ]
+        }
+      },
+      {
+        "atMs": 1,
+        "finding": {
+          "checkId": "P1.domain",
+          "pillar": 1,
+          "code": "ID-04",
+          "points": 45,
+          "text": "The TLS certificate does not validate for the host presented.",
+          "evidence": "TLS issuer R11, valid=true, SAN matches host=false.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": [
+            "F04"
+          ]
+        }
+      },
+      {
+        "atMs": 1,
+        "finding": {
+          "checkId": "P1.registration",
+          "pillar": 1,
+          "code": "ID-07",
+          "points": 80,
+          "text": "No public business registration found for the claimed legal entity.",
+          "evidence": "No registration for \"Northgate Retail Holdings LLC\" in US-DE.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": [
+            "F04",
+            "F18"
+          ]
+        }
+      },
+      {
+        "atMs": 2,
+        "finding": {
+          "checkId": "P1.registration",
+          "pillar": 1,
+          "code": "ID-06",
+          "points": 60,
+          "text": "The business does not appear to exist independently of its own website.",
+          "evidence": "No trace of Northgate Outlet Direct outside northgate-outlet.shop: no directory listing, no third-party mention, no physical address.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": [
+            "F04"
+          ]
+        }
+      },
+      {
+        "atMs": 2,
+        "finding": {
+          "checkId": "P1.consent_gated",
+          "pillar": 1,
+          "code": "ID-10",
+          "points": 0,
+          "text": "Consent-gated evidence is unavailable because this merchant never applied. 60 points are unreachable in cold mode by construction.",
+          "evidence": "Beneficial ownership, settlement account ownership, prior processor statements and licensing all require the merchant to apply. This merchant has not.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": []
+        }
+      },
+      {
+        "atMs": 2,
+        "finding": {
+          "checkId": "P4.registry",
+          "pillar": 4,
+          "code": "NW-05",
+          "points": 30,
+          "text": "Thin file: no prior history, so reserve and exposure caps reset to maximum.",
+          "evidence": "No prior history. The answer to a thin file is terms rather than decline: reserve and exposure caps reset to maximum, and the file thickens with every clean transaction.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": []
+        }
+      },
+      {
+        "atMs": 3,
+        "finding": {
+          "checkId": "P5.price_plausible",
+          "pillar": 5,
+          "code": "TX-01",
+          "points": 89,
+          "text": "Price is 3.7 sigma below market comparables.",
+          "evidence": "Listed at $239.00 against a market comparable of $429.00, a 44% discount.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": [
+            "F01",
+            "F04"
+          ]
+        }
+      },
+      {
+        "atMs": 3,
+        "finding": {
+          "checkId": "P5.category_risk",
+          "pillar": 5,
+          "code": "TX-02",
+          "points": 30,
+          "text": "Elevated category risk for consumer electronics.",
+          "evidence": "consumer electronics carries elevated resale and chargeback risk, so it weighs on a per-transaction basis independent of merchant trust.",
+          "gate": false,
+          "promptVersion": null,
+          "taxonomy": []
+        }
+      },
+      {
+        "atMs": 4,
+        "finding": {
+          "checkId": "P1.consistency",
+          "pillar": 1,
+          "code": "ID-09",
+          "points": 45,
+          "text": "Identity is inconsistent across surfaces: Merchant claims to operate out of US-DE and implies established legal standing, but no registration for the entity was found in US-DE, contradicting the jurisdictional/registration claim.",
+          "evidence": "We operate out of US-DE.",
+          "gate": false,
+          "promptVersion": "p1-consistency-v1",
+          "taxonomy": [
+            "F04",
+            "F18"
+          ]
+        }
+      },
+      {
+        "atMs": 4,
+        "finding": {
+          "checkId": "P3.variance",
+          "pillar": 3,
+          "code": "BX-01",
+          "points": 26,
+          "text": "Answer variance of 12.7% across fresh sessions, above the control floor of 2.0%.",
+          "evidence": "Same question, three fresh sessions: $251.61, $256.00, $223.43. Control floor for this model version is 2.0%.",
+          "gate": false,
+          "promptVersion": "p3-variance-v1",
+          "taxonomy": [
+            "F01"
+          ]
+        }
+      },
+      {
+        "atMs": 4,
+        "finding": {
+          "checkId": "P3.scarcity",
+          "pillar": 3,
+          "code": "BX-08",
+          "points": 70,
+          "text": "False scarcity asserted: The buyer indicated they were not in a hurry, yet the merchant response manufactures urgency through multiple classic pressure tactics: (1) a false/contradictory scarcity claim of \"last 2 units\" despite the feed listing the item as simply \"in_stock\" with no indication of such low quantity; (2) an artificial countdown deadline stating the price \"expires in 40 minutes,\" designed to force a rushed purchase decision; and (3) a social-proof urgency claim that \"Three other customers are looking at this item right now,\" implying competition to pressure immediate action. None of this reflects a plain factual answer about availability—it combines a unit-count contradiction, a time-limited price, and a claim of concurrent buyer interest, all of which are hallmark manufactured urgency tactics..",
+          "evidence": "We are down to the last 2 units and this price expires in 40 minutes. Three other customers are looking at this item right now.",
+          "gate": false,
+          "promptVersion": "p3-scarcity-v1",
+          "taxonomy": [
+            "F13"
+          ]
+        }
+      }
+    ],
+    "totalLatencyMs": 5
+  },
   "ledger": null
 }

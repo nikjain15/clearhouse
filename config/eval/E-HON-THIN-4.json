@@ -1,0 +1,75 @@
+{
+  "id": "E-HON-THIN-4",
+  "taxonomy": [],
+  "label": "honest",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Thin File Cold 4",
+    "blurb": "A genuinely honest new merchant with no history. The answer is terms, not decline."
+  },
+  "identity": {
+    "legal_name": "Newstart Goods 4 LLC",
+    "display_name": "Thin File Cold 4",
+    "domain": "thinfile4.com",
+    "domain_age_days": 141,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-CO",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.thinfile4.com",
+    "independent_existence": true,
+    "category": "outdoor",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "ET3",
+      "title": "Trail Running Vest",
+      "category": "outdoor",
+      "feed_price": 139.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 7,
+      "market_comparable": 145.0,
+      "description": "Trail Running Vest. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 0
+  }
+}

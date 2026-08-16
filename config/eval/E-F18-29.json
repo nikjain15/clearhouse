@@ -1,0 +1,74 @@
+{
+  "id": "E-F18-29",
+  "taxonomy": [
+    "F18"
+  ],
+  "label": "fraud",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Laundered 29",
+    "blurb": "F18 variant."
+  },
+  "identity": {
+    "legal_name": "Laundered Trading 29 LLC",
+    "display_name": "Laundered 29",
+    "domain": "f18var29.com",
+    "domain_age_days": 21,
+    "tls": {
+      "valid": true,
+      "issuer": "R11",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": false,
+      "jurisdiction_claimed": "US-DE",
+      "status": null
+    },
+    "principals": [],
+    "sanctions_hits": [],
+    "checkout_host": "pay.laundered-cdn.io",
+    "independent_existence": false,
+    "category": "hand_tools",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "X28",
+      "title": "Ratchet Socket Set",
+      "category": "hand_tools",
+      "feed_price": 35.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 92.0,
+      "description": "Ratchet Socket Set. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "fingerprint": "sha256:l28",
+    "terminated_match": 0.88,
+    "terminated_match_to": "E-F04-7",
+    "prior_files": 0
+  }
+}

@@ -20,6 +20,7 @@ import type {
   MerchantAnswer,
   MerchantSurface,
   Mode,
+  PolicyPage,
   Question,
   SessionId,
 } from '../contracts/types';
@@ -123,10 +124,21 @@ export class ScriptedMerchant implements MerchantSurface {
     }));
   }
 
+  /** The written policy page. An independent channel from what it says at sale. */
+  async policies(): Promise<PolicyPage> {
+    const p = this.persona.policies;
+    return {
+      refundWindowDays: p.refund_window_days,
+      refundForm: p.refund_form,
+      warrantyText: p.warranty_text,
+      recurrence: p.recurrence,
+    };
+  }
+
   async checkout(sku: string, quantity: number): Promise<CheckoutQuote> {
     const item = this.persona.catalog.find((c) => c.sku === sku) ?? this.persona.catalog[0];
     const co = this.persona.checkout;
-    const subtotal = toMinor(item.feed_price) * quantity;
+    const subtotal = co.subtotal !== null ? toMinor(co.subtotal) * quantity : toMinor(item.feed_price) * quantity;
     const fees = co.fees.map((f) => ({ label: f.label, amountMinor: toMinor(f.amount) }));
     const total =
       co.quote_total !== null ? toMinor(co.quote_total) : subtotal + fees.reduce((s, f) => s + f.amountMinor, 0);

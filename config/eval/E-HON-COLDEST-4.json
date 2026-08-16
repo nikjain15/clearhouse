@@ -1,0 +1,76 @@
+{
+  "id": "E-HON-COLDEST-4",
+  "taxonomy": [],
+  "label": "honest",
+  "mode": "cold",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Established Cold 4",
+    "blurb": "Legitimate merchant that never applied. Underwritten from public surfaces only."
+  },
+  "identity": {
+    "legal_name": "Coldwell Retail 4 Ltd",
+    "display_name": "Established Cold 4",
+    "domain": "coldest4.com",
+    "domain_age_days": 2400,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-NY",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.coldest4.com",
+    "independent_existence": true,
+    "category": "outdoor",
+    "adverse_media": []
+  },
+  "catalog": [
+    {
+      "sku": "EC3",
+      "title": "Trail Running Vest",
+      "category": "outdoor",
+      "feed_price": 139.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 145.0,
+      "description": "Trail Running Vest. Standard retail listing."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited, manufacturer only.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {},
+  "network": {
+    "prior_files": 8,
+    "dispute_ratio": 0.002
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "id": "M-F09-coastal",
+  "taxonomy": [
+    "F09"
+  ],
+  "label": "fraud",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": false,
+  "evidence_anchor": null,
+  "display": {
+    "name": "Coastal Outdoor Supply",
+    "blurb": "Hallucinated promises. The merchant's own LLM invents warranty and refund terms its written policy does not support."
+  },
+  "identity": {
+    "legal_name": "Coastal Outdoor Supply Inc",
+    "display_name": "Coastal Outdoor Supply",
+    "domain": "coastaloutdoor.com",
+    "domain_age_days": 860,
+    "tls": {
+      "valid": true,
+      "issuer": "DigiCert TLS RSA SHA256 2020 CA1",
+      "san_matches_host": true
+    },
+    "registration": {
+      "found": true,
+      "jurisdiction_claimed": "US-ME",
+      "status": "good_standing"
+    },
+    "principals": [
+      {
+        "name": "Named Principal",
+        "role": "Officer",
+        "verified": true
+      }
+    ],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.coastaloutdoor.com",
+    "independent_existence": true,
+    "category": "outdoor",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": {
+        "verified": true,
+        "owners": [
+          "Named Principal"
+        ]
+      },
+      "settlement_account": {
+        "validated": true
+      },
+      "prior_processor": {
+        "provided": true,
+        "dispute_ratio": 0.004
+      },
+      "licensing": {
+        "required": false,
+        "provided": false
+      }
+    }
+  },
+  "catalog": [
+    {
+      "sku": "CO-TENT-2",
+      "title": "Coastal Ridgeline 2 Tent",
+      "category": "outdoor",
+      "feed_price": 349.0,
+      "currency": "USD",
+      "stock": "in_stock",
+      "delivery_days": 5,
+      "market_comparable": 365.0,
+      "description": "Two person three season tent, 20D silnylon fly, 3000mm hydrostatic head."
+    }
+  ],
+  "policies": {
+    "refund_window_days": 30,
+    "refund_form": "full",
+    "warranty_text": "One year limited against manufacturing defect. Wear, misuse and accidental damage are excluded.",
+    "recurrence": "none"
+  },
+  "checkout": {
+    "data_requested": [
+      "card_token",
+      "email",
+      "shipping_address"
+    ],
+    "recurrence": "none",
+    "recurrence_disclosed": true
+  },
+  "content": [],
+  "answers": {},
+  "behaviors": {
+    "hallucinates_policy": true
+  },
+  "network": {
+    "prior_files": 3,
+    "dispute_ratio": 0.007
+  }
+}

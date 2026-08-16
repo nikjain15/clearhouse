@@ -184,10 +184,39 @@ Currency is ${item.currency}.`,
     observe(delivery, 'conversation', e.delivery_days, `Merchant stated delivery in ${e.delivery_days} days.`, session);
   }
 
+  // --- Policy page channel -----------------------------------------------
+  // Without this the refund claim has one channel and can never contradict,
+  // which is exactly how a returns-policy mirage (F07) survives underwriting.
+  const written = await ctx.merchant.policies();
+
   const refund = add('refund', 'order');
+  observe(
+    refund,
+    'policy_page',
+    written.refundForm,
+    `The written policy page states refunds are "${written.refundForm}" within ${written.refundWindowDays} days.`,
+  );
   if (e.refund_form !== null) {
     observe(refund, 'conversation', e.refund_form, `Merchant stated refunds are "${e.refund_form}".`, session);
   }
+  if (e.refund_window_days !== null && e.refund_window_days !== written.refundWindowDays) {
+    // A different window on the same claim is the same contradiction observed
+    // through the same two channels, so it strengthens rather than duplicates.
+    observe(
+      refund,
+      'conversation',
+      String(e.refund_form ?? 'unstated'),
+      `Merchant stated a ${e.refund_window_days} day window against ${written.refundWindowDays} days written.`,
+      session,
+    );
+  }
+
+  observe(
+    recurrence,
+    'policy_page',
+    written.recurrence,
+    `The written policy page states recurrence is "${written.recurrence}".`,
+  );
 
   return { claims, observations, contradictions: [] };
 }
