@@ -14,6 +14,10 @@ import { config as loadEnv } from 'dotenv';
 import { attacksOnUs, runGauntlet, type CellResult } from '../src/runtime/gauntlet';
 import { getRuntime } from '../src/runtime/context';
 import type { HeroRun } from '../src/board/heroRun';
+import { Ledger } from '../src/ledger/ledger';
+import { FulfillmentOracle } from '../src/ledger/fulfillment';
+import { settle } from '../src/ledger/settlement';
+import { PRICING_V1 } from '../src/engine/pricing';
 
 loadEnv({ path: '.env.local', override: true });
 
@@ -134,10 +138,34 @@ async function main() {
   }
 
   // -------------------------------------------------------------------------
+  // The fund. Every cleared purchase settles, so the ledger is a consequence
+  // of the run rather than a display beside it.
+  // -------------------------------------------------------------------------
+  const { ledger, payouts } = settleRun(results);
+  const summary = ledger.summary();
+  console.log(C.bold('\n\nGuarantee fund'), C.dim('(simulated)'));
+  console.log(`  capital        ${fmtM(summary.fundCapitalMinor)}`);
+  console.log(`  fees collected ${fmtM(summary.feesCollectedMinor)}`);
+  console.log(`  collateral     ${fmtM(summary.collateralHeldMinor)}`);
+  console.log(`  payouts        ${fmtM(-summary.claimsExpenseMinor + summary.recoveryReceivableMinor)} to buyers, ${payouts} claim(s)`);
+  console.log(`  receivable     ${fmtM(summary.recoveryReceivableMinor)} owed by principals`);
+  console.log(`  cash           ${fmtM(summary.fundCashMinor)}`);
+  console.log(
+    `  trial balance  debits ${summary.trialBalance.totalDebitsMinor} credits ${summary.trialBalance.totalCreditsMinor}  ${
+      summary.trialBalance.balanced ? C.green('balanced') : C.red('OUT OF BALANCE')
+    }`,
+  );
+  if (!summary.trialBalance.balanced) process.exit(1);
+
+  // -------------------------------------------------------------------------
   // The committed hero run
   // -------------------------------------------------------------------------
   if (writeHero) {
-    const hero = buildHero(results);
+    const hero = buildHero(results, ledger);
+    writeFileSync(
+      join(process.cwd(), 'config', 'runs', 'ledger.json'),
+      JSON.stringify({ summary, postings: ledger.all(), generatedAt: new Date().toISOString() }, null, 2),
+    );
     const path = join(process.cwd(), 'config', 'runs', 'hero.json');
     writeFileSync(path, JSON.stringify(hero, null, 2));
     console.log(C.green(`\nWrote ${path}`));
@@ -152,7 +180,7 @@ async function main() {
   process.exit(errors.length > 0 ? 1 : 0);
 }
 
-function buildHero(results: CellResult[]): HeroRun {
+function buildHero(results: CellResult[], ledger: Ledger): HeroRun {
   // The primed first-visitor scene is the spoofed storefront: it is the
   // documented incident, it resolves fast, and it is the one a stranger
   // understands without narration.
@@ -210,8 +238,79 @@ function buildHero(results: CellResult[]): HeroRun {
       nonCooperationFindings: nonCooperation,
     }),
     primed,
-    ledger: null,
+    ledger: (() => {
+      const s = ledger.summary();
+      return {
+        fundCapitalMinor: s.fundCapitalMinor,
+        feesCollectedMinor: s.feesCollectedMinor,
+        collateralHeldMinor: s.collateralHeldMinor,
+        payoutsMinor: s.recoveryReceivableMinor + s.collateralHeldMinor * 0,
+        balanced: s.trialBalance.balanced,
+      };
+    })(),
   };
+}
+
+function fmtM(minor: number): string {
+  return `$${(minor / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+/**
+ * Settle every cell that cleared or was approved conditionally.
+ *
+ * The fund is a consequence of the run: fees collected, collateral posted, and
+ * payouts made where the oracle found the commitment breached. All simulated,
+ * and the arithmetic has to balance or the run fails.
+ */
+function settleRun(results: CellResult[]): { ledger: Ledger; payouts: number } {
+  const ledger = new Ledger();
+  ledger.capitalize(PRICING_V1.fund.statedCapitalMinor);
+  const oracle = new FulfillmentOracle();
+  let payouts = 0;
+  const paidPerMerchant = new Map<string, number>();
+
+  for (const r of results) {
+    if (!r.decision) continue;
+    const tier = r.decision.decision;
+    if (tier === 'decline' || tier === 'refer') continue; // money never moved
+
+    const p = r.persona;
+    const covered = r.decision.covered;
+    const collateralMinor =
+      covered && tier === 'conditional'
+        ? Math.round(r.decision.amountMinor * PRICING_V1.collateral.conditionalReserveRate)
+        : 0;
+
+    const settled = settle(
+      {
+        decision: r.decision,
+        collateralMinor,
+        deliveryDays: p.catalog[0].delivery_days,
+        refundWindowDays: p.policies.refund_window_days,
+        refundForm: p.policies.refund_form,
+        warrantyText: p.policies.warranty_text,
+        recurrence: p.policies.recurrence,
+        quotes: [
+          { term: 'total', channel: 'checkout' as const, text: `Total ${r.decision.amountMinor / 100}` },
+          { term: 'delivery', channel: 'feed' as const, text: `${p.catalog[0].delivery_days} days` },
+        ],
+        buyerId: 'B-GAUNTLET',
+        willShip: p.behaviors.will_ship,
+        shipsAsDescribed: p.behaviors.ships_as_described,
+      },
+      ledger,
+      oracle,
+      { buyerId: 'B-GAUNTLET', priorClaims: 0, priorPayouts: 0, totalPurchases: 40 },
+      { merchant: paidPerMerchant.get(p.id) ?? 0, buyer: 0 },
+    );
+
+    if (settled.paidOut) {
+      payouts++;
+      paidPerMerchant.set(p.id, (paidPerMerchant.get(p.id) ?? 0) + (settled.claim?.payoutMinor ?? 0));
+    }
+  }
+
+  return { ledger, payouts };
 }
 
 main().catch((err) => {

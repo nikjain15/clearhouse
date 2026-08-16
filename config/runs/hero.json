@@ -1,6 +1,6 @@
 {
-  "runId": "RUN-2026-08-16T03-56-07-981Z",
-  "generatedAt": "2026-08-16T03:56:07.981Z",
+  "runId": "RUN-2026-08-16T03-57-30-760Z",
+  "generatedAt": "2026-08-16T03:57:30.760Z",
   "scorecardVersion": "scorecard-v2",
   "checksVersion": "checks-v1",
   "pricingVersion": "pricing-v1",
@@ -22,8 +22,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Stripe Shared Payment Tokens, scoped and revocable (EVIDENCE.md section 7)",
-      "latencyMs": 4,
-      "fileId": "UF-0001-95619e",
+      "latencyMs": 5,
+      "fileId": "UF-0001-4e055a",
       "served": "live"
     },
     {
@@ -51,8 +51,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 4,
-      "fileId": "UF-0002-6925f1",
+      "latencyMs": 3,
+      "fileId": "UF-0002-a9cffc",
       "served": "live"
     },
     {
@@ -80,8 +80,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 5,
-      "fileId": "UF-0003-9636bf",
+      "latencyMs": 4,
+      "fileId": "UF-0003-d7899f",
       "served": "live"
     },
     {
@@ -109,8 +109,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Documented hidden-instruction techniques in product content (EVIDENCE.md section 3), and memory poisoning as commercial practice (section 2)",
-      "latencyMs": 7,
-      "fileId": "UF-0004-9fb5f2",
+      "latencyMs": 5,
+      "fileId": "UF-0004-7047e5",
       "served": "live"
     },
     {
@@ -138,8 +138,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Guardio Scamlexity: Comet bought an Apple Watch on a fake Walmart built from one prompt (EVIDENCE.md section 1)",
-      "latencyMs": 5,
-      "fileId": "UF-0005-48ea31",
+      "latencyMs": 3,
+      "fileId": "UF-0005-33705d",
       "served": "live"
     },
     {
@@ -160,7 +160,7 @@
       "narrated": true,
       "evidenceAnchor": "Experian's open liability question and the APP-fraud reimbursement gap (EVIDENCE.md section 5)",
       "latencyMs": 3,
-      "fileId": "UF-0006-eb9456",
+      "fileId": "UF-0006-238f21",
       "served": "live"
     },
     {
@@ -188,8 +188,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "The event blurb's literal ask. Agent-native, and our contribution",
-      "latencyMs": 3,
-      "fileId": "UF-0007-28a3d7",
+      "latencyMs": 4,
+      "fileId": "UF-0007-723bd9",
       "served": "live"
     },
     {
@@ -218,7 +218,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 4,
-      "fileId": "UF-0008-d3741f",
+      "fileId": "UF-0008-9a049f",
       "served": "live"
     },
     {
@@ -246,8 +246,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 3,
-      "fileId": "UF-0009-ef30ba",
+      "latencyMs": 5,
+      "fileId": "UF-0009-386d09",
       "served": "live"
     },
     {
@@ -267,8 +267,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 4,
-      "fileId": "UF-0010-fd2f23",
+      "latencyMs": 5,
+      "fileId": "UF-0010-dd7bf4",
       "served": "live"
     },
     {
@@ -288,8 +288,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 4,
-      "fileId": "UF-0011-20a046",
+      "latencyMs": 5,
+      "fileId": "UF-0011-c98d49",
       "served": "live"
     },
     {
@@ -317,8 +317,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 2,
-      "fileId": "UF-0012-7ba969",
+      "latencyMs": 5,
+      "fileId": "UF-0012-4d71d1",
       "served": "live"
     },
     {
@@ -347,7 +347,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0013-712c92",
+      "fileId": "UF-0013-1c0ca0",
       "served": "live"
     },
     {
@@ -376,7 +376,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0014-8ebabd",
+      "fileId": "UF-0014-113ab3",
       "served": "live"
     },
     {
@@ -404,8 +404,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 2,
-      "fileId": "UF-0015-c21710",
+      "latencyMs": 3,
+      "fileId": "UF-0015-0a2b59",
       "served": "live"
     },
     {
@@ -434,7 +434,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0016-e3981e",
+      "fileId": "UF-0016-23017e",
       "served": "live"
     },
     {
@@ -462,8 +462,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 3,
-      "fileId": "UF-0017-2b456d",
+      "latencyMs": 2,
+      "fileId": "UF-0017-772989",
       "served": "live"
     },
     {
@@ -488,7 +488,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0018-eec762",
+      "fileId": "UF-0018-126658",
       "served": "live"
     },
     {
@@ -516,8 +516,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 1,
-      "fileId": "UF-0019-67a1ee",
+      "latencyMs": 2,
+      "fileId": "UF-0019-f4e592",
       "served": "live"
     }
   ],
@@ -571,7 +571,7 @@
     "currency": "USD",
     "purpose": "Apple Watch Series 10, 45mm GPS",
     "decision": {
-      "fileId": "UF-0005-48ea31",
+      "fileId": "UF-0005-33705d",
       "merchantId": "M-F04-northgate",
       "decision": "decline",
       "score": 401,
@@ -605,13 +605,13 @@
       "escalation": null,
       "amountMinor": 23900,
       "expectedLossMinor": 7039,
-      "latencyMs": 5,
+      "latencyMs": 3,
       "versions": {
         "scorecard": "scorecard-v2",
         "checks": "checks-v1",
         "pricing": "pricing-v1"
       },
-      "issuedAt": "2026-08-16T03:56:07.969Z",
+      "issuedAt": "2026-08-16T03:57:30.736Z",
       "served": "live"
     },
     "timeline": [
@@ -632,7 +632,7 @@
         }
       },
       {
-        "atMs": 1,
+        "atMs": 0,
         "finding": {
           "checkId": "P1.domain",
           "pillar": 1,
@@ -682,7 +682,7 @@
         }
       },
       {
-        "atMs": 2,
+        "atMs": 1,
         "finding": {
           "checkId": "P1.registration",
           "pillar": 1,
@@ -698,7 +698,7 @@
         }
       },
       {
-        "atMs": 2,
+        "atMs": 1,
         "finding": {
           "checkId": "P1.consent_gated",
           "pillar": 1,
@@ -712,7 +712,7 @@
         }
       },
       {
-        "atMs": 2,
+        "atMs": 1,
         "finding": {
           "checkId": "P4.registry",
           "pillar": 4,
@@ -726,7 +726,7 @@
         }
       },
       {
-        "atMs": 3,
+        "atMs": 2,
         "finding": {
           "checkId": "P5.price_plausible",
           "pillar": 5,
@@ -743,7 +743,7 @@
         }
       },
       {
-        "atMs": 3,
+        "atMs": 2,
         "finding": {
           "checkId": "P5.category_risk",
           "pillar": 5,
@@ -757,7 +757,7 @@
         }
       },
       {
-        "atMs": 4,
+        "atMs": 2,
         "finding": {
           "checkId": "P1.consistency",
           "pillar": 1,
@@ -774,7 +774,7 @@
         }
       },
       {
-        "atMs": 4,
+        "atMs": 2,
         "finding": {
           "checkId": "P3.variance",
           "pillar": 3,
@@ -790,7 +790,7 @@
         }
       },
       {
-        "atMs": 4,
+        "atMs": 3,
         "finding": {
           "checkId": "P3.scarcity",
           "pillar": 3,
@@ -806,7 +806,13 @@
         }
       }
     ],
-    "totalLatencyMs": 5
+    "totalLatencyMs": 3
   },
-  "ledger": null
+  "ledger": {
+    "fundCapitalMinor": 5000000,
+    "feesCollectedMinor": 135,
+    "collateralHeldMinor": 0,
+    "payoutsMinor": 142000,
+    "balanced": true
+  }
 }

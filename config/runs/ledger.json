@@ -1,0 +1,154 @@
+{
+  "summary": {
+    "fundCashMinor": 4858135,
+    "fundCapitalMinor": 5000000,
+    "feesCollectedMinor": 135,
+    "collateralHeldMinor": 0,
+    "claimsExpenseMinor": 0,
+    "recoveryReceivableMinor": 142000,
+    "trialBalance": {
+      "accounts": [
+        {
+          "account": "claims.expense",
+          "kind": "expense",
+          "balanceMinor": 0
+        },
+        {
+          "account": "fees.income",
+          "kind": "income",
+          "balanceMinor": 135
+        },
+        {
+          "account": "fund.capital",
+          "kind": "equity",
+          "balanceMinor": 5000000
+        },
+        {
+          "account": "fund.cash",
+          "kind": "asset",
+          "balanceMinor": 4858135
+        },
+        {
+          "account": "recovery.receivable.M-F05-pinnacle",
+          "kind": "asset",
+          "balanceMinor": 142000
+        }
+      ],
+      "totalDebitsMinor": 5284135,
+      "totalCreditsMinor": 5284135,
+      "balanced": true
+    },
+    "simulated": true
+  },
+  "postings": [
+    {
+      "id": "LP-bf08e87a",
+      "memo": "Fund capitalization, simulated",
+      "lines": [
+        {
+          "account": "fund.cash",
+          "debitMinor": 5000000,
+          "creditMinor": 0
+        },
+        {
+          "account": "fund.capital",
+          "debitMinor": 0,
+          "creditMinor": 5000000
+        }
+      ],
+      "currency": "USD",
+      "at": "2026-08-16T03:57:30.749Z",
+      "refs": {}
+    },
+    {
+      "id": "LP-e073ac51",
+      "memo": "Guarantee fee, M-HONEST-ironwood",
+      "lines": [
+        {
+          "account": "fund.cash",
+          "debitMinor": 14,
+          "creditMinor": 0
+        },
+        {
+          "account": "fees.income",
+          "debitMinor": 0,
+          "creditMinor": 14
+        }
+      ],
+      "currency": "USD",
+      "at": "2026-08-16T03:57:30.749Z",
+      "refs": {
+        "merchantId": "M-HONEST-ironwood",
+        "fileId": "UF-0001-4e055a"
+      }
+    },
+    {
+      "id": "LP-db231d24",
+      "memo": "Guarantee fee, M-F05-pinnacle",
+      "lines": [
+        {
+          "account": "fund.cash",
+          "debitMinor": 121,
+          "creditMinor": 0
+        },
+        {
+          "account": "fees.income",
+          "debitMinor": 0,
+          "creditMinor": 121
+        }
+      ],
+      "currency": "USD",
+      "at": "2026-08-16T03:57:30.749Z",
+      "refs": {
+        "merchantId": "M-F05-pinnacle",
+        "fileId": "UF-0006-238f21"
+      }
+    },
+    {
+      "id": "LP-85f6596e",
+      "memo": "Payout to buyer, claim CLM-91a19f15",
+      "lines": [
+        {
+          "account": "claims.expense",
+          "debitMinor": 142000,
+          "creditMinor": 0
+        },
+        {
+          "account": "fund.cash",
+          "debitMinor": 0,
+          "creditMinor": 142000
+        }
+      ],
+      "currency": "USD",
+      "at": "2026-08-16T03:57:30.750Z",
+      "refs": {
+        "claimId": "CLM-91a19f15",
+        "orderId": "ORD-447b1f83",
+        "merchantId": "M-F05-pinnacle"
+      }
+    },
+    {
+      "id": "LP-aeec25d7",
+      "memo": "Residual recovery receivable from principal, M-F05-pinnacle",
+      "lines": [
+        {
+          "account": "recovery.receivable.M-F05-pinnacle",
+          "debitMinor": 142000,
+          "creditMinor": 0
+        },
+        {
+          "account": "claims.expense",
+          "debitMinor": 0,
+          "creditMinor": 142000
+        }
+      ],
+      "currency": "USD",
+      "at": "2026-08-16T03:57:30.750Z",
+      "refs": {
+        "claimId": "CLM-91a19f15",
+        "merchantId": "M-F05-pinnacle"
+      }
+    }
+  ],
+  "generatedAt": "2026-08-16T03:57:30.760Z"
+}
