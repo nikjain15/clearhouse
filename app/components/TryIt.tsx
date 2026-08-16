@@ -34,6 +34,19 @@ const VERDICT: Record<
   decline: { label: 'WALK', headline: 'Do not buy from this merchant', bg: '#FCE7E6', fg: '#B42318', ring: '#f4b6b1' },
 };
 
+const MODE_INFO: Record<DemoMerchant['mode'], { bg: string; fg: string; line: string }> = {
+  cold: {
+    bg: '#F6F9FC',
+    fg: '#54617a',
+    line: 'Cold — this store never applied to Clearhouse. We score it from public surfaces only, so it can never be bonded, and the best it can reach is HOLD, never BUY.',
+  },
+  bonded: {
+    bg: '#EBEAFF',
+    fg: '#635BFF',
+    line: 'Bonded — this store applied and posted collateral. A BUY here is covered: if it breaks its promise, the fund pays the buyer back.',
+  },
+};
+
 function Pill({ children, bg, fg }: { children: React.ReactNode; bg: string; fg: string }) {
   return (
     <span
@@ -139,6 +152,20 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
           </button>
         </div>
 
+        {/* Cold vs bonded, explained for the store in play */}
+        <div
+          className="mt-4 flex items-start gap-2.5 rounded-xl px-3.5 py-2.5"
+          style={{ background: MODE_INFO[selected.mode].bg }}
+        >
+          <span
+            className="mt-[1px] shrink-0 rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.06em]"
+            style={{ color: MODE_INFO[selected.mode].fg }}
+          >
+            {selected.mode}
+          </span>
+          <span className="text-[12px] leading-snug text-[#4a5a70]">{MODE_INFO[selected.mode].line}</span>
+        </div>
+
         <div className="mt-6 min-h-[280px]">
           {phase === 'idle' && (
             <div className="flex h-[240px] flex-col items-center justify-center rounded-2xl border border-dashed text-center" style={{ borderColor: '#e3e8ef' }}>
@@ -219,7 +246,13 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
                       </span>
                       <span className="ml-2 font-mono text-[18px] font-semibold" style={{ color: v.fg }}>
                         {selected.score}
+                        <span className="text-[13px] font-normal" style={{ opacity: 0.6 }}> / 1000</span>
                       </span>
+                      {selected.mode === 'cold' && (
+                        <span className="ml-2 block text-[10.5px]" style={{ color: v.fg, opacity: 0.7 }}>
+                          cold ceiling is 800
+                        </span>
+                      )}
                     </div>
                   </div>
                   <p className="mt-3 text-[13px] leading-relaxed" style={{ color: v.fg }}>
