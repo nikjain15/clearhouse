@@ -29,6 +29,18 @@ function tokenMatches(provided: string, expected: string): boolean {
   return timingSafeEqual(a, b);
 }
 
+/**
+ * A deterministic UUID from a seed. The store dedupes on eventId, and the
+ * Postgres adapter types eventId as `uuid`, so a fixed idempotency key must be a
+ * valid UUID (not a `case.promoted:<id>` string, which the file store accepts
+ * but Postgres rejects). Same caseId -> same UUID -> the second promote is a
+ * no-op on either store.
+ */
+function deterministicUuid(seed: string): string {
+  const h = createHash('sha256').update(seed).digest('hex');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`;
+}
+
 export async function POST(req: Request) {
   const expected = process.env.CLEARHOUSE_PROMOTION_TOKEN;
   if (!expected) {
@@ -78,7 +90,7 @@ export async function POST(req: Request) {
       // not atomic), but they now produce the SAME eventId, and the store
       // dedupes on eventId — the second append is a no-op instead of a second
       // promotion.
-      eventId: `case.promoted:${body.caseId}`,
+      eventId: deterministicUuid(`case.promoted:${body.caseId}`),
       type: 'case.promoted',
       streamId: 'eval',
       payload: { caseId: body.caseId, promotedBy: body.promotedBy || 'human', taxonomy },

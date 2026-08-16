@@ -61,8 +61,8 @@ Four things I ran against a running server rather than reasoning about:
 
 Stated plainly rather than folded into the list above.
 
-- **The deployment is unverified.** See item 1.
-- **Postgres has never been exercised.** The adapter is written and conformance-shaped, but `api.neon.tech` is also blocked from the build container, so every run in this repository used the file-backed store. It will switch automatically when `DATABASE_URL` is present, and **that switch has not been observed working.** Watch the first deploy's logs.
+- **The Vercel deployment itself is still unverified** (egress to `vercel.com` is blocked here), but **the production build passes** — `npm run build` prerenders every static page and compiles the API routes, which is the gate Vercel runs.
+- **The file-store → Postgres switch is now verified against a real Postgres.** Setting `DATABASE_URL` selects the Postgres adapter; `npm run migrate` applies the schema; a full underwrite, replay (zero model calls), and idempotent promotion all round-trip through it. Note: for a non-SSL Postgres (local dev), append `?sslmode=disable`; Neon needs SSL, which is the default. `api.neon.tech` remains blocked here, so the switch is proven against a local Postgres, not Neon specifically — watch the first Neon deploy's logs, but the adapter and schema are exercised.
 - **No SSE streaming endpoints.** `ARCHITECTURE.md` section 9 designs `/api/underwrite/stream` and `/api/gauntlet/stream` as resumable views over the log. They are not built. The board renders from the committed run instead, which is the demo-safe path `PLATFORM.md` requires anyway, but the live-streaming board described in the strategy is not there.
 - **The 30-second video is not recorded.** Shot list and assets are in `VIDEO.md`, ready to record in a few minutes.
 - **Pillar 4 runs on seeded registry data.** Known and disclosed on the site footer and in the README.
