@@ -28,7 +28,9 @@ const ALLOWED: Record<string, string[]> = {
   evalh: ['contracts', 'config', 'engine', 'merchants', 'ledger', 'runtime'],
   // evalh composes engine, merchants and ledger to measure the whole path.
   arena: ['contracts', 'config', 'merchants', 'engine', 'runtime'],
-  mcp: ['contracts', 'config', 'engine'],
+  // The MCP tool is an entry point: composing engine, merchants and runtime to
+  // serve one request is its whole job, the same way app/ and scripts/ compose.
+  mcp: ['contracts', 'config', 'engine', 'merchants', 'runtime'],
   board: ['contracts', 'config'],
   // Composition roots. Wiring modules together is their whole job, so they are
   // the one place a cross-module import is correct.
