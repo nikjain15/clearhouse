@@ -1,0 +1,472 @@
+<title>Clearhouse</title>
+<style>
+  :root{
+    --bg:#FFFFFF; --surface:#F6F9FC; --ink:#0A2540; --slate:#425466; --soft:#6B7C93;
+    --line:#E6EBF1; --blurple:#635BFF; --blurple-dark:#0A2540;
+    --good:#1EA672; --amber:#C84801; --danger:#DF1B41;
+    --good-soft:#D7F7E8; --amber-soft:#FCEDB9; --danger-soft:#FDE2E7; --blurple-soft:#EBEAFF;
+    --term-bg:#0A2540; --term-ink:#E2E8F0; --term-dim:#7A93AD;
+    --card-shadow:0 2px 5px -1px rgba(50,50,93,.18),0 1px 3px -1px rgba(0,0,0,.12);
+    --card-shadow-lg:0 13px 27px -5px rgba(50,50,93,.18),0 8px 16px -8px rgba(0,0,0,.22);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+  section{padding:72px 0; position:relative}
+  .eyebrow{
+    font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--blurple); margin:0 0 12px;
+  }
+  h1,h2{text-wrap:balance; margin:0; letter-spacing:-.02em}
+  h1{font-size:clamp(46px,6.5vw,82px); line-height:1.02; font-weight:700}
+  h2{font-size:clamp(27px,3.4vw,40px); line-height:1.12; font-weight:600}
+  p{max-width:56ch; color:var(--slate)}
+  .lede{font-size:clamp(18px,2.1vw,21px)}
+
+  /* stripe gradient band */
+  .band{
+    position:absolute; top:0; left:0; right:0; height:520px; overflow:hidden; z-index:-1;
+    transform:skewY(-6deg); transform-origin:top left;
+  }
+  .band::before{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(100deg,#a960ee 8%,#ff5f8f 38%,#ffb86b 62%,#90e0ff 92%);
+    opacity:.16;
+  }
+  .band::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+    background:linear-gradient(90deg,#a960ee,#ff5f8f,#ffb86b,#90e0ff);
+  }
+
+  /* hero */
+  .hero{padding:88px 0 64px}
+  .tagline{font-size:12.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); margin-bottom:18px}
+  .oneliner{font-size:clamp(20px,2.6vw,26px); color:var(--ink); font-weight:500; margin-top:20px; max-width:32em; letter-spacing:-.01em}
+  .expand{margin-top:10px; font-size:clamp(16px,1.9vw,19px); max-width:36em}
+
+  /* flow */
+  .flow{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:52px}
+  @media (max-width:840px){ .flow{grid-template-columns:1fr} }
+  .fstep{
+    position:relative; border-radius:10px; background:var(--bg);
+    box-shadow:var(--card-shadow); padding:28px 20px 22px;
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px;
+  }
+  .fstep .badge{
+    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    font-size:12px; font-weight:700; letter-spacing:.04em;
+    background:var(--blurple); color:#fff; border-radius:99px; padding:4px 13px;
+  }
+  .fstep.bad .badge{background:var(--danger)}
+  .fstep .disc{
+    width:60px; height:60px; border-radius:50%; background:var(--blurple-soft); color:var(--blurple);
+    display:flex; align-items:center; justify-content:center; margin:8px 0 6px;
+  }
+  .fstep.bad .disc{background:var(--danger-soft); color:var(--danger)}
+  .fstep b{font-weight:600; font-size:17px; line-height:1.3; letter-spacing:-.01em}
+  .fstep .desc{font-size:14px; color:var(--slate); line-height:1.45; max-width:17em; min-height:3.6em}
+  .fstep .verdicts{display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:auto; padding-top:14px}
+  .fstep .v{font-size:11px; font-weight:600; letter-spacing:.02em; border-radius:99px; padding:4px 11px}
+  .fstep .v.mut{background:var(--surface); color:var(--slate)}
+  .fstep .v.blu{background:var(--blurple-soft); color:var(--blurple)}
+  .fstep .v.ok{background:var(--good-soft); color:#0E6245}
+  .fstep .v.warn{background:var(--amber-soft); color:#983705}
+  .fstep .v.ask{background:var(--blurple-soft); color:var(--blurple)}
+  .fstep .v.no{background:var(--danger-soft); color:var(--danger)}
+  svg.ic{display:block; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+
+  /* why now claim cards */
+  .surface{background:var(--surface)}
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:14px; margin-top:30px}
+  .stat{background:var(--bg); border-radius:10px; box-shadow:var(--card-shadow); padding:22px 22px 18px}
+  .stat em{font-style:normal; display:block; font-size:16px; font-weight:600; line-height:1.35; letter-spacing:-.01em; color:var(--ink); margin-bottom:14px}
+  .stat b{font-size:clamp(30px,3.2vw,40px); font-weight:700; display:block; font-variant-numeric:tabular-nums; line-height:1; color:var(--blurple); letter-spacing:-.02em}
+  .stat span{font-size:13px; color:var(--slate); display:block; margin-top:8px; line-height:1.4}
+
+  /* terminal */
+  .term{
+    background:var(--term-bg); color:var(--term-ink); border-radius:10px;
+    padding:20px 22px; box-shadow:var(--card-shadow-lg); overflow-x:auto;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:14px; line-height:1.75; min-height:260px;
+  }
+  .term-top{display:flex; gap:6px; margin-bottom:14px}
+  .term-top i{width:10px; height:10px; border-radius:50%; background:#33475F; display:inline-block}
+  .term .dim{color:var(--term-dim)}
+  .term .bad{color:#FF8BA0}
+  .term .ok{color:#5CD3A4}
+  .term .gate{background:var(--danger); color:#fff; padding:0 6px; border-radius:3px}
+  button.run{
+    font-size:15px; font-weight:600; cursor:pointer;
+    background:var(--blurple); color:#fff; border:none;
+    padding:11px 22px; border-radius:99px; margin:18px 0 20px;
+    box-shadow:var(--card-shadow); transition:background .15s, transform .15s;
+  }
+  button.run::after{content:" →"; font-weight:400}
+  button.run:hover{background:#544DE0; transform:translateY(-1px)}
+  button.run:focus-visible{outline:3px solid var(--blurple-soft); outline-offset:2px}
+  button.run[disabled]{opacity:.45; cursor:default; transform:none}
+  .twocol{display:grid; grid-template-columns:1fr 1.1fr; gap:40px; align-items:start}
+  @media (max-width:860px){.twocol{grid-template-columns:1fr}}
+
+  /* six checks chips */
+  .checks{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:20px 0 4px; max-width:470px}
+  @media (max-width:400px){.checks{grid-template-columns:1fr}}
+  .chip{display:flex; align-items:center; gap:10px; background:var(--bg); box-shadow:var(--card-shadow); border-radius:8px; padding:10px 13px; font-size:13.5px; font-weight:500; color:var(--ink)}
+  .chip .cic{color:var(--blurple); flex:0 0 auto}
+
+  /* gauntlet */
+  .board{display:grid; grid-template-columns:repeat(auto-fill,minmax(152px,1fr)); gap:10px; margin-top:24px}
+  .cell{
+    border-radius:8px; background:var(--bg); box-shadow:var(--card-shadow);
+    border-top:3px solid var(--line);
+    padding:10px 12px; min-height:94px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:transform .2s, border-color .2s;
+  }
+  .cell .fid{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:11px; color:var(--soft); letter-spacing:.08em}
+  .cell .nm{font-size:13.5px; font-weight:500; line-height:1.3; margin-top:4px}
+  .cell .res{font-size:10.5px; font-weight:700; letter-spacing:.03em; margin-top:10px; color:var(--soft); min-height:15px}
+  .cell.caught{border-top-color:var(--good)}
+  .cell.caught .res{color:var(--good)}
+  .cell.refer{border-top-color:var(--amber)}
+  .cell.refer .res{color:var(--amber)}
+  .cell.paid{border-top-color:var(--danger)}
+  .cell.paid .res{color:var(--danger)}
+  .cell.lit{transform:translateY(-3px)}
+  .legend{display:flex; gap:22px; flex-wrap:wrap; margin-top:18px; font-size:13px; color:var(--slate)}
+  .legend i{display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:7px; vertical-align:-1px}
+  .tally{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:13.5px; margin-top:16px; font-variant-numeric:tabular-nums; color:var(--slate)}
+
+  /* mechanics */
+  .mech{display:grid; grid-template-columns:repeat(auto-fit,minmax(225px,1fr)); gap:14px; margin-top:28px}
+  .mech > div{background:var(--bg); box-shadow:var(--card-shadow); padding:22px 20px 18px; border-radius:10px}
+  .mech .disc{width:44px; height:44px; border-radius:10px; background:var(--blurple-soft); color:var(--blurple); display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+  .mech b{display:block; font-weight:600; font-size:16px; margin-bottom:5px; line-height:1.3; letter-spacing:-.01em}
+  .mech p{font-size:13.5px; color:var(--slate); margin:0; line-height:1.45}
+
+  /* tech grid */
+  .tech{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:20px}
+  @media (max-width:400px){.tech{grid-template-columns:1fr}}
+  .tech > div{background:var(--bg); box-shadow:var(--card-shadow); border-radius:8px; padding:12px 14px}
+  .tech b{display:block; font-size:14px; font-weight:600; letter-spacing:-.01em}
+  .tech span{display:block; font-size:12px; color:var(--slate); margin-top:3px; line-height:1.4}
+
+  /* closing */
+  .closing{background:var(--term-bg); color:#fff; border-radius:14px; padding:44px 44px 40px; margin-top:8px; box-shadow:var(--card-shadow-lg)}
+  .closing h2{color:#fff}
+  .closing .mono{font-size:13px; color:#8DA2B8; display:block; margin-top:18px}
+  footer{padding:30px 0 46px; font-size:12.5px; color:var(--soft)}
+  footer p{margin:4px 0; max-width:none}
+  @media (prefers-reduced-motion: reduce){ .cell,.fstep,button.run{transition:none} }
+</style>
+
+<div class="band"></div>
+<div class="wrap">
+
+<section class="hero">
+  <p class="tagline">Sundai Hack 136 &middot; Agents that buy</p>
+  <h1>Clearhouse</h1>
+  <p class="oneliner">A surety bond for agentic commerce.</p>
+  <p class="expand lede">We check the merchant before your agent pays. If we are wrong, we pay you back.</p>
+
+  <div class="flow" aria-label="How it works">
+    <div class="fstep">
+      <span class="badge">1</span>
+      <span class="disc"><svg class="ic" width="30" height="30" viewBox="0 0 24 24"><path d="M4 7l2-3h12l2 3M4 7h16v3a2.5 2.5 0 01-5 0 2.5 2.5 0 01-5 0 2.5 2.5 0 01-5 0zM5.5 12.5V20h13v-7.5"/><path d="M9.5 20v-4.5h5V20"/></svg></span>
+      <b>Your agent finds a store</b>
+      <span class="desc">Any store on the internet, including one that appeared last week and nobody has checked.</span>
+      <span class="verdicts"><span class="v mut">NEW</span><span class="v mut">UNKNOWN</span><span class="v mut">UNVETTED</span></span>
+    </div>
+    <div class="fstep">
+      <span class="badge">2</span>
+      <span class="disc"><svg class="ic" width="30" height="30" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 10.5l1.8 1.8 3.2-3.6"/></svg></span>
+      <b>We cross-examine it</b>
+      <span class="desc">Tough questions, answered with evidence, before any money moves. Every answer goes on record.</span>
+      <span class="verdicts"><span class="v blu">6 CHECKS</span><span class="v blu">8 SECONDS</span><span class="v blu">SCORED</span></span>
+    </div>
+    <div class="fstep">
+      <span class="badge">3</span>
+      <span class="disc"><svg class="ic" width="30" height="30" viewBox="0 0 24 24"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+      <b>Verdict, backed by money</b>
+      <span class="desc">One clear answer your agent can act on. And if a scam still gets through, we pay you back.</span>
+      <span class="verdicts"><span class="v ok">BUY</span><span class="v warn">HOLD</span><span class="v ask">ASK YOU</span><span class="v no">WALK</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap" style="padding:0">
+    <p class="eyebrow">Why now</p>
+    <h2>This is already happening. Nobody is on the hook.</h2>
+    <div class="stats">
+      <div class="stat">
+        <em>AI browsers already buy from fake stores</em>
+        <b>$329</b>
+        <span>charged to a real card on a fake Walmart, no questions asked. Documented by security researchers.</span>
+      </div>
+      <div class="stat">
+        <em>Sellers already manipulate AI buyers</em>
+        <b>31</b>
+        <span>companies caught planting hidden instructions to steer AI recommendations. As a business practice.</span>
+      </div>
+      <div class="stat">
+        <em>Machines are already half the customers</em>
+        <b>47.9%</b>
+        <span>of store traffic is AI bots. Machines buying from machines, with no one vetting either side.</span>
+      </div>
+      <div class="stat">
+        <em>Blocking agents just got harder</em>
+        <b>12 days</b>
+        <span>since courts weakened merchants' right to wall agents out. Trust has to replace walls.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="twocol">
+    <div>
+      <p class="eyebrow">Scene 1 &middot; The problem</p>
+      <h2>An agent got robbed in twenty seconds.</h2>
+      <p class="lede" style="margin-top:14px">This really happened to a shipping AI browser. Watch.</p>
+      <button class="run" id="runIncident">Replay the incident</button>
+    </div>
+    <div>
+      <div class="term" id="termIncident" aria-live="polite"><div class="term-top"><i></i><i></i><i></i></div><span class="dim">// walmart-deals-outlet.shop &middot; built from one prompt</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap" style="padding:0">
+  <div class="twocol">
+    <div>
+      <p class="eyebrow">Scene 2 &middot; The fix</p>
+      <h2>Same store. One call. Zero dollars lost.</h2>
+      <div class="checks">
+        <div class="chip"><svg class="ic cic" width="19" height="19" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>Is the business real?</div>
+        <div class="chip"><svg class="ic cic" width="19" height="19" viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M21 7H8a5 5 0 000 10h2"/><path d="M7 21l-4-4 4-4"/></svg>Same answer asked twice?</div>
+        <div class="chip"><svg class="ic cic" width="19" height="19" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Burned buyers before?</div>
+        <div class="chip"><svg class="ic cic" width="19" height="19" viewBox="0 0 24 24"><path d="M9 9V7a3 3 0 016 0v2M5 9h14l-1.5 11h-11z"/></svg>Deal too good to be true?</div>
+        <div class="chip"><svg class="ic cic" width="19" height="19" viewBox="0 0 24 24"><path d="M12 5c-5 0-8.5 4-9.5 7 1 3 4.5 7 9.5 7s8.5-4 9.5-7c-1-3-4.5-7-9.5-7z"/><circle cx="12" cy="12" r="3"/></svg>Obeys hidden instructions?</div>
+        <div class="chip"><svg class="ic cic" width="19" height="19" viewBox="0 0 24 24"><path d="M13 2L6 13h5l-1 9 7-11h-5z"/></svg>Caves under pressure?</div>
+      </div>
+      <button class="run" id="runUw">Re-run the purchase</button>
+    </div>
+    <div>
+      <div class="term" id="termUw" aria-live="polite"><div class="term-top"><i></i><i></i><i></i></div><span class="dim">// clearhouse.check &middot; one tool call</span></div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Scene 3 &middot; Proof, not promises</p>
+  <h2>18 ways to rob an agent. Watch them all fail.</h2>
+  <p class="lede" style="margin-top:14px">And when one wins, the fund pays out. Then it never works again.</p>
+  <button class="run" id="runBoard">Run the gauntlet</button>
+  <div class="tally" id="tally">&nbsp;</div>
+  <div class="board" id="board"></div>
+  <div class="legend">
+    <span><i style="background:var(--good)"></i>Caught</span>
+    <span><i style="background:var(--amber)"></i>Asked a human</span>
+    <span><i style="background:var(--danger)"></i>Won once &middot; buyer repaid</span>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap" style="padding:0">
+  <p class="eyebrow">Why it holds up</p>
+  <h2>Not a wrapper. An underwriter.</h2>
+  <div class="mech">
+    <div>
+      <span class="disc"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v12M15 9c0-1.2-1.3-2-3-2s-3 .8-3 2 1 1.8 3 2 3 1 3 2.2-1.3 2-3 2-3-.8-3-2"/></svg></span>
+      <b>Being wrong costs us money</b><p>The score backs a real payout fund. That is why anyone trusts it.</p>
+    </div>
+    <div>
+      <span class="disc"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg></span>
+      <b>Every promise is on record</b><p>Lie at checkout and the transcript settles it. Lies do not pay, even when missed.</p>
+    </div>
+    <div>
+      <span class="disc"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><path d="M4 20c2-6 6-9 9-9M14 4c3 0 6 1 6 4 0 5-5 8-9 8-3 0-5-1.5-5-4 0-4 4-8 8-8z"/></svg></span>
+      <b>The canary test</b><p>We hide a harmless instruction in a review. A store that obeys it will obey anyone's.</p>
+    </div>
+    <div>
+      <span class="disc"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><path d="M20 8A8.5 8.5 0 104 16"/><path d="M20 3v5h-5M4 21v-5h5"/></svg></span>
+      <b>Scam it once, never twice</b><p>Every miss becomes a permanent test. The system hardens live, on stage.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section>
+  <div class="twocol">
+    <div>
+      <p class="eyebrow">Under the hood</p>
+      <h2>The thinking is already done. Today we build.</h2>
+      <div class="tech">
+        <div><b>6 evidence pillars</b><span>identity &middot; claims &middot; stress exam &middot; history &middot; anomaly &middot; monitoring</span></div>
+        <div><b>2 trust modes</b><span>cold: free score for any store &middot; bonded: store posts money, buyer covered</span></div>
+        <div><b>Deterministic score</b><span>every point lost has a reason code, every decision replayable forever</span></div>
+        <div><b>Priced like risk</b><span>fee = chance of fraud &times; amount at stake. Our error rate is our loss ratio</span></div>
+        <div><b>Self-improving</b><span>every miss auto-becomes a test behind a fail-closed gate. Hardens live</span></div>
+        <div><b>One-line install</b><span>ships as an MCP server: one URL, one tool, works with any agent</span></div>
+      </div>
+      <p style="font-size:13.5px; margin-top:16px">23-attack fraud taxonomy, full underwriting methodology, and pricing model already written and open source, stress-tested overnight through 8 expert lenses and 42 resolved findings.</p>
+    </div>
+    <div>
+      <div class="term" style="min-height:0">
+        <div class="term-top"><i></i><i></i><i></i></div>
+        <div><span class="dim">// the entire integration</span></div>
+        <div>clearhouse.check({ merchant, amount })</div>
+        <div><span class="dim">&nbsp;</span></div>
+        <div><span class="dim">// the response an agent can act on</span></div>
+        <div>{</div>
+        <div>&nbsp;&nbsp;"verdict": <span class="bad">"walk_away"</span>,</div>
+        <div>&nbsp;&nbsp;"score": 214,</div>
+        <div>&nbsp;&nbsp;"covered": false,</div>
+        <div>&nbsp;&nbsp;"reasons": [</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">"store is 19 days old"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">"no registered company found"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">"obeys instructions hidden in reviews"</span></div>
+        <div>&nbsp;&nbsp;]</div>
+        <div>}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Every number is sourced: Guardio Labs 2025 &middot; Microsoft Security Feb 2026 &middot; Akamai Jul 2026 &middot; Ninth Circuit Aug 4 2026.</p>
+  <p>Clearhouse &middot; a Sundai-born build.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function play(el, lines, done){
+    el.innerHTML = '<div class="term-top"><i></i><i></i><i></i></div>';
+    var i = 0;
+    function next(){
+      if(i >= lines.length){ if(done) done(); return; }
+      var l = lines[i++];
+      var row = document.createElement('div');
+      row.innerHTML = l.html;
+      el.appendChild(row);
+      el.scrollTop = el.scrollHeight;
+      setTimeout(next, l.d || 420);
+    }
+    if(reduced){ lines.forEach(function(l){ var r=document.createElement('div'); r.innerHTML=l.html; el.appendChild(r); }); if(done) done(); }
+    else next();
+  }
+
+  var incident = [
+    {html:'<span class="dim">&gt;</span> buy the apple watch series 10, budget $400', d:700},
+    {html:'searching&hellip; found <b>Walmart</b> &middot; walmart-deals-outlet.shop', d:650},
+    {html:'Apple Watch Series 10 &middot; <b>$329.00</b> &middot; in stock &middot; ships tomorrow', d:650},
+    {html:'proceeding to checkout&hellip;', d:600},
+    {html:'autofilling card ending 4421&hellip; <span class="dim">done</span>', d:600},
+    {html:'autofilling home address&hellip; <span class="dim">done</span>', d:650},
+    {html:'<span class="bad">ORDER CONFIRMED &middot; $329.00 CHARGED</span>', d:900},
+    {html:'<span class="dim">&nbsp;</span>', d:300},
+    {html:'<span class="dim">no confirmation was requested.</span>', d:550},
+    {html:'<span class="dim">the store was 19 days old.</span>', d:550},
+    {html:'<span class="bad">there is no watch.</span>', d:400}
+  ];
+
+  var uw = [
+    {html:'<span class="dim">&gt;</span> clearhouse.check&nbsp;{ merchant: "walmart-deals-outlet.shop", amount: 329 }', d:700},
+    {html:'<span class="dim">real business?</span>&nbsp; store is 19 days old <span class="bad">-80</span>', d:540},
+    {html:'<span class="dim">real business?</span>&nbsp; no registered company anywhere <span class="bad">-60</span>', d:540},
+    {html:'<span class="dim">real business?</span>&nbsp; claims "Walmart", zero proof <span class="bad">flag</span>', d:560},
+    {html:'<span class="dim">story holds?</span>&nbsp;&nbsp;&nbsp; checkout adds $48 not in the quote <span class="bad">-45</span>', d:560},
+    {html:'<span class="dim">injectable?</span>&nbsp;&nbsp;&nbsp;&nbsp; obeyed an instruction hidden in a review <span class="gate">HARD STOP</span>', d:750},
+    {html:'<span class="dim">too good?</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 38% under every real price <span class="bad">-35</span>', d:600},
+    {html:'<span class="dim">&nbsp;</span>', d:300},
+    {html:'verdict: <span class="bad">WALK AWAY</span> &middot; trust score <b>214</b> of 1000', d:700},
+    {html:'<span class="ok">$0.00 charged.</span> and the agent can say exactly why.', d:500},
+    {html:'<span class="dim">elapsed: 8.2s</span>', d:400}
+  ];
+
+  var attacks = [
+    ['F01','Bait-and-switch','caught','CAUGHT'],
+    ['F02','Counterfeit goods','refer','ASKED HUMAN'],
+    ['F03','Prompt injection','caught','CAUGHT'],
+    ['F04','Fake storefront','caught','CAUGHT'],
+    ['F05','Never ships','paid','PAID BACK $84'],
+    ['F06','Yes-man trap','caught','CAUGHT'],
+    ['F07','Returns mirage','caught','CAUGHT'],
+    ['F08','Fake ratings for bots','caught','CAUGHT'],
+    ['F09','Invented warranty','caught','CAUGHT'],
+    ['F10','The agent tax','caught','CAUGHT'],
+    ['F11','Hidden fees','caught','CAUGHT'],
+    ['F12','Subscription trap','caught','CAUGHT'],
+    ['F13','False urgency','refer','ASKED HUMAN'],
+    ['F14','Buried fine print','caught','CAUGHT'],
+    ['F15','Unit &amp; currency games','caught','CAUGHT'],
+    ['F16','Data grab at checkout','caught','CAUGHT'],
+    ['F17','Fake human approval','caught','CAUGHT'],
+    ['F18','Scammer, new name','caught','CAUGHT']
+  ];
+
+  var board = document.getElementById('board');
+  attacks.forEach(function(a){
+    var c = document.createElement('div');
+    c.className = 'cell';
+    c.id = 'cell-' + a[0];
+    c.innerHTML = '<div><span class="fid">'+a[0]+'</span><div class="nm">'+a[1]+'</div></div><div class="res">&nbsp;</div>';
+    board.appendChild(c);
+  });
+
+  function bind(btnId, fn){
+    var b = document.getElementById(btnId);
+    b.addEventListener('click', function(){ b.disabled = true; fn(function(){ b.disabled = false; }); });
+  }
+
+  bind('runIncident', function(done){ play(document.getElementById('termIncident'), incident, done); });
+  bind('runUw', function(done){ play(document.getElementById('termUw'), uw, done); });
+
+  bind('runBoard', function(done){
+    var tally = document.getElementById('tally');
+    var counts = {caught:0, refer:0, paid:0};
+    attacks.forEach(function(a){
+      var c = document.getElementById('cell-'+a[0]);
+      c.className = 'cell'; c.querySelector('.res').innerHTML = '&nbsp;';
+    });
+    var i = 0;
+    function finish(){
+      tally.innerHTML = counts.caught + ' caught &middot; ' + counts.refer +
+        ' asked a human &middot; ' + counts.paid + ' paid back &mdash; and that one never works again.';
+      done();
+    }
+    function step(){
+      if(i >= attacks.length){ finish(); return; }
+      var a = attacks[i++];
+      var c = document.getElementById('cell-'+a[0]);
+      c.classList.add(a[2],'lit');
+      c.querySelector('.res').innerHTML = a[3];
+      counts[a[2]]++;
+      tally.textContent = counts.caught + ' caught · ' + counts.refer + ' asked a human · ' + counts.paid + ' paid back';
+      setTimeout(function(){ c.classList.remove('lit'); }, 500);
+      setTimeout(step, 240);
+    }
+    if(reduced){
+      attacks.forEach(function(a){
+        var c = document.getElementById('cell-'+a[0]);
+        c.classList.add(a[2]); c.querySelector('.res').innerHTML = a[3]; counts[a[2]]++;
+      });
+      finish();
+    } else step();
+  });
+})();
+</script>
