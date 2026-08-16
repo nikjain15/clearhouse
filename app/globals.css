@@ -40,12 +40,14 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
 body {
-  background: var(--color-ink-950);
+  /* Light by default for the landing. Detail pages paint their own dark shell
+     (Chrome renders a bg-ink-950 wrapper), so this never shows through there. */
+  background: #ffffff;
   color: var(--color-ink-100);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

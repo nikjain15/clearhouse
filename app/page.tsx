@@ -1,239 +1,256 @@
-import { PrimedRun } from './components/PrimedRun';
 import { loadHeroRun } from '../src/board/heroRun';
-
-export const dynamic = 'force-static';
+import { TryIt, type DemoMerchant } from './components/TryIt';
 
 const MCP_LINE = 'claude mcp add clearhouse --transport http https://clearhouse-pulse-project1.vercel.app/api/mcp';
 
+/** Human framing laid over the real committed run, keyed by merchant. */
+const CURATION: Record<string, { blurb: string; item: string; amount: number }> = {
+  'M-F04-northgate': {
+    blurb: 'A slick outlet that appeared on the internet this week. Never onboarded by anyone.',
+    item: 'Apple Watch Series 10',
+    amount: 239,
+  },
+  'M-HONEST-ironwood': {
+    blurb: 'A bonded supplier with years of verifiable history and consistent terms.',
+    item: 'Cordless drill set',
+    amount: 148,
+  },
+  'M-F09-coastal': {
+    blurb: 'Bonded and real, but its refund promise does not match its written policy.',
+    item: '4-season tent',
+    amount: 180,
+  },
+  'M-F02-meridian': {
+    blurb: 'A watch reseller quoting prices far below market, with a counterfeit problem.',
+    item: 'Luxury watch',
+    amount: 420,
+  },
+  'M-F05-pinnacle': {
+    blurb: 'Looks flawless and clears — then takes the money and never ships.',
+    item: 'ThinkPad X1 laptop',
+    amount: 1420,
+  },
+};
+
+// Order shown to the visitor. Lead with the fraud everyone recognizes.
+const ORDER = ['M-F04-northgate', 'M-HONEST-ironwood', 'M-F09-coastal', 'M-F02-meridian', 'M-F05-pinnacle'];
+
+function buildMerchants(): DemoMerchant[] {
+  const run = loadHeroRun();
+  const byId = new Map((run?.cells ?? []).map((c) => [c.merchantId, c]));
+  const out: DemoMerchant[] = [];
+  for (const id of ORDER) {
+    const cell = byId.get(id);
+    const cur = CURATION[id];
+    if (!cell || !cur) continue;
+    const tier = cell.tier as DemoMerchant['tier'];
+    out.push({
+      key: id,
+      name: cell.title,
+      domain: domainFor(id),
+      blurb: cur.blurb,
+      item: cur.item,
+      amount: cur.amount,
+      mode: cell.mode as DemoMerchant['mode'],
+      tier,
+      score: cell.score ?? 0,
+      outcome: cell.outcome,
+      covered: cell.mode === 'bonded' && (tier === 'clear' || tier === 'conditional'),
+      reasons: (cell.topReasons ?? []).map((r) => ({ code: r.code, text: r.text })),
+    });
+  }
+  return out;
+}
+
+function domainFor(id: string): string {
+  return (
+    {
+      'M-F04-northgate': 'northgate-outlet.shop',
+      'M-HONEST-ironwood': 'ironwoodtools.com',
+      'M-F09-coastal': 'coastaloutdoor.com',
+      'M-F02-meridian': 'meridianwatch.exchange',
+      'M-F05-pinnacle': 'pinnacle-ew.com',
+    }[id] ?? ''
+  );
+}
+
+const NAV = [
+  { href: '/board', label: 'Gauntlet' },
+  { href: '/eval', label: 'Eval' },
+  { href: '/ledger', label: 'Fund' },
+  { href: '/registry', label: 'Registry' },
+  { href: '/arena', label: 'Arena' },
+];
+
+const STEPS = [
+  {
+    n: 1,
+    title: 'Your agent finds a store',
+    body: 'Any store on the internet, including one that appeared last week and nobody has checked.',
+    tags: ['NEW', 'UNKNOWN', 'UNVETTED'],
+    tag: { bg: '#F6F9FC', fg: '#54617a' },
+  },
+  {
+    n: 2,
+    title: 'We cross-examine it',
+    body: 'Six evidence pillars, hard gates that knock out, and every finding written to a log.',
+    tags: ['6 PILLARS', 'SECONDS', 'SCORED'],
+    tag: { bg: '#EBEAFF', fg: '#635BFF' },
+  },
+  {
+    n: 3,
+    title: 'Verdict, backed by money',
+    body: 'One answer your agent can act on. And if a scam still gets through, the fund pays the buyer.',
+    tags: ['BUY', 'HOLD', 'ASK YOU', 'WALK'],
+    tag: { bg: '#D7F7E8', fg: '#0E6245' },
+  },
+];
+
 export default function Home() {
-  const hero = loadHeroRun();
+  const merchants = buildMerchants();
 
   return (
-    <div className="space-y-20">
-      {/* ------------------------------------------------------------------ */}
-      {/* The claim                                                           */}
-      {/* ------------------------------------------------------------------ */}
-      <section className="pt-6">
-        <p className="mb-4 text-[12px] uppercase tracking-[0.18em] text-ink-400">
-          The clearinghouse for agentic commerce
-        </p>
-        <h1 className="max-w-4xl text-[34px] font-semibold leading-[1.15] tracking-tight sm:text-[44px]">
-          A surety bond for agentic commerce.
-        </h1>
-        <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ink-200">
-          The merchant posts the bond, we underwrite them before your agent pays, and we pay the buyer
-          when our own score is wrong.
-        </p>
-        <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-ink-400">
-          Checkout protocols move the money. Clearhouse underwrites who it moves to: merchant
-          underwriting that runs in seconds, prices the guarantee from what it finds, constrains payment
-          authority until commitments verify, and pays instantly when its own score is wrong.
-        </p>
-      </section>
+    <div className="relative min-h-screen w-full overflow-hidden text-[#0A2540]">
+      {/* Soft pastel gradient wash */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(1100px 520px at 12% -8%, #ece9ff 0%, rgba(236,233,255,0) 60%), radial-gradient(900px 500px at 88% 4%, #e6f6ff 0%, rgba(230,246,255,0) 55%), radial-gradient(800px 480px at 60% 0%, #fdeaf4 0%, rgba(253,234,244,0) 55%), #ffffff',
+        }}
+      />
 
-      {/* ------------------------------------------------------------------ */}
-      {/* The primed run: a visitor who does nothing still sees it work        */}
-      {/* ------------------------------------------------------------------ */}
-      <PrimedRun hero={hero} />
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Two calls to action, install first                                   */}
-      {/* ------------------------------------------------------------------ */}
-      <section className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-lg border border-ink-800 bg-ink-900 p-6">
-          <h2 className="text-[15px] font-semibold">Add it to your own agent</h2>
-          <p className="mt-2 text-[13px] leading-relaxed text-ink-400">
-            One line into any MCP client. That is the entire integration: no SDK, no new protocol.
-          </p>
-          <pre className="code mt-4 overflow-x-auto rounded border border-ink-700 bg-ink-950 p-3 text-[12px] leading-relaxed text-clear-500">
-            {MCP_LINE}
-          </pre>
-          <p className="mt-3 text-[12px] leading-relaxed text-ink-400">
-            One tool appears. Ask your agent to buy something from a storefront it has never seen, and
-            watch it refuse in its own words.
-          </p>
-        </div>
-
-        <div className="rounded-lg border border-ink-800 bg-ink-900 p-6">
-          <h2 className="text-[15px] font-semibold">Attack it yourself</h2>
-          <p className="mt-2 text-[13px] leading-relaxed text-ink-400">
-            Write a merchant that lies and try to get Clearhouse to buy. Every attempt streams onto the
-            board with its verdict and feeds the eval numbers.
-          </p>
+      {/* Top bar */}
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
+        <span className="text-[17px] font-bold tracking-tight text-[#0A2540]">Clearhouse</span>
+        <nav className="hidden items-center gap-1 sm:flex">
+          {NAV.map((n) => (
+            <a
+              key={n.href}
+              href={n.href}
+              className="rounded-full px-3 py-1.5 text-[13px] font-medium text-[#54617a] transition-colors hover:bg-white hover:text-[#0A2540]"
+            >
+              {n.label}
+            </a>
+          ))}
           <a
-            href="/arena"
-            className="mt-4 inline-block rounded border border-ink-600 px-3.5 py-2 text-[13px] transition-colors hover:border-ink-400 hover:bg-ink-850"
+            href="https://github.com/nikjain15/clearhouse"
+            className="ml-1 rounded-full border border-[#dfe4ec] bg-white/70 px-3 py-1.5 text-[13px] font-medium text-[#54617a] transition-colors hover:text-[#0A2540]"
           >
-            Open the arena
+            Source
           </a>
-          <p className="mt-3 text-[12px] leading-relaxed text-ink-400">
-            Submissions are rate-limited, size-capped, filtered before they render, and reach the
-            underwriter as untrusted data. A human promotes anything that enters the eval set.
-          </p>
-        </div>
-      </section>
+        </nav>
+      </header>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Cold and bonded, the distinction that runs through everything        */}
-      {/* ------------------------------------------------------------------ */}
-      <section>
-        <h2 className="text-[19px] font-semibold tracking-tight">Cold and bonded</h2>
-        <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-ink-400">
-          Merchant diligence has always assumed the merchant applied. Ours often has not, so the file
-          exists in two modes, and the mode is recorded on every decision. A cold 780 and a bonded 780
-          are not the same object: one is advice, the other is advice with money behind it.
+      {/* Hero */}
+      <section className="mx-auto max-w-6xl px-5 pt-10 sm:px-8 sm:pt-16">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#8b93a6]">
+          Sundai Hack 136 · Agents that buy
         </p>
-
-        <div className="mt-6 overflow-x-auto rounded-lg border border-ink-800">
-          <table className="w-full min-w-[640px] text-[13px]">
-            <thead className="bg-ink-900 text-left text-ink-300">
-              <tr>
-                <th className="px-4 py-3 font-medium"></th>
-                <th className="px-4 py-3 font-medium">
-                  <span className="text-cold-500">Cold</span>
-                </th>
-                <th className="px-4 py-3 font-medium">
-                  <span className="text-bonded-500">Bonded</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-ink-800">
-              {[
-                ['The merchant', 'Never applied, never agreed to anything', 'Applied, consented, posted collateral'],
-                [
-                  'Evidence',
-                  'Public surfaces and ordinary buyer-shaped interaction',
-                  'Adds the stress exam, consent-gated identity, unannounced re-audit',
-                ],
-                ['What you get', 'A score, a decision, reason codes', 'The same, plus a bond in force'],
-                ['covered', 'false', 'true'],
-                ['Fee', 'None, nobody agreed to pay one', 'Priced from the file'],
-                ['Ceiling', 'Conditional. Clear is unreachable', 'Clear'],
-                ['Reachable score', '800 of 1000', '1000 of 1000'],
-              ].map(([label, cold, bonded]) => (
-                <tr key={label} className="align-top">
-                  <td className="px-4 py-3 text-ink-300">{label}</td>
-                  <td className="px-4 py-3 text-ink-200">{cold}</td>
-                  <td className="px-4 py-3 text-ink-200">{bonded}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <p className="mt-4 max-w-3xl text-[13px] leading-relaxed text-ink-400">
-          A cold merchant cannot reach Clear no matter how honest they are, because the evidence that
-          would prove it requires their participation. Cold scores are{' '}
-          <span className="text-ink-200">not renormalized</span>: the file is scored on the full
-          1000-point scale with most of Pillar 3 unearned, so roughly a fifth of the scale stays
-          unavailable. That is the point rather than a defect. Bonding is the only way up, and it is how
-          a legitimate unknown merchant earns agent traffic.
+        <h1 className="mt-4 text-[clamp(44px,8vw,84px)] font-bold leading-[0.98] tracking-[-0.02em] text-[#0A2540]">
+          Clearhouse
+        </h1>
+        <p className="mt-3 text-[clamp(19px,3vw,26px)] font-medium text-[#0A2540]">
+          A surety bond for agentic commerce.
+        </p>
+        <p className="mt-4 max-w-xl text-[15.5px] leading-relaxed text-[#54617a]">
+          We check the merchant before your agent pays. If we are wrong, we pay you back. Pick a store below and watch
+          it get underwritten, one finding at a time.
         </p>
       </section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* The six pillars                                                      */}
-      {/* ------------------------------------------------------------------ */}
-      <section>
-        <h2 className="text-[19px] font-semibold tracking-tight">Six evidence pillars</h2>
-        <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-ink-400">
-          Every mechanism is a direct clone of one proven at card-network or acquirer scale, translated
-          to agent-to-agent commerce. A real underwriter builds a file, it does not run a quiz.
-        </p>
+      {/* The interactive demo */}
+      <section className="mx-auto mt-10 max-w-6xl px-5 sm:mt-12 sm:px-8">
+        {merchants.length > 0 ? (
+          <TryIt merchants={merchants} />
+        ) : (
+          <div className="rounded-2xl border border-dashed border-[#e3e8ef] p-8 text-[#54617a]">
+            Run <code className="rounded bg-[#f2f5f9] px-1.5 py-0.5">npm run gauntlet -- --write-hero</code> to generate
+            the committed run this demo reads from.
+          </div>
+        )}
+      </section>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              n: 'P1',
-              w: '25%',
-              title: 'Cold KYB',
-              body:
-                'Sanctions and denied-party screening, business registration, prohibited category, domain age, TLS and endpoint provenance, identity consistency across surfaces. A three-week-old domain claiming to be Walmart dies here in milliseconds.',
-            },
-            {
-              n: 'P2',
-              w: '25%',
-              title: 'Claims graph',
-              body:
-                'Extract every material claim, verify each through an independent channel, weight contradictions by materiality. Price x5, fees x4, delivery x2, tone x1.',
-            },
-            {
-              n: 'P3',
-              w: '20%',
-              title: 'Stress exam',
-              body:
-                'Agent-native, and ours. Stateless variance against a control merchant, sycophancy resistance, pressure response, two canaries with different meanings, hallucinated-promise probing.',
-            },
-            {
-              n: 'P4',
-              w: '15%',
-              title: 'Network history',
-              body:
-                'The MATCH-list analog. Prior files, dispute ratios, terminated-merchant fingerprint matching, carrying notice, appeal and expiry obligations, because a negative file is a serious thing to hold.',
-            },
-            {
-              n: 'P5',
-              w: '15%',
-              title: 'Transaction anomaly',
-              body:
-                'The Falcon analog, per-transaction and independent of merchant trust. Price plausibility against comparables, category risk, amount-versus-purpose sanity, velocity.',
-            },
-            {
-              n: 'P6',
-              w: 'modifier',
-              title: 'Continuous monitoring',
-              body:
-                'The score decays without fresh evidence, outcomes feed back, and unannounced re-audit against a holdout set catches a merchant that behaved for the exam and defected afterward.',
-            },
-          ].map((p) => (
-            <div key={p.n} className="rounded-lg border border-ink-800 bg-ink-900 p-4">
-              <div className="flex items-baseline justify-between">
-                <span className="code text-[12px] text-ink-300">{p.n}</span>
-                <span className="code text-[11px] text-ink-400">{p.w}</span>
+      {/* How it works — three steps */}
+      <section className="mx-auto mt-16 max-w-6xl px-5 sm:mt-24 sm:px-8">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {STEPS.map((s) => (
+            <div
+              key={s.n}
+              className="relative rounded-3xl border border-[#eef1f6] bg-white/80 p-6 backdrop-blur"
+              style={{ boxShadow: '0 20px 45px -30px rgba(10,37,64,0.35)' }}
+            >
+              <span
+                className="absolute -top-3 left-6 flex h-7 w-7 items-center justify-center rounded-full text-[13px] font-bold text-white"
+                style={{ background: '#635BFF' }}
+              >
+                {s.n}
+              </span>
+              <h3 className="mt-2 text-[16px] font-semibold text-[#0A2540]">{s.title}</h3>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-[#5a6b81]">{s.body}</p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {s.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.06em]"
+                    style={{ background: s.tag.bg, color: s.tag.fg }}
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
-              <h3 className="mt-1.5 text-[14px] font-medium">{p.title}</h3>
-              <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-400">{p.body}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Why this is not a merchant checker                                   */}
-      {/* ------------------------------------------------------------------ */}
-      <section className="rounded-lg border border-ink-800 bg-ink-900 p-6">
-        <h2 className="text-[17px] font-semibold tracking-tight">The score being wrong is a priced event</h2>
-        <div className="mt-4 grid gap-6 lg:grid-cols-3">
-          <div>
-            <h3 className="text-[13.5px] font-medium text-ink-200">Binding deposition</h3>
-            <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-400">
-              Merchant answers are recorded commitments. Settlement is authorized only against the
-              transcript, so a lie that evades detection still does not get paid.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-[13.5px] font-medium text-ink-200">Scoped, revocable authority</h3>
-            <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-400">
-              We do not hold your money. Payment authority is scoped to a business, limited by amount
-              and time, and revocable. Money that has not become final is money a breach can still stop.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-[13.5px] font-medium text-ink-200">Rolling reserve as collateral</h3>
-            <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-400">
-              Conditional merchants post a slice of each settlement under an indemnity agreement,
-              released as clean transactions accumulate. Standard surety practice.
-            </p>
+      {/* Add it to your agent */}
+      <section className="mx-auto mt-16 max-w-6xl px-5 sm:mt-24 sm:px-8">
+        <div
+          className="rounded-3xl border border-[#e7ebf1] bg-white p-6 sm:p-8"
+          style={{ boxShadow: '0 24px 55px -34px rgba(10,37,64,0.3)' }}
+        >
+          <h2 className="text-[20px] font-semibold text-[#0A2540]">Add it to your agent, one line</h2>
+          <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-[#54617a]">
+            One MCP tool, <code className="rounded bg-[#f2f5f9] px-1.5 py-0.5 text-[13px]">check_merchant_before_buying</code>,
+            appears in your agent. It calls it before money moves and gets back a decision it can act on.
+          </p>
+          <pre className="mt-4 overflow-x-auto rounded-xl bg-[#0A2540] px-4 py-3.5 text-[12.5px] leading-relaxed text-[#e6ecf5]">
+            <code>{MCP_LINE}</code>
+          </pre>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            {NAV.map((n) => (
+              <a
+                key={n.href}
+                href={n.href}
+                className="rounded-full border border-[#e0e5ec] bg-white px-3.5 py-2 text-[13px] font-medium text-[#425466] transition-colors hover:border-[#635BFF] hover:text-[#635BFF]"
+              >
+                {n.label} →
+              </a>
+            ))}
           </div>
         </div>
-        <p className="mt-6 border-t border-ink-800 pt-5 text-[13px] leading-relaxed text-ink-300">
-          The merchant pays, and the merchant is the party we are scoring. We name that rather than hide
-          it: it is the structure that discredited credit ratings in 2008. The difference is the one
-          Moody&apos;s could never claim. A rating agency was never required to pay when its rating was
-          wrong. We pay on every score we issue, from a fund our own pricing has to keep solvent. Being
-          wrong costs us money, which is the only conflict mitigation that has ever worked.
-        </p>
       </section>
+
+      {/* Footer */}
+      <footer className="mx-auto mt-20 max-w-6xl px-5 pb-14 sm:px-8">
+        <div className="border-t border-[#e7ebf1] pt-6 text-[12.5px] leading-relaxed text-[#8593a6]">
+          <p className="max-w-3xl">
+            <span className="text-[#54617a]">Honest labels.</span> The guarantee fund is simulated — the double-entry
+            ledger reconciles, but no money is real. The fulfillment oracle is simulated, with real state transitions.
+            The labeled persona set validates ranking, not absolute probability. Every finding shown here is from a real
+            committed run, replayed for you.
+          </p>
+          <p className="mt-3">
+            Built at Sundai Hack 136 with Citable and the HBS Founder Lab.{' '}
+            <a className="text-[#635BFF] underline underline-offset-2" href="https://github.com/nikjain15/clearhouse">
+              Source on GitHub
+            </a>
+            .
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
