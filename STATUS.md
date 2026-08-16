@@ -27,7 +27,7 @@ Everything below was run, not just written. Numbers are from the committed artif
 | Scorecard purity and replay | 50 tests passing | `npm test` |
 | 18-cell gauntlet | **12 caught, 5 escalated, 1 paid out. Zero cleared silently** | `config/runs/hero.json` |
 | Attacks-on-us panel, F19 to F23 | Rendering, each against its control | `/board` |
-| Eval over 70 labeled merchants | **Zero fraud missed. Gate passes on all 18 classes** | `config/runs/eval.json` |
+| Eval over 70 labeled merchants | **Nobody left out of pocket (46/49 stopped pre-money, 3 F05 made whole). Gate passes on all 18 classes (on resolution)** | `config/runs/eval.json` |
 | Tier thresholds | **Derived: 902 / 800 / 725**, replacing 900 / 700 / 550 | `config/scorecards/v2.json` |
 | Double-entry ledger | Reconciles, trial balance zero, run fails if not | `config/runs/ledger.json` |
 | Fulfillment oracle | Real state transitions, three independent sources | `npm test` |
@@ -35,7 +35,7 @@ Everything below was run, not just written. Numbers are from the committed artif
 | MCP server | Verified end to end against a running server | `/api/mcp` |
 | Packaged agent skill | Written | `skill/SKILL.md` |
 | Arena with all four controls | Window, rate limit, filter, human gate | `/arena` |
-| Self-improving loop | **Closes: 970 clear, paid out, then 605 decline** | `npm run loop` |
+| Self-improving loop | **Closes: 970 clear, paid out, then 685 decline** (deterministic: scoped to the one payout the run produces) | `npm run loop` |
 | Adjudication card | Rendering for every referred file | `/adjudicate` |
 | Human promotion gate, on screen | Working, refuses unauthorized callers with 401 | `/promote` |
 | CI | Typecheck, boundaries, tests, credential-free build | `.github/workflows/ci.yml` |
@@ -61,9 +61,9 @@ Four things I ran against a running server rather than reasoning about:
 
 Stated plainly rather than folded into the list above.
 
-- **The deployment is unverified.** See item 1.
-- **Postgres has never been exercised.** The adapter is written and conformance-shaped, but `api.neon.tech` is also blocked from the build container, so every run in this repository used the file-backed store. It will switch automatically when `DATABASE_URL` is present, and **that switch has not been observed working.** Watch the first deploy's logs.
-- **No SSE streaming endpoints.** `ARCHITECTURE.md` section 9 designs `/api/underwrite/stream` and `/api/gauntlet/stream` as resumable views over the log. They are not built. The board renders from the committed run instead, which is the demo-safe path `PLATFORM.md` requires anyway, but the live-streaming board described in the strategy is not there.
+- **The Vercel deployment itself is still unverified** (egress to `vercel.com` is blocked here), but **the production build passes** — `npm run build` prerenders every static page and compiles the API routes, which is the gate Vercel runs.
+- **The file-store → Postgres switch is now verified against a real Postgres.** Setting `DATABASE_URL` selects the Postgres adapter; `npm run migrate` applies the schema; a full underwrite, replay (zero model calls), and idempotent promotion all round-trip through it. Note: for a non-SSL Postgres (local dev), append `?sslmode=disable`; Neon needs SSL, which is the default. `api.neon.tech` remains blocked here, so the switch is proven against a local Postgres, not Neon specifically — watch the first Neon deploy's logs, but the adapter and schema are exercised.
+- **SSE streaming endpoints are now built.** `/api/underwrite/stream?fileId=&since=` tails a file (findings, then the decision, then a `done` frame) and `/api/gauntlet/stream?since=` tails the run's findings and decisions. Both are resumable views over the log — each frame is stamped with its `seq`, and a client reconnects with `?since` or `Last-Event-ID` after a drop, timeout or cold start. Verified live against the dev server. The board still renders from the committed run by default (the demo-safe path), so streaming is additive, not on the critical path.
 - **The 30-second video is not recorded.** Shot list and assets are in `VIDEO.md`, ready to record in a few minutes.
 - **Pillar 4 runs on seeded registry data.** Known and disclosed on the site footer and in the README.
 
@@ -103,7 +103,7 @@ My first implementation routed *any* source disagreement to a human. That hands 
 
 ### 8. The self-improving loop uses Pillar 6, not Pillar 4
 
-Wiring the loop found something structural: Pillar 4 is 15% of the scale and its deductions floor at the pillar, so registry evidence alone can never cost more than 150 points no matter how large `NW-04` gets. That floor is correct. The right mechanism was `MN-03`, which was defined in the manifest and never wired: the delivered outcome contradicting the merchant's own attestation, in Pillar 6, which modifies the total. That plus the dispute ratio moving is what takes the second encounter from 970 to 605.
+Wiring the loop found something structural: Pillar 4 is 15% of the scale and its deductions floor at the pillar, so registry evidence alone can never cost more than 150 points no matter how large `NW-04` gets. That floor is correct. The right mechanism was `MN-03`, which was defined in the manifest and never wired: the delivered outcome contradicting the merchant's own attestation, in Pillar 6, which modifies the total. That plus the dispute ratio moving is what takes the second encounter from 970 to 685. (The loop now scopes the delta to the single payout it produces, so that number is deterministic rather than a function of how many payouts have accumulated in the shared log.)
 
 ### 9. The F05 persona was rewritten so it clears
 

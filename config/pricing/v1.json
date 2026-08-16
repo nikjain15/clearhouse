@@ -66,7 +66,7 @@
       { "from": 0,   "to": 549,  "multiplier": 0.0 }
     ],
     "perAttackClassAggregateMinor": 1000000,
-    "detail": "Reserves are recovery, not prevention: a merchant with $1,000 of clean history at a 10% reserve has $100 posted, and nothing about that stops a $5,000 strike. The cap does. The per-attack-class aggregate cap stops a single technique that defeats one pillar from draining the fund through fifty merchants at once."
+    "detail": "Reserves are recovery, not prevention: a merchant with $1,000 of clean history at a 10% reserve has $100 posted, and nothing about that stops a $5,000 strike. The cap does. The per-attack-class aggregate cap stops a single technique that defeats one pillar from draining the fund through many merchants at once: covered exposure accumulates per merchant and per attack class through an ExposureTracker threaded across a run/session, so the cap binds against the whole book, not just one transaction. A serverless deployment projects the same accumulation from the event log."
   },
 
   "fund": {

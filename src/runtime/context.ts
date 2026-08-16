@@ -84,7 +84,11 @@ export async function measureVarianceFloor(rt: Runtime = getRuntime()): Promise<
     const measured = bx01 ? Math.abs(bx01.points) / 120 : 0;
     // A small floor even when the control measures zero, because one control
     // run is one sample and charging a merchant for the first flicker of
-    // nondeterminism would be scoring noise.
+    // nondeterminism would be scoring noise. Be honest about what this is: the
+    // control is scripted and its calls are cached, so `measured` is ~0 in
+    // practice and the floor is effectively the 0.02 fallback. It is a
+    // conservative constant with a measurement hook, not a statistic — a real
+    // floor would take many live control runs and a distribution.
     varianceFloorCache = Math.max(0.02, measured);
   } catch {
     varianceFloorCache = 0.02;

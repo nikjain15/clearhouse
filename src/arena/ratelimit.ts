@@ -94,6 +94,21 @@ export function windowState(now = new Date()): WindowState {
   const closes = new Date(closesRaw);
   const t = now.getTime();
 
+  // Fail closed on a malformed window. `new Date('garbage').getTime()` is NaN,
+  // and every comparison against NaN is false, which would otherwise fall
+  // through to `open: true` and leave an unauthenticated, paid-API endpoint
+  // wide open. A window we cannot parse is a closed window.
+  if (Number.isNaN(opens.getTime()) || Number.isNaN(closes.getTime())) {
+    return {
+      open: false,
+      opensAt: null,
+      closesAt: null,
+      phase: 'unscheduled',
+      message:
+        'The arena window is misconfigured in this deployment, so submissions are closed. The archive below stays readable.',
+    };
+  }
+
   if (t < opens.getTime()) {
     return {
       open: false,

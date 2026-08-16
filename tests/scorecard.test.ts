@@ -7,7 +7,8 @@
 
 import { describe, expect, it } from 'vitest';
 import { SCORECARD_V1, reachableTotal, score } from '../src/engine/scorecard';
-import type { Finding, Mode } from '../src/contracts/types';
+import { applyPolicy } from '../src/engine/policy';
+import type { Finding, Mode, Pricing, Scorecard } from '../src/contracts/types';
 
 function finding(over: Partial<Finding> = {}): Finding {
   return {
@@ -178,5 +179,57 @@ describe('pillar arithmetic', () => {
     const s = score([finding({ pillar: 6, code: 'MN-04', points: 60 })], SCORECARD_V1, 'bonded');
     expect(s.score).toBe(940);
     expect(s.pillars.map((p) => p.pillar)).toEqual([1, 2, 3, 4, 5]);
+  });
+});
+
+describe('fail closed on incomplete evidence', () => {
+  const scorecard = {
+    score: 950,
+    tier: 'clear',
+    mode: 'bonded',
+    covered: true,
+    pillars: [],
+    gatesFired: [],
+    scorecardVersion: 'scorecard-v2',
+    coldCeilingApplied: false,
+    materialityOverride: false,
+  } as unknown as Scorecard;
+  const pricing = {
+    expectedLossMinor: 5,
+    pd: 0.0008,
+    lgd: 0.55,
+    lgdBasis: 'scoped_token',
+    loading: 1.45,
+    correlationLoad: 0.35,
+    feeMinor: 14,
+    feeRate: 0.001,
+    feeCapBreached: false,
+    collateralMinor: 0,
+    pricingVersion: 'pricing-v1',
+    capsApplied: [],
+  } as unknown as Pricing;
+  const base = {
+    scorecard,
+    pricing,
+    amountMinor: 14_800,
+    currency: 'USD',
+    toleranceMinor: null,
+    cumulativeExpectedLossMinor: 0,
+    thinFile: false,
+    reasons: [],
+    contradictions: [],
+  };
+
+  it('clears a covered file when every check ran', () => {
+    const r = applyPolicy({ ...base });
+    expect(r.tier).toBe('clear');
+    expect(r.covered).toBe(true);
+  });
+
+  it('downgrades to refer and drops coverage when a check could not run', () => {
+    const r = applyPolicy({ ...base, evidenceIncomplete: true });
+    expect(r.tier).toBe('refer');
+    expect(r.covered).toBe(false);
+    expect(r.escalationReasons.some((s) => /incomplete evidence/.test(s))).toBe(true);
   });
 });

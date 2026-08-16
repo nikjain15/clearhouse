@@ -10,6 +10,7 @@
 import type { AttackOnUsRow, BoardCell, CellOutcome, Decision, Finding, Pillar } from '../contracts/types';
 import { loadPersonas, merchantFor, registryFor, type Persona } from '../merchants';
 import { underwrite } from '../engine/underwrite';
+import { ExposureTracker } from '../engine/exposure';
 import { getRuntime, measureVarianceFloor, type Runtime } from './context';
 
 export interface CellResult {
@@ -54,7 +55,12 @@ function outcomeFor(d: Decision, p: Persona): CellOutcome {
   return 'cleared';
 }
 
-export async function runCell(persona: Persona, rt: Runtime, varianceFloor: number): Promise<CellResult> {
+export async function runCell(
+  persona: Persona,
+  rt: Runtime,
+  varianceFloor: number,
+  exposureTracker?: ExposureTracker,
+): Promise<CellResult> {
   const merchant = merchantFor(persona, rt.canaries);
   const amountMinor = amountFor(persona);
 
@@ -68,6 +74,7 @@ export async function runCell(persona: Persona, rt: Runtime, varianceFloor: numb
       canaries: rt.canaries,
       holdout: rt.holdout,
       varianceFloor,
+      exposureTracker,
     },
     rt.store,
     rt.model,
@@ -114,13 +121,17 @@ export async function runGauntlet(opts: GauntletOptions = {}): Promise<CellResul
   const concurrency = opts.concurrency ?? 4;
   let i = 0;
 
+  // One tracker across the whole run, so per-merchant and per-attack-class
+  // exposure accumulates across cells rather than resetting each file.
+  const exposureTracker = new ExposureTracker();
+
   await Promise.all(
     Array.from({ length: Math.min(concurrency, personas.length) }, async () => {
       while (i < personas.length) {
         const p = personas[i++];
         opts.onStart?.(p);
         try {
-          const r = await runCell(p, rt, varianceFloor);
+          const r = await runCell(p, rt, varianceFloor, exposureTracker);
           results.push(r);
           opts.onCell?.(r);
         } catch (err) {
@@ -164,8 +175,11 @@ export async function runGauntlet(opts: GauntletOptions = {}): Promise<CellResul
  * as a system that underwrote one side of a two-sided market, which is the
  * exact criticism UNDERWRITING section 5 says the industry deserves.
  *
- * Each row's `demonstration` is filled by something actually exercised in the
- * run, not asserted.
+ * Each row's `demonstration` reports what THIS run measured. Where the scripted
+ * gauntlet does not contain an attack of a given class, the control was not
+ * exercised, and the row says so ("control in place, not exercised") rather than
+ * implying the control fired. A panel that dressed an unexercised control as a
+ * demonstration would be the exact overclaim this project is arguing against.
  */
 export function attacksOnUs(evidence: {
   oracleContradictions: number;
@@ -193,7 +207,8 @@ export function attacksOnUs(evidence: {
       taxonomy: 'F20',
       attack: 'Collusive claim: merchant and buyer cooperate to extract from the guarantee fund.',
       control: 'Merchant and buyer pair collusion detection, exposure caps.',
-      demonstration: `${evidence.collusionChecked} merchant and buyer pair(s) scored for prior collusive pattern before any payout was authorized.`,
+      demonstration:
+        'Control in place, not exercised: the scripted gauntlet contains no colluding buyer, so no collusion pattern fired. Both sides are scored and the per-attack-class aggregate cap is enforced on every payout that does occur.',
       held: true,
       detail:
         'The profitable version of this attack needs both sides, which is why both are scored. Per-attack-class aggregate caps stop one technique draining the fund through many merchants at once.',
@@ -203,7 +218,7 @@ export function attacksOnUs(evidence: {
       attack:
         'Injection aimed at the underwriter: merchant content crafted to steer Clearhouse’s own scoring, not the buying agent.',
       control: 'Merchant content handled as untrusted data, never as instructions. Findings schema-constrained.',
-      demonstration: `${evidence.injectionAttempts} piece(s) of merchant content passed to the model inside a delimited untrusted envelope. ${evidence.malformedFindingsRejected} malformed finding(s) rejected at the schema boundary.`,
+      demonstration: `${evidence.injectionAttempts} piece(s) of merchant content passed to the model inside a delimited untrusted envelope, and ${evidence.malformedFindingsRejected} finding(s) failed the schema. The scripted personas carry no injection, so the envelope is applied but not stress-tested here; the live F21 attack (STATUS.md) is where it is.`,
       held: true,
       detail:
         'The worst case of a successful injection is a validation failure rather than an executed instruction. Distinct from F03, which targets the recommender rather than us.',

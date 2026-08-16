@@ -32,6 +32,7 @@ import { PILLAR3_CHECKS } from './checks/pillar3';
 import { PILLAR4_CHECKS, PILLAR5_CHECKS, PILLAR6_CHECKS } from './checks/pillar456';
 import { ACTIVE_SCORECARD, score, type ScorecardVersion } from './scorecard';
 import { PRICING_V1, price, type PricingVersion } from './pricing';
+import { ExposureTracker } from './exposure';
 import { applyPolicy } from './policy';
 
 export const ALL_CHECKS: Check[] = [
@@ -56,7 +57,15 @@ export interface UnderwriteInput {
   purpose: string;
   toleranceMinor?: number | null;
   registry: RegistryRecord;
+  /** A one-off exposure snapshot. Prefer `exposureTracker` for cumulative caps. */
   exposure?: ExposureState;
+  /**
+   * Cumulative exposure across files. When present, the caps bind against
+   * everything already outstanding for this merchant and attack class, not just
+   * this single purchase, and covered exposure from this decision is recorded
+   * back into it.
+   */
+  exposureTracker?: ExposureTracker;
   cumulativeExpectedLossMinor?: number;
   varianceFloor?: number;
   canaries?: { bx04: string; bx05: string };
@@ -104,6 +113,15 @@ export function holdoutFromEnv(): Array<{ id: string; claim: string; text: strin
   }
 }
 
+/**
+ * A zeroed exposure state, used when no cumulative tracking is threaded in.
+ *
+ * For cumulative caps, pass `input.exposureTracker` instead: it carries
+ * per-merchant and per-attack-class outstanding exposure across files, so the
+ * caps bind against the whole book rather than a single transaction. The run
+ * path (runGauntlet) shares one tracker across cells; a serverless request can
+ * build one from the event log with `fromCoveredExposure`.
+ */
 export function emptyExposure(): ExposureState {
   return {
     perMerchantOutstandingMinor: 0,
@@ -212,13 +230,19 @@ export async function underwrite(
   const scorecard = score(findings, scorecardVersion, mode);
 
   const attackClasses = [...new Set(findings.flatMap((f) => f.taxonomy))];
+  // Cumulative exposure if a tracker is threaded through the run; otherwise the
+  // one-off snapshot (or none). The tracker snapshot is taken BEFORE this
+  // decision, so the caps bind against what is already outstanding.
+  const exposure = input.exposureTracker
+    ? input.exposureTracker.snapshot(input.merchant.merchantId, attackClasses)
+    : input.exposure ?? emptyExposure();
   const pricing = price(
     {
       scorecard,
       amountMinor: input.amountMinor,
       thinFile: input.registry.priorFiles === 0,
       attackClasses,
-      exposure: input.exposure ?? emptyExposure(),
+      exposure,
     },
     pricingVersion,
   );
@@ -245,6 +269,7 @@ export async function underwrite(
       thinFile: input.registry.priorFiles === 0,
       reasons,
       contradictions,
+      evidenceIncomplete: errors.length > 0,
     },
     pricingVersion,
   );
@@ -272,6 +297,12 @@ export async function underwrite(
     issuedAt: clock.iso(),
     served: 'live',
   };
+
+  // Record covered exposure so later files in this run see it. Only covered
+  // purchases add exposure: those are the ones the fund is on the hook for.
+  if (decision.covered) {
+    input.exposureTracker?.record(input.merchant.merchantId, attackClasses, input.amountMinor);
+  }
 
   events.push({
     eventId: randomUUID(),

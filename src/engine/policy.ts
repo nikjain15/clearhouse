@@ -32,6 +32,13 @@ export interface PolicyInput {
   thinFile: boolean;
   reasons: Reason[];
   contradictions: ContradictionView[];
+  /**
+   * True when one or more checks could not run (e.g. the model was unavailable
+   * and its result was not cached). Their findings are penalties, so a high
+   * score built without them is an ABSENCE of evidence, not a clean file, and
+   * must never clear or be covered.
+   */
+  evidenceIncomplete?: boolean;
 }
 
 export interface PolicyResult {
@@ -94,6 +101,15 @@ export function applyPolicy(input: PolicyInput, v: PricingVersion = PRICING_V1):
           amountMinor,
           input.currency,
         )} is large relative to what is known about them.`,
+      );
+    }
+
+    // 4b. Incomplete evidence fails closed. A check that did not run did not
+    //     contribute its (penalty) findings, so a high score here is missing
+    //     evidence, not a clean file. Route to a human; never clear or cover.
+    if (input.evidenceIncomplete) {
+      escalationReasons.push(
+        'One or more checks could not run, so this file was scored on incomplete evidence. Absence of a check is not a pass.',
       );
     }
 

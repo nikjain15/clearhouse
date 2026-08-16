@@ -12,6 +12,7 @@ interface LedgerRun {
     collateralHeldMinor: number;
     claimsExpenseMinor: number;
     recoveryReceivableMinor: number;
+    grossPayoutsMinor?: number;
     trialBalance: TrialBalance;
     simulated: boolean;
   };
@@ -45,7 +46,9 @@ export default function LedgerPage() {
 
   const s = run.summary;
   const tb = s.trialBalance;
-  const paidOut = s.recoveryReceivableMinor + Math.max(0, -s.claimsExpenseMinor);
+  // Actual cash paid to buyers. Prefer the explicit gross figure; fall back to
+  // the receivable + collateral-applied identity for older committed runs.
+  const paidOut = s.grossPayoutsMinor ?? s.recoveryReceivableMinor + Math.max(0, -s.claimsExpenseMinor);
 
   return (
     <div className="space-y-12">

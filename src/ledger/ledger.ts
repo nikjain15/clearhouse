@@ -7,8 +7,14 @@
  * balances and the trial balance sums to zero.
  *
  * The last two flows are the surety structure in accounting form: the fund pays
- * the obligee first, then recovers from the principal, and `claims.expense`
- * nets to the part not yet recovered.
+ * the obligee first, then pursues the principal. The payout debits
+ * `claims.expense`; applying collateral and booking the residual as a
+ * `recovery.receivable` credit it back, so `claims.expense` nets to zero and the
+ * outstanding loss is carried as a receivable ASSET against the principal. That
+ * receivable is a recovery CLAIM, not recovered cash: in a real exit-scam it may
+ * never be collected, and writing it off would reduce fund equity by that
+ * amount. The true cash out is the `fund.cash` movement, and `grossPayoutsMinor`
+ * in the summary is the gross paid to buyers before any recovery.
  */
 
 import { randomUUID } from 'node:crypto';
@@ -47,10 +53,29 @@ function cr(account: string, amountMinor: number): LedgerLine {
 export class Ledger {
   private postings: LedgerPosting[] = [];
 
+  // Single-currency by construction. The fund, the exposure caps and the payout
+  // caps are all denominated in USD minor units, and there is no FX conversion,
+  // so a non-USD file would be priced and capped against USD thresholds. All
+  // shipped personas are USD; a real multi-currency build needs an FX layer and
+  // per-currency caps before this assumption is safe to drop.
   constructor(private currency = 'USD') {}
 
   /** Every posting balances. A single-sided entry is rejected, not stored. */
   post(memo: string, lines: LedgerLine[], refs: LedgerPosting['refs'] = {}, at = new Date().toISOString()): LedgerPosting {
+    // Each line: non-negative, integer minor units, and exactly one side. A
+    // negative pair sums to a "balanced" posting (-100 == -100) and a both-sided
+    // line hides a net entry; neither is a real double-entry line.
+    for (const l of lines) {
+      if (l.debitMinor < 0 || l.creditMinor < 0) {
+        throw new UnbalancedPostingError(`${memo} (negative amount)`, l.debitMinor, l.creditMinor);
+      }
+      if (!Number.isInteger(l.debitMinor) || !Number.isInteger(l.creditMinor)) {
+        throw new UnbalancedPostingError(`${memo} (non-integer minor units)`, l.debitMinor, l.creditMinor);
+      }
+      if (l.debitMinor !== 0 && l.creditMinor !== 0) {
+        throw new UnbalancedPostingError(`${memo} (line is both debit and credit)`, l.debitMinor, l.creditMinor);
+      }
+    }
     const debits = lines.reduce((s, l) => s + l.debitMinor, 0);
     const credits = lines.reduce((s, l) => s + l.creditMinor, 0);
     if (debits !== credits) throw new UnbalancedPostingError(memo, debits, credits);
@@ -170,6 +195,15 @@ export class Ledger {
     const receivable = this.accounts()
       .filter((a) => a.startsWith('recovery.receivable.'))
       .reduce((s, a) => s + this.balance(a), 0);
+    // Actual cash paid to buyers. `payout()` is the only method that DEBITS
+    // claims.expense; recovery and collateral CREDIT it, so the account nets to
+    // zero and is not the payout figure. Sum the payout debits directly, so the
+    // number does not silently understate by any collateral recovered.
+    const grossPayouts = this.postings.reduce(
+      (s, p) =>
+        s + p.lines.filter((l) => l.account === 'claims.expense').reduce((t, l) => t + l.debitMinor, 0),
+      0,
+    );
     return {
       fundCashMinor: this.balance('fund.cash'),
       fundCapitalMinor: this.balance('fund.capital'),
@@ -177,6 +211,7 @@ export class Ledger {
       collateralHeldMinor: collateral,
       claimsExpenseMinor: this.balance('claims.expense'),
       recoveryReceivableMinor: receivable,
+      grossPayoutsMinor: grossPayouts,
       trialBalance: this.trialBalance(),
       simulated: true,
     };

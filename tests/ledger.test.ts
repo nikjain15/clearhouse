@@ -106,6 +106,36 @@ describe('double entry', () => {
     expect(l.balance('collateral.M-1')).toBe(0);
     expect(l.balance('fund.cash')).toBe(5_000_000 + 5_000 - 50_000);
   });
+
+  it('reports gross payouts to buyers even when the expense account nets to zero', () => {
+    const l = new Ledger();
+    l.capitalize(5_000_000);
+    l.postCollateral('M-1', 5_000, 'UF-1');
+    l.payout('CLM-1', 'ORD-1', 'M-1', 50_000);
+    l.applyCollateral('CLM-1', 'M-1', 5_000);
+    l.bookReceivable('CLM-1', 'M-1', 45_000);
+
+    // claims.expense nets to 0, but 50,000 was actually paid to the buyer.
+    expect(l.summary().claimsExpenseMinor).toBe(0);
+    expect(l.summary().grossPayoutsMinor).toBe(50_000);
+  });
+
+  it('rejects a negative-amount posting even though it "balances"', () => {
+    const l = new Ledger();
+    // debit -100 == credit -100 passes a naive debits===credits check.
+    expect(() => l.post('bad', [
+      { account: 'fund.cash', debitMinor: -100, creditMinor: 0 },
+      { account: 'fees.income', debitMinor: 0, creditMinor: -100 },
+    ])).toThrow(UnbalancedPostingError);
+  });
+
+  it('rejects a line that is both a debit and a credit', () => {
+    const l = new Ledger();
+    expect(() => l.post('bad', [
+      { account: 'fund.cash', debitMinor: 100, creditMinor: 40 },
+      { account: 'fees.income', debitMinor: 0, creditMinor: 60 },
+    ])).toThrow(UnbalancedPostingError);
+  });
 });
 
 describe('fulfillment state machine', () => {
@@ -173,6 +203,29 @@ describe('the oracle does not resolve to whoever spoke last', () => {
     }
     expect(oracle.resolve('O-3').agreed).toBe(true);
     expect(oracle.resolve('O-3').delivered).toBe(true);
+  });
+
+  it('does not believe the merchant on its own word (no independent source)', () => {
+    const oracle = new FulfillmentOracle();
+    oracle.createOrder({ orderId: 'O-9', state: 'captured', history: [] } as unknown as Order);
+    oracle.report('O-9', { source: 'merchant_attestation', claimsDelivered: true, claimsAsDescribed: true, evidence: 'we shipped it' });
+
+    const r = oracle.resolve('O-9');
+    expect(r.agreed).toBe(false);
+    expect(r.delivered).toBeNull();
+    expect(r.disagreement).toMatch(/not an independent source/);
+  });
+
+  it('routes a source that contradicts itself to a human rather than first-report-wins', () => {
+    const oracle = new FulfillmentOracle();
+    oracle.createOrder({ orderId: 'O-10', state: 'captured', history: [] } as unknown as Order);
+    oracle.report('O-10', { source: 'carrier', claimsDelivered: true, claimsAsDescribed: true, evidence: 'scanned' });
+    oracle.report('O-10', { source: 'carrier', claimsDelivered: false, claimsAsDescribed: false, evidence: 'correction: no scan' });
+    oracle.report('O-10', { source: 'buyer_confirmation', claimsDelivered: false, claimsAsDescribed: false, evidence: 'nothing arrived' });
+
+    const r = oracle.resolve('O-10');
+    expect(r.agreed).toBe(false);
+    expect(r.disagreement).toMatch(/reported inconsistently/);
   });
 });
 

@@ -147,7 +147,7 @@ async function main() {
   console.log(`  capital        ${fmtM(summary.fundCapitalMinor)}`);
   console.log(`  fees collected ${fmtM(summary.feesCollectedMinor)}`);
   console.log(`  collateral     ${fmtM(summary.collateralHeldMinor)}`);
-  console.log(`  payouts        ${fmtM(-summary.claimsExpenseMinor + summary.recoveryReceivableMinor)} to buyers, ${payouts} claim(s)`);
+  console.log(`  payouts        ${fmtM(summary.grossPayoutsMinor)} to buyers, ${payouts} claim(s)`);
   console.log(`  receivable     ${fmtM(summary.recoveryReceivableMinor)} owed by principals`);
   console.log(`  cash           ${fmtM(summary.fundCashMinor)}`);
   console.log(
@@ -244,7 +244,7 @@ function buildHero(results: CellResult[], ledger: Ledger): HeroRun {
         fundCapitalMinor: s.fundCapitalMinor,
         feesCollectedMinor: s.feesCollectedMinor,
         collateralHeldMinor: s.collateralHeldMinor,
-        payoutsMinor: s.recoveryReceivableMinor + s.collateralHeldMinor * 0,
+        payoutsMinor: s.grossPayoutsMinor,
         balanced: s.trialBalance.balanced,
       };
     })(),

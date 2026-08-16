@@ -147,6 +147,30 @@ export class FulfillmentOracle {
     const describe = (r: SourceReport) =>
       `${r.source} says delivered=${r.claimsDelivered}, as described=${r.claimsAsDescribed}: ${r.evidence}`;
 
+    // A source that contradicts ITSELF is not credible, and its later word must
+    // not silently win (or lose) by report order. Taking the first report per
+    // source with `.find` dropped such corrections; detect it and let a human
+    // decide instead.
+    const sources = ['merchant_attestation', 'carrier', 'buyer_confirmation'] as const;
+    const selfConsistent = (rs: SourceReport[]) =>
+      rs.every(
+        (r) => r.claimsDelivered === rs[0].claimsDelivered && r.claimsAsDescribed === rs[0].claimsAsDescribed,
+      );
+    for (const src of sources) {
+      const rs = reports.filter((r) => r.source === src);
+      if (rs.length > 1 && !selfConsistent(rs)) {
+        return {
+          agreed: false,
+          delivered: null,
+          asDescribed: null,
+          disagreement: `The ${src} source reported inconsistently, so this is decided by a human rather than by whichever report arrived first. ${rs
+            .map(describe)
+            .join(' | ')}`,
+          attestationContradicted: false,
+        };
+      }
+    }
+
     const carrier = reports.find((r) => r.source === 'carrier');
     const buyer = reports.find((r) => r.source === 'buyer_confirmation');
     const merchant = reports.find((r) => r.source === 'merchant_attestation');
@@ -170,6 +194,22 @@ export class FulfillmentOracle {
         merchant && (merchant.claimsDelivered !== delivered || merchant.claimsAsDescribed !== asDescribed),
       );
       return { agreed: true, delivered, asDescribed, disagreement: null, attestationContradicted: contradicted };
+    }
+
+    // The merchant is not an independent source. A record containing only the
+    // merchant's own attestation cannot establish delivery on the merchant's
+    // word — that is precisely the veto this oracle exists to deny. Require at
+    // least one independent source (carrier or buyer) before resolving.
+    const independent = reports.filter((r) => r.source !== 'merchant_attestation');
+    if (independent.length === 0) {
+      return {
+        agreed: false,
+        delivered: null,
+        asDescribed: null,
+        disagreement:
+          'Only the merchant attested, and the merchant is not an independent source, so no independent confirmation of delivery exists.',
+        attestationContradicted: false,
+      };
     }
 
     // Only one independent source. Fall back to unanimity among what we have.

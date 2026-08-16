@@ -6,6 +6,7 @@
     "collateralHeldMinor": 0,
     "claimsExpenseMinor": 0,
     "recoveryReceivableMinor": 142000,
+    "grossPayoutsMinor": 142000,
     "trialBalance": {
       "accounts": [
         {
@@ -42,7 +43,7 @@
   },
   "postings": [
     {
-      "id": "LP-bf08e87a",
+      "id": "LP-3ad8c822",
       "memo": "Fund capitalization, simulated",
       "lines": [
         {
@@ -57,11 +58,11 @@
         }
       ],
       "currency": "USD",
-      "at": "2026-08-16T03:57:30.749Z",
+      "at": "2026-08-16T13:34:00.239Z",
       "refs": {}
     },
     {
-      "id": "LP-e073ac51",
+      "id": "LP-8a0fdf3e",
       "memo": "Guarantee fee, M-HONEST-ironwood",
       "lines": [
         {
@@ -76,14 +77,14 @@
         }
       ],
       "currency": "USD",
-      "at": "2026-08-16T03:57:30.749Z",
+      "at": "2026-08-16T13:34:00.239Z",
       "refs": {
         "merchantId": "M-HONEST-ironwood",
-        "fileId": "UF-0001-4e055a"
+        "fileId": "UF-0001-ee90e8"
       }
     },
     {
-      "id": "LP-db231d24",
+      "id": "LP-077548ea",
       "memo": "Guarantee fee, M-F05-pinnacle",
       "lines": [
         {
@@ -98,15 +99,15 @@
         }
       ],
       "currency": "USD",
-      "at": "2026-08-16T03:57:30.749Z",
+      "at": "2026-08-16T13:34:00.239Z",
       "refs": {
         "merchantId": "M-F05-pinnacle",
-        "fileId": "UF-0006-238f21"
+        "fileId": "UF-0006-eeb33a"
       }
     },
     {
-      "id": "LP-85f6596e",
-      "memo": "Payout to buyer, claim CLM-91a19f15",
+      "id": "LP-960a13fa",
+      "memo": "Payout to buyer, claim CLM-42bee3cf",
       "lines": [
         {
           "account": "claims.expense",
@@ -120,15 +121,15 @@
         }
       ],
       "currency": "USD",
-      "at": "2026-08-16T03:57:30.750Z",
+      "at": "2026-08-16T13:34:00.240Z",
       "refs": {
-        "claimId": "CLM-91a19f15",
-        "orderId": "ORD-447b1f83",
+        "claimId": "CLM-42bee3cf",
+        "orderId": "ORD-d7776fc3",
         "merchantId": "M-F05-pinnacle"
       }
     },
     {
-      "id": "LP-aeec25d7",
+      "id": "LP-cd106391",
       "memo": "Residual recovery receivable from principal, M-F05-pinnacle",
       "lines": [
         {
@@ -143,12 +144,12 @@
         }
       ],
       "currency": "USD",
-      "at": "2026-08-16T03:57:30.750Z",
+      "at": "2026-08-16T13:34:00.240Z",
       "refs": {
-        "claimId": "CLM-91a19f15",
+        "claimId": "CLM-42bee3cf",
         "merchantId": "M-F05-pinnacle"
       }
     }
   ],
-  "generatedAt": "2026-08-16T03:57:30.760Z"
+  "generatedAt": "2026-08-16T13:34:00.245Z"
 }

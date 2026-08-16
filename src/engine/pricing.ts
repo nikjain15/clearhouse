@@ -105,6 +105,12 @@ export function price(input: PriceInput, v: PricingVersion = PRICING_V1): Pricin
   const feeApplies = scorecard.covered;
   const feeMinor = feeApplies ? Math.max(1, Math.round(rawFee)) : null;
   const feeRate = amountMinor > 0 ? rawFee / amountMinor : 0;
+  // NOTE: with the current PD prior, a covered file (bonded, clear/conditional,
+  // score >= 800) has PD <= 0.0035, so feeRate maxes out around 0.2% — 24x below
+  // the 5% cap. `feeCapBreached` is therefore effectively unreachable for any
+  // coverable merchant today. The check is kept because it is the correct guard
+  // if the PD prior is ever recalibrated upward from real loss data, at which
+  // point a coverable file could price above the cap.
   const feeCapBreached = feeApplies && feeRate > v.feeCap.rate;
 
   const reserveRate =
