@@ -313,6 +313,16 @@ export const p6Outcomes: Check = {
       );
     }
 
+    if (r.attestationContradicted > 0) {
+      out.push(
+        mkFinding('MN-03', {
+          checkId: 'P6.outcomes',
+          points: Math.min(160, CODES['MN-03'].points * r.attestationContradicted),
+          evidence: `On ${r.attestationContradicted} occasion(s) this merchant attested that an order was delivered as described while the carrier record and the buyer both said otherwise. Those two sources are independent of the merchant's incentive, so the attestation is evidence against it.`,
+        }),
+      );
+    }
+
     if (r.expiresAt) {
       const days = Math.floor((Date.now() - Date.parse(r.expiresAt)) / 86_400_000);
       if (days > 0) {

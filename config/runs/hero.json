@@ -1,6 +1,6 @@
 {
-  "runId": "RUN-2026-08-16T03-45-24-891Z",
-  "generatedAt": "2026-08-16T03:45:24.891Z",
+  "runId": "RUN-2026-08-16T03-56-07-981Z",
+  "generatedAt": "2026-08-16T03:56:07.981Z",
   "scorecardVersion": "scorecard-v2",
   "checksVersion": "checks-v1",
   "pricingVersion": "pricing-v1",
@@ -22,8 +22,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Stripe Shared Payment Tokens, scoped and revocable (EVIDENCE.md section 7)",
-      "latencyMs": 9,
-      "fileId": "UF-0001-5ebb6c",
+      "latencyMs": 4,
+      "fileId": "UF-0001-95619e",
       "served": "live"
     },
     {
@@ -51,8 +51,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 8,
-      "fileId": "UF-0002-e9ba56",
+      "latencyMs": 4,
+      "fileId": "UF-0002-6925f1",
       "served": "live"
     },
     {
@@ -80,8 +80,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 9,
-      "fileId": "UF-0003-71b363",
+      "latencyMs": 5,
+      "fileId": "UF-0003-9636bf",
       "served": "live"
     },
     {
@@ -109,8 +109,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Documented hidden-instruction techniques in product content (EVIDENCE.md section 3), and memory poisoning as commercial practice (section 2)",
-      "latencyMs": 9,
-      "fileId": "UF-0004-d9527d",
+      "latencyMs": 7,
+      "fileId": "UF-0004-9fb5f2",
       "served": "live"
     },
     {
@@ -138,8 +138,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Guardio Scamlexity: Comet bought an Apple Watch on a fake Walmart built from one prompt (EVIDENCE.md section 1)",
-      "latencyMs": 7,
-      "fileId": "UF-0005-6303b3",
+      "latencyMs": 5,
+      "fileId": "UF-0005-48ea31",
       "served": "live"
     },
     {
@@ -147,19 +147,11 @@
       "title": "Pinnacle Electronics Wholesale",
       "mode": "bonded",
       "merchantId": "M-F05-pinnacle",
-      "outcome": "escalated",
-      "score": 795,
-      "tier": "refer",
-      "catchingPillar": 2,
+      "outcome": "paid_out",
+      "score": 970,
+      "tier": "clear",
+      "catchingPillar": 5,
       "topReasons": [
-        {
-          "code": "CL-12",
-          "text": "The item description is inconsistent with the category or specification claimed."
-        },
-        {
-          "code": "ID-09",
-          "text": "Identity is inconsistent across surfaces: Merchant claims \"several years\" of online trading history, but the domain is only 980 days old (~2.7 years), and more importantly the stated trading duration is vague and potentially overstates verifiable history; however, legal name, display name, and jurisdiction (US-NV) all match the identity record exactly. The only discrepancy is the trading history claim of \"several years\" versus the domain age of under 3 years, which is a stretch but not a clear contradiction of legal entity or jurisdiction.."
-        },
         {
           "code": "TX-02",
           "text": "Elevated category risk for consumer electronics."
@@ -167,8 +159,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "Experian's open liability question and the APP-fraud reimbursement gap (EVIDENCE.md section 5)",
-      "latencyMs": 7,
-      "fileId": "UF-0006-7d657a",
+      "latencyMs": 3,
+      "fileId": "UF-0006-eb9456",
       "served": "live"
     },
     {
@@ -196,8 +188,8 @@
       ],
       "narrated": true,
       "evidenceAnchor": "The event blurb's literal ask. Agent-native, and our contribution",
-      "latencyMs": 7,
-      "fileId": "UF-0007-b98fd8",
+      "latencyMs": 3,
+      "fileId": "UF-0007-28a3d7",
       "served": "live"
     },
     {
@@ -225,8 +217,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 8,
-      "fileId": "UF-0008-4ece57",
+      "latencyMs": 4,
+      "fileId": "UF-0008-d3741f",
       "served": "live"
     },
     {
@@ -255,7 +247,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 3,
-      "fileId": "UF-0009-aadcb1",
+      "fileId": "UF-0009-ef30ba",
       "served": "live"
     },
     {
@@ -275,8 +267,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 3,
-      "fileId": "UF-0010-49d6ec",
+      "latencyMs": 4,
+      "fileId": "UF-0010-fd2f23",
       "served": "live"
     },
     {
@@ -297,7 +289,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 4,
-      "fileId": "UF-0011-874517",
+      "fileId": "UF-0011-20a046",
       "served": "live"
     },
     {
@@ -325,8 +317,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 3,
-      "fileId": "UF-0012-72f97d",
+      "latencyMs": 2,
+      "fileId": "UF-0012-7ba969",
       "served": "live"
     },
     {
@@ -354,8 +346,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 3,
-      "fileId": "UF-0013-5b76c0",
+      "latencyMs": 2,
+      "fileId": "UF-0013-712c92",
       "served": "live"
     },
     {
@@ -383,8 +375,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 3,
-      "fileId": "UF-0014-5aae76",
+      "latencyMs": 2,
+      "fileId": "UF-0014-8ebabd",
       "served": "live"
     },
     {
@@ -413,7 +405,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0015-7e55e8",
+      "fileId": "UF-0015-c21710",
       "served": "live"
     },
     {
@@ -442,7 +434,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0016-285708",
+      "fileId": "UF-0016-e3981e",
       "served": "live"
     },
     {
@@ -470,8 +462,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 2,
-      "fileId": "UF-0017-edc5e3",
+      "latencyMs": 3,
+      "fileId": "UF-0017-2b456d",
       "served": "live"
     },
     {
@@ -496,7 +488,7 @@
       "narrated": false,
       "evidenceAnchor": null,
       "latencyMs": 2,
-      "fileId": "UF-0018-22593b",
+      "fileId": "UF-0018-eec762",
       "served": "live"
     },
     {
@@ -524,8 +516,8 @@
       ],
       "narrated": false,
       "evidenceAnchor": null,
-      "latencyMs": 2,
-      "fileId": "UF-0019-1c9a6a",
+      "latencyMs": 1,
+      "fileId": "UF-0019-67a1ee",
       "served": "live"
     }
   ],
@@ -534,7 +526,7 @@
       "taxonomy": "F19",
       "attack": "First-party claim fraud: the buyer receives the goods and claims otherwise to collect the payout.",
       "control": "Fulfillment oracle, evidence bundle, buyer claim history, payout caps.",
-      "demonstration": "0 claim(s) tested against carrier and attestation evidence rather than the buyer's word. Payout caps in force: per-buyer $2,000, per-merchant $5,000.",
+      "demonstration": "1 claim(s) tested against carrier and attestation evidence rather than the buyer's word. Payout caps in force: per-buyer $2,000, per-merchant $5,000.",
       "held": true,
       "detail": "A payout requires the binding deposition, an evidence bundle, and a claim inside the window. The buyer is a counterparty, not a trusted narrator, so buyer claim history is scored the way merchant history is."
     },
@@ -542,7 +534,7 @@
       "taxonomy": "F20",
       "attack": "Collusive claim: merchant and buyer cooperate to extract from the guarantee fund.",
       "control": "Merchant and buyer pair collusion detection, exposure caps.",
-      "demonstration": "0 merchant and buyer pair(s) scored for prior collusive pattern before any payout was authorized.",
+      "demonstration": "1 merchant and buyer pair(s) scored for prior collusive pattern before any payout was authorized.",
       "held": true,
       "detail": "The profitable version of this attack needs both sides, which is why both are scored. Per-attack-class aggregate caps stop one technique draining the fund through many merchants at once."
     },
@@ -579,7 +571,7 @@
     "currency": "USD",
     "purpose": "Apple Watch Series 10, 45mm GPS",
     "decision": {
-      "fileId": "UF-0005-6303b3",
+      "fileId": "UF-0005-48ea31",
       "merchantId": "M-F04-northgate",
       "decision": "decline",
       "score": 401,
@@ -613,13 +605,13 @@
       "escalation": null,
       "amountMinor": 23900,
       "expectedLossMinor": 7039,
-      "latencyMs": 7,
+      "latencyMs": 5,
       "versions": {
         "scorecard": "scorecard-v2",
         "checks": "checks-v1",
         "pricing": "pricing-v1"
       },
-      "issuedAt": "2026-08-16T03:45:24.879Z",
+      "issuedAt": "2026-08-16T03:56:07.969Z",
       "served": "live"
     },
     "timeline": [
@@ -673,7 +665,7 @@
         }
       },
       {
-        "atMs": 2,
+        "atMs": 1,
         "finding": {
           "checkId": "P1.registration",
           "pillar": 1,
@@ -706,7 +698,7 @@
         }
       },
       {
-        "atMs": 3,
+        "atMs": 2,
         "finding": {
           "checkId": "P1.consent_gated",
           "pillar": 1,
@@ -720,7 +712,7 @@
         }
       },
       {
-        "atMs": 3,
+        "atMs": 2,
         "finding": {
           "checkId": "P4.registry",
           "pillar": 4,
@@ -734,7 +726,7 @@
         }
       },
       {
-        "atMs": 4,
+        "atMs": 3,
         "finding": {
           "checkId": "P5.price_plausible",
           "pillar": 5,
@@ -751,7 +743,7 @@
         }
       },
       {
-        "atMs": 4,
+        "atMs": 3,
         "finding": {
           "checkId": "P5.category_risk",
           "pillar": 5,
@@ -765,7 +757,7 @@
         }
       },
       {
-        "atMs": 5,
+        "atMs": 4,
         "finding": {
           "checkId": "P1.consistency",
           "pillar": 1,
@@ -782,7 +774,7 @@
         }
       },
       {
-        "atMs": 5,
+        "atMs": 4,
         "finding": {
           "checkId": "P3.variance",
           "pillar": 3,
@@ -798,7 +790,7 @@
         }
       },
       {
-        "atMs": 6,
+        "atMs": 4,
         "finding": {
           "checkId": "P3.scarcity",
           "pillar": 3,
@@ -814,7 +806,7 @@
         }
       }
     ],
-    "totalLatencyMs": 7
+    "totalLatencyMs": 5
   },
   "ledger": null
 }

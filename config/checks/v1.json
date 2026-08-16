@@ -475,7 +475,7 @@
     {
       "code": "NW-01",
       "pillar": 4,
-      "points": 70,
+      "points": 85,
       "gate": false,
       "modes": [
         "cold",
@@ -515,7 +515,7 @@
     {
       "code": "NW-04",
       "pillar": 4,
-      "points": 80,
+      "points": 120,
       "gate": false,
       "modes": [
         "cold",
@@ -524,7 +524,7 @@
       "taxonomy": [
         "F05"
       ],
-      "text": "The guarantee fund has previously paid out against this merchant."
+      "text": "The guarantee fund has previously paid out against this merchant. A realized loss is the strongest evidence a file can hold: it is an outcome rather than a proxy for one."
     },
     {
       "code": "NW-05",

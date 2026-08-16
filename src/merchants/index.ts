@@ -72,6 +72,7 @@ export function registryFor(persona: Persona): RegistryRecord {
     priorFiles: n.prior_files,
     disputeRatio: n.dispute_ratio,
     priorPayouts: n.prior_payouts,
+    attestationContradicted: 0,
     negativeFile: n.negative_file,
     notice: n.negative_file
       ? { sent: true, at: '2026-07-02T00:00:00Z', codes: ['NW-01'] }

@@ -126,6 +126,13 @@ export interface RegistryRecord {
   disputeRatio: number | null;
   priorPayouts: number;
   negativeFile: boolean;
+  /**
+   * Times the merchant's own attestation was contradicted by the carrier and
+   * the buyer together. Pillar 6 reads this: it is an OUTCOME rather than a
+   * proxy for one, and Pillar 6 modifies the total rather than sitting inside
+   * a pillar, so it is not capped by Pillar 4's 15% weight.
+   */
+  attestationContradicted: number;
   /** A negative file is a serious thing to hold, so it carries obligations. */
   notice: { sent: boolean; at: string | null; codes: string[] };
   appeal: { open: boolean; merchantResponse: string | null };

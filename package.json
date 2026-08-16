@@ -12,6 +12,7 @@
     "gauntlet": "tsx scripts/gauntlet.ts",
     "eval": "tsx scripts/eval.ts",
     "eval:gate": "tsx scripts/eval-gate.ts",
+    "loop": "tsx scripts/loop.ts",
     "warm": "tsx scripts/warm-cache.ts",
     "rebuild": "tsx scripts/rebuild-projections.ts",
     "test": "vitest run",

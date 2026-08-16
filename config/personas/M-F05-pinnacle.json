@@ -10,13 +10,13 @@
   "evidence_anchor": "Experian's open liability question and the APP-fraud reimbursement gap (EVIDENCE.md section 5)",
   "display": {
     "name": "Pinnacle Electronics Wholesale",
-    "blurb": "Takes the money and never ships. Scores well, clears, and the fund pays the buyer. The priced miss."
+    "blurb": "Takes the money and never ships. Nothing on the storefront is wrong: this is the merchant that clears cleanly and then simply does not deliver. The priced miss."
   },
   "identity": {
     "legal_name": "Pinnacle Electronics Wholesale Inc",
     "display_name": "Pinnacle Electronics Wholesale",
     "domain": "pinnacle-ew.com",
-    "domain_age_days": 980,
+    "domain_age_days": 2190,
     "tls": {
       "valid": true,
       "issuer": "DigiCert TLS RSA SHA256 2020 CA1",
@@ -68,8 +68,8 @@
       "currency": "USD",
       "stock": "in_stock",
       "delivery_days": 6,
-      "market_comparable": 1560.0,
-      "description": "Refurbished to grade A, 32GB RAM, 1TB NVMe. Twelve month warranty through our service partner."
+      "market_comparable": 1499.0,
+      "description": "ThinkPad X1 Carbon Gen 12, 14 inch. Intel Core Ultra 7, 32GB LPDDR5X, 1TB NVMe SSD, 1920x1200 IPS display. New, sealed, full manufacturer warranty. Ships from our Nevada warehouse."
     }
   ],
   "policies": {
