@@ -27,7 +27,7 @@ Everything below was run, not just written. Numbers are from the committed artif
 | Scorecard purity and replay | 50 tests passing | `npm test` |
 | 18-cell gauntlet | **12 caught, 5 escalated, 1 paid out. Zero cleared silently** | `config/runs/hero.json` |
 | Attacks-on-us panel, F19 to F23 | Rendering, each against its control | `/board` |
-| Eval over 70 labeled merchants | **Zero fraud missed. Gate passes on all 18 classes** | `config/runs/eval.json` |
+| Eval over 70 labeled merchants | **Nobody left out of pocket (46/49 stopped pre-money, 3 F05 made whole). Gate passes on all 18 classes (on resolution)** | `config/runs/eval.json` |
 | Tier thresholds | **Derived: 902 / 800 / 725**, replacing 900 / 700 / 550 | `config/scorecards/v2.json` |
 | Double-entry ledger | Reconciles, trial balance zero, run fails if not | `config/runs/ledger.json` |
 | Fulfillment oracle | Real state transitions, three independent sources | `npm test` |
@@ -35,7 +35,7 @@ Everything below was run, not just written. Numbers are from the committed artif
 | MCP server | Verified end to end against a running server | `/api/mcp` |
 | Packaged agent skill | Written | `skill/SKILL.md` |
 | Arena with all four controls | Window, rate limit, filter, human gate | `/arena` |
-| Self-improving loop | **Closes: 970 clear, paid out, then 605 decline** | `npm run loop` |
+| Self-improving loop | **Closes: 970 clear, paid out, then 685 decline** (deterministic: scoped to the one payout the run produces) | `npm run loop` |
 | Adjudication card | Rendering for every referred file | `/adjudicate` |
 | Human promotion gate, on screen | Working, refuses unauthorized callers with 401 | `/promote` |
 | CI | Typecheck, boundaries, tests, credential-free build | `.github/workflows/ci.yml` |
@@ -103,7 +103,7 @@ My first implementation routed *any* source disagreement to a human. That hands 
 
 ### 8. The self-improving loop uses Pillar 6, not Pillar 4
 
-Wiring the loop found something structural: Pillar 4 is 15% of the scale and its deductions floor at the pillar, so registry evidence alone can never cost more than 150 points no matter how large `NW-04` gets. That floor is correct. The right mechanism was `MN-03`, which was defined in the manifest and never wired: the delivered outcome contradicting the merchant's own attestation, in Pillar 6, which modifies the total. That plus the dispute ratio moving is what takes the second encounter from 970 to 605.
+Wiring the loop found something structural: Pillar 4 is 15% of the scale and its deductions floor at the pillar, so registry evidence alone can never cost more than 150 points no matter how large `NW-04` gets. That floor is correct. The right mechanism was `MN-03`, which was defined in the manifest and never wired: the delivered outcome contradicting the merchant's own attestation, in Pillar 6, which modifies the total. That plus the dispute ratio moving is what takes the second encounter from 970 to 685. (The loop now scopes the delta to the single payout it produces, so that number is deterministic rather than a function of how many payouts have accumulated in the shared log.)
 
 ### 9. The F05 persona was rewritten so it clears
 

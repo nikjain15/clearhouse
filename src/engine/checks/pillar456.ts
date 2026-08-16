@@ -194,7 +194,13 @@ export const p5Velocity: Check = {
   deterministic: true,
   async run(ctx) {
     const r = ctx.registry;
-    // Velocity here is prior files in a short window against a thin merchant.
+    // Velocity here is a specific signal: several files opened against an
+    // endpoint that has NO settled history behind them. A non-null dispute
+    // ratio means settled history exists, so the velocity concern does not
+    // apply and NW-03 handles the dispute-rate question instead. This is why a
+    // dispute ratio suppresses TX-04 rather than a bug: the two checks cover
+    // disjoint cases (no history vs. bad history). The evidence string below
+    // states the "no settled history" precondition explicitly.
     if (r.priorFiles < 3 || r.disputeRatio !== null) return [];
     return [
       mkFinding('TX-04', {

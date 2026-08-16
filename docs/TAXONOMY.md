@@ -37,6 +37,8 @@ Trust is two-sided, and a system that underwrites only merchants has underwritte
 | F22 | Registry false flag: submitting attacks or evidence designed to tank an honest competitor's score | Yes | A negative file is a weapon if anyone can load it | Human promotion of arena cases, Pillar 4 notice and appeal, no fingerprint-alone gate |
 | F23 | Denial of underwriting: merchant rate-limits, blocks, or stonewalls the examination | Yes | Refusing the exam is a strategy, not an error state | Non-cooperation scores as absent evidence, never as benefit of the doubt |
 
+**Identified extension, not yet a numbered live entry — the output path (candidate F24).** F21 defends the input to the underwriter. The symmetric attack is on the *output*: the MCP tool returns `reasons[].text` and an `escalation.question` that the buying agent reads and acts on. Today the tool returns only the *templated* reason text, so raw merchant strings (which stay in `evidence`) never reach the buyer's agent — the one merchant-influenced field is the model-authored `{{detail}}` variable, which is schema-constrained and produced under the untrusted-content envelope. The residual risk is a merchant steering the extraction model into emitting an instruction inside `detail` that is then echoed downstream. It is narrow but real, and it is a distinct trust boundary from F21 (poisoning the advice we hand the buyer, rather than our own scoring). It gets a permanent ID once we defend it with an output-side check; until then it is documented here rather than claimed as covered.
+
 ## Ecosystem-level (pitch, not demo)
 
 | # | Attack | Note |

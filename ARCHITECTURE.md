@@ -267,7 +267,7 @@ interface Scorecard {
 }
 ```
 
-**Cold scores are not renormalized.** In cold mode Pillar 3's available points drop to the cold-reachable subset, the pillar scores against the full weight anyway, and roughly a fifth of the scale is unearned by construction. The function does not scale it back up. That is why Clear is unreachable cold, and it is deliberate: renormalizing would make a cold file look like a bonded one and erase the distinction the whole two-mode design exists to draw.
+**Cold scores are not renormalized.** In cold mode each pillar's available points drop to the cold-reachable subset, the pillars score against the full weight anyway, and roughly a fifth of the scale (200 of 1000 points) is unearned by construction. That 200 splits across two pillars, not one: 140 in Pillar 3 (the stress exam a non-applicant never sits) and 60 in Pillar 1 (consent-gated KYB — beneficial ownership, settlement-account validation, licensing — that a non-applicant never supplies). The function does not scale it back up. That is why Clear is unreachable cold, and it is deliberate: renormalizing would make a cold file look like a bonded one and erase the distinction the whole two-mode design exists to draw.
 
 **Hard gates run before scoring and produce a decline regardless of points**: payment redirect, sanctions hit, `BX-05` failure, data over-collection beyond protocol scope. Fingerprint match to a terminated merchant is deliberately not a gate. It raises the tier and demands corroboration from another pillar.
 

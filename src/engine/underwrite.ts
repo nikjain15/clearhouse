@@ -104,6 +104,18 @@ export function holdoutFromEnv(): Array<{ id: string; claim: string; text: strin
   }
 }
 
+/**
+ * A zeroed exposure state.
+ *
+ * NOTE: callers currently pass this on every underwrite, so the per-merchant and
+ * per-attack-class caps behave as SINGLE-TRANSACTION size limits, not cumulative
+ * caps — nothing threads real outstanding exposure back in across files. The cap
+ * math in pricing.ts is correct and ready for a real accumulator (a per-merchant
+ * and per-class outstanding tracker); wiring that tracker is the remaining work
+ * before the "one technique draining the fund through many merchants" defense is
+ * actually in force. Until then, do not claim the aggregate-class cap binds
+ * across files.
+ */
 export function emptyExposure(): ExposureState {
   return {
     perMerchantOutstandingMinor: 0,
@@ -245,6 +257,7 @@ export async function underwrite(
       thinFile: input.registry.priorFiles === 0,
       reasons,
       contradictions,
+      evidenceIncomplete: errors.length > 0,
     },
     pricingVersion,
   );

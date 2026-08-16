@@ -27,7 +27,7 @@ import {
   candidateFromPayout,
   promoteCase,
   publishVersion,
-  registryProjection,
+  type RegistryDelta,
 } from '../src/evalh/loop';
 import { runEval } from '../src/evalh/harness';
 
@@ -192,8 +192,21 @@ async function main() {
   // 5. Re-run the exact same attack against the updated file.
   // -------------------------------------------------------------------------
   console.log(C.bold('\n5. The same attack, again'));
-  const projection = await registryProjection(rt.store);
-  const updatedRegistry = applyRegistryDelta(registryFor(persona), projection.get(persona.id));
+  // The second encounter must reflect exactly the ONE payout this run just
+  // demonstrated, not the running total of every payout ever appended to the
+  // shared log. Reading the global projection here made the demonstrated score
+  // drift downward on every re-run (one payout -> 685, two -> 605, ...), so the
+  // published number was a function of how many times the loop had been run.
+  // Scope the delta to this run's single claim and the result is deterministic.
+  const delta: RegistryDelta = {
+    merchantId: persona.id,
+    priorPayouts: 1,
+    totalPaidMinor: settled.claim!.payoutMinor,
+    negativeFile: true,
+    noticeCodes: ['NW-04', 'MN-03'],
+    attestationContradicted: 1,
+  };
+  const updatedRegistry = applyRegistryDelta(registryFor(persona), delta);
   console.log(
     C.dim(
       `   registry now holds ${updatedRegistry.priorPayouts} payout(s) against this merchant, ` +

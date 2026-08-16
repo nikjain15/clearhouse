@@ -11,12 +11,23 @@
  * so costs nothing.
  */
 
-import { randomUUID } from 'node:crypto';
+import { createHash, timingSafeEqual } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { getStore } from '../../../../src/store';
 import { nextProvisionalId } from '../../../../src/arena/submit';
 
 export const dynamic = 'force-dynamic';
+
+/**
+ * Constant-time token comparison. `!==` short-circuits on the first differing
+ * byte and leaks the token's length and prefix through timing. Hashing both to
+ * a fixed 32 bytes gives timingSafeEqual equal-length inputs and leaks neither.
+ */
+function tokenMatches(provided: string, expected: string): boolean {
+  const a = createHash('sha256').update(provided).digest();
+  const b = createHash('sha256').update(expected).digest();
+  return timingSafeEqual(a, b);
+}
 
 export async function POST(req: Request) {
   const expected = process.env.CLEARHOUSE_PROMOTION_TOKEN;
@@ -28,7 +39,7 @@ export async function POST(req: Request) {
   }
 
   const provided = req.headers.get('x-clearhouse-promotion-token') ?? '';
-  if (provided !== expected) {
+  if (!tokenMatches(provided, expected)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
@@ -62,7 +73,12 @@ export async function POST(req: Request) {
 
   await store.append([
     {
-      eventId: randomUUID(),
+      // Deterministic, so a case can be promoted at most once. Two concurrent
+      // authorized POSTs for the same case both pass the read-check above (it is
+      // not atomic), but they now produce the SAME eventId, and the store
+      // dedupes on eventId — the second append is a no-op instead of a second
+      // promotion.
+      eventId: `case.promoted:${body.caseId}`,
       type: 'case.promoted',
       streamId: 'eval',
       payload: { caseId: body.caseId, promotedBy: body.promotedBy || 'human', taxonomy },

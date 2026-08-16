@@ -168,10 +168,24 @@ export class ModelCallError extends Error {
  */
 export class ReplayOnlyModelClient implements ModelClient {
   readonly available = false;
-  constructor(private store: EventStore, private model = 'replay') {}
+  private checksModel: string;
+  private adjudicationModel: string;
+
+  constructor(
+    private store: EventStore,
+    opts?: { checksModel?: string; adjudicationModel?: string },
+  ) {
+    this.checksModel = opts?.checksModel ?? process.env.CLEARHOUSE_MODEL_CHECKS ?? 'claude-sonnet-5';
+    this.adjudicationModel =
+      opts?.adjudicationModel ?? process.env.CLEARHOUSE_MODEL_ADJUDICATION ?? 'claude-opus-5';
+  }
 
   async judge<T>(req: JudgeRequest<T>): Promise<Judged<T>> {
-    const hash = hashRequest(req, process.env.CLEARHOUSE_MODEL_CHECKS ?? 'claude-sonnet-5');
+    // Must select the model exactly as AnthropicModelClient does, or an
+    // adjudication-tier entry (cached under the adjudication model) is
+    // unreachable and replay throws on a hit it should have found.
+    const model = req.tier === 'adjudication' ? this.adjudicationModel : this.checksModel;
+    const hash = hashRequest(req, model);
     const cached = await this.store.cacheGet(hash);
     if (!cached) throw new ModelUnavailableError(`No cached result for ${req.checkId}.`, hash);
     return { value: cached.response as T, latencyMs: 0, served: 'cache', model: cached.model, hash };

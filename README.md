@@ -124,15 +124,14 @@ Numbers from the committed artifacts in `config/runs/`, not from intent.
 | | |
 |---|---|
 | 18-cell gauntlet | 12 caught, 5 escalated, 1 paid out. **Zero cleared silently** |
-| Labeled set | 70 merchants. **Zero fraud missed** |
-| Per-class recall floor | **Passes on all 18 attack classes** |
-| Tier bands | Derived at **902 / 800 / 725**, replacing the 900 / 700 / 550 placeholders |
-| Latency per file | 2 to 6 s live, 9 s worst. Target is 30 s |
-| Cached full board | 0.1 s, which is the demo-safe path |
+| Labeled set | 70 merchants. **Nobody left out of pocket**: 46/49 fraud stopped before money moved, and the 3 post-purchase (F05) cleared and were made whole by the fund. Score recall is 46/49, not 49/49 |
+| Per-class recall floor | **Passes on all 18 attack classes** (gated on resolution; F05 is 0/3 on score recall and shown as such) |
+| Tier bands | Derived at **902 / 800 / 725**, replacing the 900 / 700 / 550 placeholders. Each boundary is an output of this labeled set and moves if the set moves |
+| Latency per file | ~1–5 ms per cell in the committed cache-served run. Live latency (2–6 s typical, 9 s worst) was measured separately and is not in the committed artifact. Target is 30 s |
 | Guarantee fund | Trial balance **reconciles**. The run fails if it does not |
-| Self-improving loop | 970 clear, paid out, then **605 decline** on the same attack |
+| Self-improving loop | 970 clear, paid out, then **685 decline** on the same attack, once one payout is on file |
 
-The escalation rate is 32.9%, driven by thin-file cold merchants against a $25 default tolerance. That is the treatment [docs/UNDERWRITING.md](docs/UNDERWRITING.md) section 6 specifies, and the tolerance is the dial.
+The escalation rate across the 70-merchant labeled set is 32.9% (the 18-cell board's own rate is 27.8%), driven by thin-file cold merchants against a $25 default tolerance. That is the treatment [docs/UNDERWRITING.md](docs/UNDERWRITING.md) section 6 specifies, and the tolerance is the dial.
 
 ---
 
@@ -145,6 +144,7 @@ Stated here for the same reason they are stated on stage. Saying so costs nothin
 - **Pillar 4 is 15% of the score and runs on seeded registry data** today.
 - The labeled persona set validates **ranking, not absolute probability.** 40 to 60 self-authored personas can demonstrate separation. They cannot calibrate a price. `PD(score)` is a stated prior from published card-industry fraud rates by band, not a curve fitted to our own eval set.
 - **No real UCP or ACP network integration.** The internal API is ACP-shaped.
+- **Cold underwriting runs on scripted persona data, not live merchant surfaces.** The tool underwrites the storefronts in its registry; it does not fetch an arbitrary merchant's website. Ask it about a merchant it holds no file for and it returns `refer` with `unavailable`, never a fabricated score. Production would fetch the public surfaces directly; the personas stand in for that evidence pipeline here.
 
 ---
 

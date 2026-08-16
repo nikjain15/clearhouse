@@ -12,7 +12,7 @@
  */
 
 import type { Decision } from '../contracts/types';
-import { loadEvalPersonas, merchantFor, registryFor, type Persona } from '../merchants';
+import { loadPersonas, merchantFor, registryFor, type Persona } from '../merchants';
 import { underwrite } from '../engine/underwrite';
 import { getRuntime, measureVarianceFloor } from '../runtime/context';
 
@@ -103,13 +103,26 @@ export function resolveMerchant(input: string): Persona | undefined {
     .replace(/\/.*$/, '')
     .replace(/^www\./, '');
 
-  const personas = loadEvalPersonas();
-  return (
+  // Only the public registry (config/personas). The labeled eval set
+  // (config/eval) is graded material and must never be resolvable through the
+  // public tool, or a caller could enumerate and probe it.
+  const personas = loadPersonas();
+
+  const exact =
     personas.find((p) => p.id.toLowerCase() === needle) ??
     personas.find((p) => p.identity.domain.toLowerCase() === needle) ??
-    personas.find((p) => p.display.name.toLowerCase() === needle) ??
-    personas.find((p) => p.identity.domain.toLowerCase().includes(needle) && needle.length > 4)
-  );
+    personas.find((p) => p.display.name.toLowerCase() === needle);
+  if (exact) return exact;
+
+  // Substring fallback, but only when it is UNAMBIGUOUS. Two personas matching
+  // the same needle used to resolve to whichever sorted first, silently handing
+  // back a merchant the caller did not ask about. An ambiguous needle is "no
+  // file", not a guess.
+  if (needle.length > 4) {
+    const partial = personas.filter((p) => p.identity.domain.toLowerCase().includes(needle));
+    if (partial.length === 1) return partial[0];
+  }
+  return undefined;
 }
 
 function guidanceFor(d: Decision): string {
