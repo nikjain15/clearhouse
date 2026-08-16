@@ -103,8 +103,33 @@ export interface CheckContext {
   amountMinor: number;
   currency: string;
   purpose: string;
+  /**
+   * The drift noise floor for the current model version, measured against a
+   * known-honest control merchant run in the same batch. Only variance above
+   * this is charged to a merchant. Without the control we would be scoring our
+   * own nondeterminism and calling it merchant risk.
+   */
+  varianceFloor: number;
+  /** Prior registry state for Pillar 4. Seeded data today, and we say so. */
+  registry: RegistryRecord;
   /** Emit a finding the moment it is known, so the board fills as it goes. */
   emit(finding: Finding): void;
+}
+
+export interface RegistryRecord {
+  merchantId: string;
+  fingerprint: string;
+  /** Similarity to a previously terminated merchant. Evidence, never a verdict. */
+  terminatedMatch: number;
+  terminatedMatchTo: string | null;
+  priorFiles: number;
+  disputeRatio: number | null;
+  priorPayouts: number;
+  negativeFile: boolean;
+  /** A negative file is a serious thing to hold, so it carries obligations. */
+  notice: { sent: boolean; at: string | null; codes: string[] };
+  appeal: { open: boolean; merchantResponse: string | null };
+  expiresAt: string | null;
 }
 
 /**

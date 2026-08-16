@@ -1,0 +1,98 @@
+@import 'tailwindcss';
+
+/*
+ * Clearhouse visual language.
+ *
+ * The product is a financial instrument, so the surface reads like one:
+ * dense, monospaced where it carries evidence, and colored only where color
+ * carries meaning. Tier colors are the only saturated hues on the page, so a
+ * judge scanning the board reads outcome before they read anything else.
+ */
+
+@theme {
+  --color-ink-950: #08090b;
+  --color-ink-900: #0c0e11;
+  --color-ink-850: #111419;
+  --color-ink-800: #161a20;
+  --color-ink-700: #1e242c;
+  --color-ink-600: #2a323c;
+  --color-ink-500: #3d4753;
+  --color-ink-400: #5c6875;
+  --color-ink-300: #8b96a3;
+  --color-ink-200: #b9c2cc;
+  --color-ink-100: #e2e7ec;
+
+  /* Tier palette. These four are load-bearing and never decorative. */
+  --color-clear-500: #2fbf71;
+  --color-clear-900: #0d2c1d;
+  --color-conditional-500: #d9a441;
+  --color-conditional-900: #33260c;
+  --color-refer-500: #4c8dd9;
+  --color-refer-900: #0f2440;
+  --color-decline-500: #d9534f;
+  --color-decline-900: #3a1210;
+
+  --color-bonded-500: #a97bd6;
+  --color-cold-500: #6b7885;
+
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --font-sans: ui-sans-serif, -apple-system, 'Inter', system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reason codes and money are always monospaced, so columns align by default. */
+.code {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+  letter-spacing: -0.01em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes finding-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.finding-in {
+  animation: finding-in 220ms ease-out both;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+.pending-pulse {
+  animation: pulse-soft 1.4s ease-in-out infinite;
+}
+
+::selection {
+  background: var(--color-refer-500);
+  color: white;
+}
+
+/* Scrollbars that do not shout. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-600) transparent;
+}
