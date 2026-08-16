@@ -11,8 +11,10 @@
  * right time. PLATFORM.md section 2.
  */
 
-import type { Decision } from '../contracts/types';
+import type { Decision, MerchantSurface } from '../contracts/types';
+import type { RegistryRecord } from '../contracts/ports';
 import { loadPersonas, merchantFor, registryFor, type Persona } from '../merchants';
+import { coldIntakeFromUrl, liveFetchEnabled, looksLikeUrl } from '../merchants/coldIntake';
 import { underwrite } from '../engine/underwrite';
 import { getRuntime, measureVarianceFloor } from '../runtime/context';
 
@@ -145,10 +147,33 @@ function guidanceFor(d: Decision): string {
 export async function runTool(input: ToolInput): Promise<ToolResponse> {
   const currency = input.currency ?? 'USD';
   const persona = resolveMerchant(input.merchant);
+  const rt = getRuntime();
+
+  // The merchant surface comes from the registry, or from a guarded live fetch
+  // of an unknown URL when CLEARHOUSE_LIVE_FETCH is on. A fetch failure (blocked
+  // address, timeout, unparseable page) falls through to the unavailable
+  // response rather than fabricating a score.
+  let merchant: MerchantSurface | null = persona ? merchantFor(persona, rt.canaries) : null;
+  let registry: RegistryRecord | null = persona ? registryFor(persona) : null;
+
+  if (!merchant && liveFetchEnabled() && looksLikeUrl(input.merchant)) {
+    try {
+      const intake = await coldIntakeFromUrl(input.merchant, rt.model);
+      if (intake) {
+        merchant = intake.surface;
+        registry = intake.registry;
+      }
+    } catch {
+      // Leave merchant null; the unavailable response below handles it.
+    }
+  }
 
   // No fabricated score for a merchant whose surfaces we never read. An
   // underwriter that invents a file is the thing we exist to replace.
-  if (!persona) {
+  if (!merchant || !registry) {
+    const fetchNote = liveFetchEnabled()
+      ? 'Live fetch is enabled but this input could not be fetched and read (not a reachable public URL, or the page could not be parsed).'
+      : 'This deployment does not fetch arbitrary merchant endpoints (CLEARHOUSE_LIVE_FETCH is off).';
     return {
       decision: 'refer',
       score: 0,
@@ -157,7 +182,7 @@ export async function runTool(input: ToolInput): Promise<ToolResponse> {
       reasons: [
         {
           code: 'SYS-01',
-          text: `Clearhouse holds no file for "${input.merchant}" and this deployment cannot reach arbitrary merchant endpoints, so no score was produced. Absence of a file is not a pass.`,
+          text: `Clearhouse holds no file for "${input.merchant}" and produced no score. ${fetchNote} Absence of a file is not a pass.`,
         },
       ],
       guidance:
@@ -173,24 +198,20 @@ export async function runTool(input: ToolInput): Promise<ToolResponse> {
       file_id: 'none',
       latency_ms: 0,
       versions: { scorecard: 'n/a', checks: 'n/a', pricing: 'n/a' },
-      unavailable: {
-        reason:
-          'This hackathon build underwrites the storefronts in its registry. Production would fetch the merchant surfaces directly.',
-      },
+      unavailable: { reason: fetchNote },
     };
   }
 
-  const rt = getRuntime();
   const varianceFloor = await measureVarianceFloor(rt);
 
   const result = await underwrite(
     {
-      merchant: merchantFor(persona, rt.canaries),
+      merchant,
       amountMinor: Math.round(input.amount * 100),
       currency,
       purpose: input.buying,
       toleranceMinor: input.tolerance !== undefined ? Math.round(input.tolerance * 100) : null,
-      registry: registryFor(persona),
+      registry,
       canaries: rt.canaries,
       holdout: rt.holdout,
       varianceFloor,

@@ -144,7 +144,7 @@ Stated here for the same reason they are stated on stage. Saying so costs nothin
 - **Pillar 4 is 15% of the score and runs on seeded registry data** today.
 - The labeled persona set validates **ranking, not absolute probability.** 40 to 60 self-authored personas can demonstrate separation. They cannot calibrate a price. `PD(score)` is a stated prior from published card-industry fraud rates by band, not a curve fitted to our own eval set.
 - **No real UCP or ACP network integration.** The internal API is ACP-shaped.
-- **Cold underwriting runs on scripted persona data, not live merchant surfaces.** The tool underwrites the storefronts in its registry; it does not fetch an arbitrary merchant's website. Ask it about a merchant it holds no file for and it returns `refer` with `unavailable`, never a fabricated score. Production would fetch the public surfaces directly; the personas stand in for that evidence pipeline here.
+- **Cold underwriting of an unknown merchant is behind a flag, and off by default.** The demo path underwrites the storefronts in its registry; ask about a merchant it holds no file for and it returns `refer` with `unavailable`, never a fabricated score. Set `CLEARHOUSE_LIVE_FETCH=1` and it will fetch an unknown merchant's public page (under SSRF, size and time guards) and underwrite it cold via the untrusted-content envelope. Even then it establishes what the merchant *says*, not who they *are*: identity verification (registration, sanctions, domain age) needs external data sources this build does not call, so an unverified merchant scores low cold by construction — which is the correct answer.
 
 ---
 
