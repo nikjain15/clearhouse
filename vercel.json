@@ -1,12 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs",
-  "buildCommand": "next build",
-  "installCommand": "npm install",
-  "functions": {
-    "app/api/underwrite/route.ts": { "maxDuration": 60 },
-    "app/api/gauntlet/route.ts": { "maxDuration": 60 },
-    "app/api/mcp/route.ts": { "maxDuration": 60 },
-    "app/api/arena/submit/route.ts": { "maxDuration": 60 }
-  }
+  "framework": "nextjs"
 }

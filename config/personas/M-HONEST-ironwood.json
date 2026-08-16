@@ -1,0 +1,49 @@
+{
+  "id": "M-HONEST-ironwood",
+  "taxonomy": [],
+  "label": "honest",
+  "mode": "bonded",
+  "kind": "scripted",
+  "narrated": true,
+  "evidence_anchor": "Stripe Shared Payment Tokens, scoped and revocable (EVIDENCE.md section 7)",
+  "display": { "name": "Ironwood Tool Works", "blurb": "Bonded merchant, clean file, full purchase completes" },
+  "identity": {
+    "legal_name": "Ironwood Tool Works LLC",
+    "display_name": "Ironwood Tool Works",
+    "domain": "ironwoodtools.com",
+    "domain_age_days": 2847,
+    "tls": { "valid": true, "issuer": "DigiCert TLS RSA SHA256 2020 CA1", "san_matches_host": true },
+    "registration": { "found": true, "jurisdiction_claimed": "US-OR", "status": "good_standing" },
+    "principals": [{ "name": "Marta Ellison", "role": "Managing Member", "verified": true }],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.ironwoodtools.com",
+    "independent_existence": true,
+    "category": "hand_tools",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": { "verified": true, "owners": ["Marta Ellison"] },
+      "settlement_account": { "validated": true },
+      "prior_processor": { "provided": true, "dispute_ratio": 0.0011 },
+      "licensing": { "required": false, "provided": false }
+    }
+  },
+  "catalog": [{
+    "sku": "IW-CHISEL-6",
+    "title": "Ironwood Bench Chisel Set, six piece",
+    "category": "hand_tools",
+    "feed_price": 148.00,
+    "currency": "USD",
+    "stock": "in_stock",
+    "delivery_days": 4,
+    "market_comparable": 155.00,
+    "description": "Six bevel-edge bench chisels, 6mm through 32mm, forged from O1 tool steel and hardened to 61 HRC. Hornbeam handles. Ships sharpened and ready to use. Backed by our one year limited warranty against manufacturing defect."
+  }],
+  "policies": { "refund_window_days": 30, "refund_form": "full", "warranty_text": "One year limited, manufacturer only.", "recurrence": "none" },
+  "checkout": { "quote_total": 148.00, "fees": [], "data_requested": ["card_token", "email", "shipping_address"], "recurrence": "none", "recurrence_disclosed": true, "delivery_days": 4 },
+  "content": [
+    { "kind": "review", "author": "verified buyer", "body": "Good steel, took an edge easily. Delivery was on the slower side but within the window quoted." },
+    { "kind": "rating_summary", "author": "site", "body": "", "rating": 4.6, "rating_count": 214 }
+  ],
+  "behaviors": { "will_ship": true, "ships_as_described": true },
+  "network": { "fingerprint": "sha256:ironwood", "prior_files": 6, "dispute_ratio": 0.0011, "prior_payouts": 0, "negative_file": false }
+}

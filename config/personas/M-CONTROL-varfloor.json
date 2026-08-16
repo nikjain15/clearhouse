@@ -1,0 +1,34 @@
+{
+  "id": "M-CONTROL-varfloor",
+  "taxonomy": [],
+  "label": "honest",
+  "mode": "bonded",
+  "kind": "scripted",
+  "display": { "name": "Kestrel Control Merchant", "blurb": "Known-honest control. Establishes the drift noise floor for the current model version so we do not score our own nondeterminism." },
+  "identity": {
+    "legal_name": "Kestrel Reference Supply Inc",
+    "display_name": "Kestrel Control Merchant",
+    "domain": "kestrelreference.com",
+    "domain_age_days": 3600,
+    "tls": { "valid": true, "issuer": "DigiCert", "san_matches_host": true },
+    "registration": { "found": true, "jurisdiction_claimed": "US-DE", "status": "good_standing" },
+    "principals": [{ "name": "Control Principal", "role": "Officer", "verified": true }],
+    "sanctions_hits": [],
+    "checkout_host": "checkout.kestrelreference.com",
+    "independent_existence": true,
+    "category": "office_supplies",
+    "adverse_media": [],
+    "consent_gated": {
+      "beneficial_ownership": { "verified": true, "owners": ["Control Principal"] },
+      "settlement_account": { "validated": true },
+      "prior_processor": { "provided": true, "dispute_ratio": 0.0008 },
+      "licensing": { "required": false, "provided": false }
+    }
+  },
+  "catalog": [{ "sku": "KC-REF-1", "title": "Reference Item", "category": "office_supplies", "feed_price": 100.00, "currency": "USD", "stock": "in_stock", "delivery_days": 5, "market_comparable": 100.00, "description": "A reference item held constant across model versions." }],
+  "policies": { "refund_window_days": 30, "refund_form": "full", "warranty_text": "One year limited.", "recurrence": "none" },
+  "checkout": { "quote_total": 100.00, "fees": [], "data_requested": ["card_token", "email", "shipping_address"], "recurrence": "none", "recurrence_disclosed": true, "delivery_days": 5 },
+  "content": [],
+  "behaviors": { "will_ship": true, "ships_as_described": true },
+  "network": { "fingerprint": "sha256:control", "prior_files": 12, "dispute_ratio": 0.0008, "prior_payouts": 0, "negative_file": false }
+}
