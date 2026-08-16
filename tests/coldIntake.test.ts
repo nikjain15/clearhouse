@@ -7,7 +7,7 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest';
-import { isPrivateIp, assertPublicUrl, UnsafeUrlError } from '../src/merchants/fetch';
+import { isPrivateIp, assertPublicUrl, safeFetch, UnsafeUrlError } from '../src/merchants/fetch';
 import { liveFetchEnabled, looksLikeUrl, coldIntakeFromUrl } from '../src/merchants/coldIntake';
 import type { ModelClient } from '../src/contracts/ports';
 
@@ -60,6 +60,10 @@ describe('assertPublicUrl', () => {
   it('accepts a public IP literal', async () => {
     const url = await assertPublicUrl('https://1.1.1.1/');
     expect(url.hostname).toBe('1.1.1.1');
+  });
+
+  it('safeFetch refuses a loopback target without connecting', async () => {
+    await expect(safeFetch('http://127.0.0.1:5432/')).rejects.toBeInstanceOf(UnsafeUrlError);
   });
 });
 

@@ -12,14 +12,18 @@
  *   - responses over a size cap, or that take longer than a timeout,
  *   - redirect chains, re-validating each hop against the same rules.
  *
- * Residual risk acknowledged: a DNS-rebinding attacker could resolve to a public
- * IP at check time and a private one at connect time. Fully closing that needs
- * IP pinning at the socket layer; this guard raises the bar to "not trivially
- * exploitable" and is off by default. Do not present it as airtight.
+ * DNS rebinding is closed at the socket layer: the actual connection uses a
+ * guarded `lookup` that re-checks every resolved address AT CONNECT TIME and
+ * refuses a private one, so a host that resolves public at check time and
+ * private at connect time is still rejected. The connection is pinned to the
+ * validated hostname (Host header + TLS SNI preserved).
  */
 
 import { lookup } from 'node:dns/promises';
+import { lookup as lookupCb, type LookupAddress } from 'node:dns';
 import { isIP } from 'node:net';
+import http from 'node:http';
+import https from 'node:https';
 
 export class UnsafeUrlError extends Error {
   constructor(message: string) {
@@ -125,6 +129,97 @@ export interface FetchResult {
   truncated: boolean;
 }
 
+/**
+ * A DNS lookup that refuses to hand a socket a private address. Passed as the
+ * `lookup` option to http(s).request, so the check happens at CONNECT time
+ * against the address actually being dialed — this is what closes DNS rebinding,
+ * where the pre-flight check and the connection would otherwise resolve
+ * separately.
+ */
+function guardedLookup(
+  hostname: string,
+  options: { all?: boolean; family?: number; hints?: number },
+  callback: (err: NodeJS.ErrnoException | null, address: string | LookupAddress[], family?: number) => void,
+): void {
+  lookupCb(hostname, options, (err, address, family) => {
+    if (err) return callback(err, address as unknown as string, family);
+    if (Array.isArray(address)) {
+      const safe = address.filter((a) => !isPrivateIp(a.address));
+      if (safe.length === 0) {
+        return callback(new UnsafeUrlError(`${hostname} resolves only to private/reserved addresses`), [], undefined);
+      }
+      return callback(null, safe, undefined);
+    }
+    if (isPrivateIp(address as string)) {
+      return callback(new UnsafeUrlError(`${hostname} resolved to a private/reserved address (${address})`), '', 0);
+    }
+    return callback(null, address as string, family);
+  });
+}
+
+interface OneShot {
+  status: number;
+  location?: string;
+  html: string;
+  truncated: boolean;
+}
+
+function requestOnce(url: URL, maxBytes: number, timeoutMs: number): Promise<OneShot> {
+  return new Promise<OneShot>((resolve, reject) => {
+    const lib = url.protocol === 'https:' ? https : http;
+    const req = lib.request(
+      url,
+      {
+        method: 'GET',
+        // Pin the connection target to a validated address at connect time.
+        lookup: guardedLookup as unknown as typeof lookupCb,
+        servername: url.protocol === 'https:' ? url.hostname : undefined,
+        headers: {
+          'user-agent': 'ClearhouseBot/0.1 (+cold-intake)',
+          accept: 'text/html,*/*',
+          host: url.host,
+        },
+      },
+      (res) => {
+        const status = res.statusCode ?? 0;
+        const location = res.headers.location;
+        if (status >= 300 && status < 400 && location) {
+          res.resume(); // drain
+          return resolve({ status, location, html: '', truncated: false });
+        }
+        let received = 0;
+        let truncated = false;
+        let settled = false;
+        const chunks: Buffer[] = [];
+        res.on('data', (c: Buffer) => {
+          if (settled) return;
+          received += c.length;
+          if (received > maxBytes) {
+            chunks.push(c.subarray(0, Math.max(0, maxBytes - (received - c.length))));
+            truncated = true;
+            settled = true;
+            req.destroy();
+            resolve({ status, html: Buffer.concat(chunks).toString('utf8'), truncated });
+            return;
+          }
+          chunks.push(c);
+        });
+        res.on('end', () => {
+          if (settled) return;
+          settled = true;
+          resolve({ status, html: Buffer.concat(chunks).toString('utf8'), truncated });
+        });
+        res.on('error', (e) => {
+          if (!settled) reject(e);
+        });
+      },
+    );
+    req.setTimeout(timeoutMs, () => req.destroy(new UnsafeUrlError('Request timed out')));
+    req.on('error', reject);
+    req.end();
+  });
+}
+
 /** Fetch a page under SSRF, size and time guards, re-validating each redirect. */
 export async function safeFetch(
   rawUrl: string,
@@ -134,51 +229,18 @@ export async function safeFetch(
   const timeoutMs = opts.timeoutMs ?? 5_000;
   const maxRedirects = opts.maxRedirects ?? 3;
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    let current = await assertPublicUrl(rawUrl);
-    let redirects = 0;
+  // Pre-flight scheme + literal-IP + resolve check. Belt to the socket-layer
+  // suspenders below; the guardedLookup is what actually enforces at connect.
+  let current = await assertPublicUrl(rawUrl);
+  let redirects = 0;
 
-    for (;;) {
-      const res = await fetch(current, {
-        redirect: 'manual',
-        signal: controller.signal,
-        headers: { 'user-agent': 'ClearhouseBot/0.1 (+cold-intake)', accept: 'text/html,*/*' },
-      });
-
-      if ([301, 302, 303, 307, 308].includes(res.status)) {
-        const loc = res.headers.get('location');
-        if (!loc) throw new UnsafeUrlError('Redirect without a Location header');
-        if (++redirects > maxRedirects) throw new UnsafeUrlError('Too many redirects');
-        current = await assertPublicUrl(new URL(loc, current).toString());
-        continue;
-      }
-
-      const reader = res.body?.getReader();
-      let received = 0;
-      let truncated = false;
-      const chunks: Uint8Array[] = [];
-      if (reader) {
-        for (;;) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          if (value) {
-            received += value.length;
-            if (received > maxBytes) {
-              chunks.push(value.slice(0, Math.max(0, maxBytes - (received - value.length))));
-              truncated = true;
-              await reader.cancel();
-              break;
-            }
-            chunks.push(value);
-          }
-        }
-      }
-      const html = Buffer.concat(chunks.map((c) => Buffer.from(c))).toString('utf8');
-      return { finalUrl: current.toString(), status: res.status, html, truncated };
+  for (;;) {
+    const res = await requestOnce(current, maxBytes, timeoutMs);
+    if (res.status >= 300 && res.status < 400 && res.location) {
+      if (++redirects > maxRedirects) throw new UnsafeUrlError('Too many redirects');
+      current = await assertPublicUrl(new URL(res.location, current).toString());
+      continue;
     }
-  } finally {
-    clearTimeout(timer);
+    return { finalUrl: current.toString(), status: res.status, html: res.html, truncated: res.truncated };
   }
 }
