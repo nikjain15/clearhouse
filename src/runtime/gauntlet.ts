@@ -10,6 +10,7 @@
 import type { AttackOnUsRow, BoardCell, CellOutcome, Decision, Finding, Pillar } from '../contracts/types';
 import { loadPersonas, merchantFor, registryFor, type Persona } from '../merchants';
 import { underwrite } from '../engine/underwrite';
+import { ExposureTracker } from '../engine/exposure';
 import { getRuntime, measureVarianceFloor, type Runtime } from './context';
 
 export interface CellResult {
@@ -54,7 +55,12 @@ function outcomeFor(d: Decision, p: Persona): CellOutcome {
   return 'cleared';
 }
 
-export async function runCell(persona: Persona, rt: Runtime, varianceFloor: number): Promise<CellResult> {
+export async function runCell(
+  persona: Persona,
+  rt: Runtime,
+  varianceFloor: number,
+  exposureTracker?: ExposureTracker,
+): Promise<CellResult> {
   const merchant = merchantFor(persona, rt.canaries);
   const amountMinor = amountFor(persona);
 
@@ -68,6 +74,7 @@ export async function runCell(persona: Persona, rt: Runtime, varianceFloor: numb
       canaries: rt.canaries,
       holdout: rt.holdout,
       varianceFloor,
+      exposureTracker,
     },
     rt.store,
     rt.model,
@@ -114,13 +121,17 @@ export async function runGauntlet(opts: GauntletOptions = {}): Promise<CellResul
   const concurrency = opts.concurrency ?? 4;
   let i = 0;
 
+  // One tracker across the whole run, so per-merchant and per-attack-class
+  // exposure accumulates across cells rather than resetting each file.
+  const exposureTracker = new ExposureTracker();
+
   await Promise.all(
     Array.from({ length: Math.min(concurrency, personas.length) }, async () => {
       while (i < personas.length) {
         const p = personas[i++];
         opts.onStart?.(p);
         try {
-          const r = await runCell(p, rt, varianceFloor);
+          const r = await runCell(p, rt, varianceFloor, exposureTracker);
           results.push(r);
           opts.onCell?.(r);
         } catch (err) {
