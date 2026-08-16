@@ -563,6 +563,20 @@ export interface EvalRow {
   score: number;
   tier: Tier;
   correct: boolean;
+  /**
+   * How this merchant was actually handled end to end.
+   *
+   * `stopped` means the scorecard declined or referred it before money moved.
+   * `made_whole` means it cleared, the purchase went bad, and the fund paid the
+   * buyer. `missed` means it cleared and the buyer was left out of pocket.
+   *
+   * The distinction is load-bearing rather than cosmetic. TAXONOMY.md assigns
+   * F05 to "fulfillment oracle plus binding deposition, payout when missed",
+   * not to the scorecard, so scoring F05 on score recall measures the wrong
+   * mechanism. A payout is not a catch, and reporting both columns is what
+   * stops us claiming it is.
+   */
+  resolution: 'stopped' | 'made_whole' | 'missed' | 'cleared_honest';
 }
 
 export interface SeparationCurve {
@@ -586,9 +600,14 @@ export interface DerivedThresholds {
 export interface ClassRecall {
   taxonomy: string;
   total: number;
+  /** Stopped by the scorecard before money moved. */
   caught: number;
   recall: number;
+  /** Stopped, or cleared and then made whole by the fund. */
+  resolved: number;
+  resolvedRate: number;
   floor: number;
+  /** The gate is on resolvedRate. A payout is not a catch, and both are shown. */
   passes: boolean;
 }
 

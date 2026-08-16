@@ -30,7 +30,7 @@ import { PILLAR1_CHECKS } from './checks/pillar1';
 import { PILLAR2_CHECKS } from './checks/pillar2';
 import { PILLAR3_CHECKS } from './checks/pillar3';
 import { PILLAR4_CHECKS, PILLAR5_CHECKS, PILLAR6_CHECKS } from './checks/pillar456';
-import { SCORECARD_V1, score, type ScorecardVersion } from './scorecard';
+import { ACTIVE_SCORECARD, score, type ScorecardVersion } from './scorecard';
 import { PRICING_V1, price, type PricingVersion } from './pricing';
 import { applyPolicy } from './policy';
 
@@ -123,7 +123,7 @@ export async function underwrite(
   const started = Date.now();
   const fileId = input.fileId ?? `UF-${String(++fileCounter).padStart(4, '0')}-${randomUUID().slice(0, 6)}`;
   const mode: Mode = input.merchant.mode;
-  const scorecardVersion = input.scorecard ?? SCORECARD_V1;
+  const scorecardVersion = input.scorecard ?? ACTIVE_SCORECARD;
   const pricingVersion = input.pricing ?? PRICING_V1;
   const versions: Versions = {
     scorecard: scorecardVersion.version,
@@ -301,7 +301,7 @@ export async function underwrite(
 export async function replay(
   fileId: FileId,
   store: EventStore,
-  scorecardVersion: ScorecardVersion = SCORECARD_V1,
+  scorecardVersion: ScorecardVersion = ACTIVE_SCORECARD,
 ): Promise<{ findings: Finding[]; scorecard: ReturnType<typeof score>; mode: Mode } | null> {
   const events = await store.read(`file:${fileId}`);
   if (events.length === 0) return null;

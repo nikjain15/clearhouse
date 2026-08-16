@@ -26,7 +26,14 @@ import type {
   Reason,
   ScopedAuthority,
 } from '../contracts/types';
-import { PRICING_V1 } from '../engine/pricing';
+import pricingV1 from '../../config/pricing/v1.json';
+
+/**
+ * Payout caps come straight from the versioned pricing table rather than
+ * through src/engine, because the ledger owns settlement and must not depend
+ * on the scoring module. `config/` is shared by design; `src/engine` is not.
+ */
+const PAYOUT_CAPS = pricingV1.payoutCaps as { perBuyerMinor: number; perMerchantMinor: number };
 
 const ALLOWED: Record<FulfillmentState, FulfillmentState[]> = {
   authorized: ['captured', 'disputed', 'refunded'],
@@ -223,7 +230,7 @@ export function underwriteClaim(input: ClaimInput, oracle: FulfillmentOracle): C
   const { claimId, order, buyerHistory } = input;
   const reasons: Reason[] = [];
   const capsApplied: string[] = [];
-  const caps = PRICING_V1.payoutCaps;
+  const caps = PAYOUT_CAPS;
 
   const claimRate = buyerHistory.totalPurchases > 0 ? buyerHistory.priorClaims / buyerHistory.totalPurchases : 0;
 

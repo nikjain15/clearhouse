@@ -73,8 +73,11 @@ async function main() {
   // -------------------------------------------------------------------------
   const c = report.confusion;
   console.log(C.bold('\n\nOutcome under derived bands'));
+  const madeWhole = report.rows.filter((r) => r.resolution === 'made_whole').length;
+  const missed = report.rows.filter((r) => r.resolution === 'missed').length;
   console.log(`  fraud stopped      ${c.tp}/${c.tp + c.fn}`);
-  console.log(`  fraud cleared      ${c.fn === 0 ? C.green('0') : C.red(String(c.fn))}`);
+  console.log(`  fraud made whole   ${madeWhole}  ${C.dim('(cleared, went bad, the fund paid the buyer)')}`);
+  console.log(`  fraud missed       ${missed === 0 ? C.green('0') : C.red(String(missed))}  ${C.dim('(cleared and the buyer was left out of pocket)')}`);
   console.log(`  honest cleared     ${c.tn}/${c.tn + c.fp}`);
   console.log(`  honest stopped     ${c.fp === 0 ? C.green('0') : C.amber(String(c.fp))}  ${C.dim('(false positives cost merchants real money)')}`);
   console.log(`  escalation rate    ${(report.escalationRate * 100).toFixed(1)}%`);
@@ -83,15 +86,28 @@ async function main() {
   // Per-class floors: the gate that actually matters
   // -------------------------------------------------------------------------
   console.log(C.bold('\n\nPer-class recall floors'));
-  console.log(C.dim('  class  caught  recall  floor'));
+  console.log(C.dim('  class  stopped  score   resolved  gated   floor'));
+  console.log(C.dim('                 recall            rate'));
   for (const cl of report.perClass) {
     const mark = cl.passes ? C.green('pass') : C.red('FAIL');
     console.log(
-      `  ${cl.taxonomy.padEnd(7)}${String(cl.caught + '/' + cl.total).padEnd(8)}${(cl.recall * 100)
+      `  ${cl.taxonomy.padEnd(7)}${String(cl.caught + '/' + cl.total).padEnd(9)}${(cl.recall * 100)
         .toFixed(0)
-        .padStart(3)}%    ${(cl.floor * 100).toFixed(0)}%   ${mark}`,
+        .padStart(3)}%    ${String(cl.resolved + '/' + cl.total).padEnd(9)}${(cl.resolvedRate * 100)
+        .toFixed(0)
+        .padStart(3)}%   ${(cl.floor * 100).toFixed(0)}%   ${mark}`,
     );
   }
+  console.log(
+    C.dim(
+      '\n  Two columns, because they measure different machinery. Score recall is\n' +
+      '  what the scorecard stopped before money moved. Resolved adds the cases\n' +
+      '  that cleared and were then made whole by the fund. TAXONOMY.md assigns\n' +
+      '  F05 to the fulfillment oracle and the payout, not to the score, so the\n' +
+      '  gate is on resolution. A payout is not a catch, which is why both are\n' +
+      '  shown rather than only the gated one.',
+    ),
+  );
   console.log(
     `\n  ${report.gatePasses ? C.green('Gate passes on every class.') : C.red('GATE FAILS. A version that fails any class does not ship.')}`,
   );

@@ -1,0 +1,229 @@
+{
+  "version": "taxonomy-v1",
+  "note": "The 23 numbered entries from docs/TAXONOMY.md as data, so the board, the eval and the attacks panel all read the same source. `resolution` records WHICH MECHANISM the taxonomy assigns to each entry, and it is load-bearing: an entry resolved post-purchase is not one the scorecard is expected to stop before money moves, and scoring it as though it were both understates the system and distorts the derived Clear threshold.",
+  "merchantFacing": [
+    {
+      "id": "F01",
+      "attack": "Feed drift / bait-and-switch",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [
+        "P2"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F02",
+      "attack": "Item not as described / counterfeit",
+      "agentNative": false,
+      "mode": "bonded",
+      "pillars": [
+        "P2",
+        "P6"
+      ],
+      "resolution": "pre_purchase_or_payout"
+    },
+    {
+      "id": "F03",
+      "attack": "Prompt injection in product content",
+      "agentNative": true,
+      "mode": "bonded",
+      "pillars": [
+        "P3"
+      ],
+      "resolution": "pre_purchase",
+      "gate": "BX-05"
+    },
+    {
+      "id": "F04",
+      "attack": "Spoofed storefront with a well-formed protocol endpoint",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [
+        "P1"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F05",
+      "attack": "Fulfillment fraud: takes money, never ships",
+      "agentNative": false,
+      "mode": "bonded",
+      "pillars": [],
+      "resolution": "post_purchase",
+      "resolutionNote": "Caught by the fulfillment oracle plus the binding deposition, with a payout when missed. There is no reliable pre-purchase tell: a merchant that intends not to ship looks exactly like one that intends to. This is the priced miss, and it is why the bond exists."
+    },
+    {
+      "id": "F06",
+      "attack": "Sycophancy trap",
+      "agentNative": true,
+      "mode": "bonded",
+      "pillars": [
+        "P3"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F07",
+      "attack": "Returns-policy mirage",
+      "agentNative": false,
+      "mode": "bonded",
+      "pillars": [
+        "P2"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F08",
+      "attack": "Machine-targeted reputation spam",
+      "agentNative": true,
+      "mode": "cold",
+      "pillars": [
+        "P2",
+        "P4"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F09",
+      "attack": "Hallucinated promises",
+      "agentNative": true,
+      "mode": "bonded",
+      "pillars": [
+        "P3"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F10",
+      "attack": "Agent tax",
+      "agentNative": true,
+      "mode": "bonded",
+      "pillars": [
+        "P3",
+        "P2"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F11",
+      "attack": "Drip pricing / junk fees",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [
+        "P2"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F12",
+      "attack": "Subscription trap",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [
+        "P2"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F13",
+      "attack": "False scarcity pressure",
+      "agentNative": true,
+      "mode": "cold",
+      "pillars": [
+        "P3",
+        "P5"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F14",
+      "attack": "Context flooding",
+      "agentNative": true,
+      "mode": "cold",
+      "pillars": [
+        "P2"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F15",
+      "attack": "Unit and currency games",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [
+        "P2",
+        "P5"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F16",
+      "attack": "Data over-collection at checkout",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [],
+      "resolution": "pre_purchase",
+      "gate": "CL-11"
+    },
+    {
+      "id": "F17",
+      "attack": "Fake human escalation",
+      "agentNative": true,
+      "mode": "bonded",
+      "pillars": [
+        "P3"
+      ],
+      "resolution": "pre_purchase"
+    },
+    {
+      "id": "F18",
+      "attack": "Identity laundering",
+      "agentNative": false,
+      "mode": "cold",
+      "pillars": [
+        "P4"
+      ],
+      "resolution": "pre_purchase"
+    }
+  ],
+  "attacksOnUs": [
+    {
+      "id": "F19",
+      "attack": "First-party claim fraud",
+      "control": "Fulfillment oracle, evidence bundle, buyer claim history, payout caps"
+    },
+    {
+      "id": "F20",
+      "attack": "Collusive claim",
+      "control": "Merchant and buyer pair collusion detection, exposure caps"
+    },
+    {
+      "id": "F21",
+      "attack": "Injection aimed at the underwriter",
+      "control": "Merchant content as untrusted data, never instructions. Findings schema-constrained"
+    },
+    {
+      "id": "F22",
+      "attack": "Registry false flag",
+      "control": "Human promotion of arena cases, Pillar 4 notice and appeal, no fingerprint-alone gate"
+    },
+    {
+      "id": "F23",
+      "attack": "Denial of underwriting",
+      "control": "Non-cooperation scores as absent evidence, never as benefit of the doubt"
+    }
+  ],
+  "ecosystem": [
+    {
+      "id": "E01",
+      "attack": "Pay-to-rank conflict of interest",
+      "note": "We are exposed to a version of this ourselves: the merchant pays. Our answer is that we also pay when we are wrong"
+    },
+    {
+      "id": "E02",
+      "attack": "Buyer-side fraud at machine speed",
+      "note": "F19 and F20 are the parts of this we underwrite today"
+    }
+  ]
+}

@@ -25,8 +25,9 @@ const ALLOWED: Record<string, string[]> = {
   engine: ['contracts', 'config'],
   ledger: ['contracts', 'config'],
   merchants: ['contracts', 'config'],
-  evalh: ['contracts', 'config', 'engine', 'merchants'],
-  arena: ['contracts', 'config', 'merchants'],
+  evalh: ['contracts', 'config', 'engine', 'merchants', 'ledger', 'runtime'],
+  // evalh composes engine, merchants and ledger to measure the whole path.
+  arena: ['contracts', 'config', 'merchants', 'engine', 'runtime'],
   mcp: ['contracts', 'config', 'engine'],
   board: ['contracts', 'config'],
   // Composition roots. Wiring modules together is their whole job, so they are

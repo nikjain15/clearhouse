@@ -11,6 +11,7 @@
 
 import type { Finding, Mode, Pillar, PillarScore, ReasonCode, Scorecard, Tier } from '../contracts/types';
 import scorecardV1 from '../../config/scorecards/v1.json';
+import scorecardV2 from '../../config/scorecards/v2.json';
 import checksV1 from '../../config/checks/v1.json';
 
 export interface ScorecardVersion {
@@ -26,6 +27,26 @@ export interface ScorecardVersion {
 }
 
 export const SCORECARD_V1 = scorecardV1 as unknown as ScorecardVersion;
+
+/**
+ * scorecard-v2: the same weights and gates as v1, with the tier bands replaced
+ * by values DERIVED from where the labeled set actually separates.
+ *
+ * v1 is retained unchanged and still scores correctly, because versions are
+ * never edited in place and every decision records the versions that produced
+ * it. A decision issued under v1 replays under v1 forever.
+ */
+export const SCORECARD_V2 = scorecardV2 as unknown as ScorecardVersion;
+
+/** Every version, newest last. */
+export const SCORECARDS: ScorecardVersion[] = [SCORECARD_V1, SCORECARD_V2];
+
+/** The version new decisions are issued under. */
+export const ACTIVE_SCORECARD = SCORECARD_V2;
+
+export function scorecardByVersion(version: string): ScorecardVersion | undefined {
+  return SCORECARDS.find((s) => s.version === version);
+}
 
 /** Code to materiality, derived from the check manifest so it stays in one place. */
 const CODE_MATERIALITY: Record<ReasonCode, number> = (() => {
@@ -69,7 +90,7 @@ const PILLARS: Pillar[] = [1, 2, 3, 4, 5];
 
 export function score(
   findings: readonly Finding[],
-  version: ScorecardVersion = SCORECARD_V1,
+  version: ScorecardVersion = ACTIVE_SCORECARD,
   mode: Mode = 'cold',
 ): Scorecard {
   // ---------------------------------------------------------------------

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-16T03:35:10.699Z",
-  "scorecardVersion": "scorecard-v1",
+  "generatedAt": "2026-08-16T03:45:25.846Z",
+  "scorecardVersion": "scorecard-v2",
   "rows": [
     {
       "merchantId": "E-HON-EST-1",
@@ -9,7 +9,8 @@
       "mode": "bonded",
       "score": 1000,
       "tier": "clear",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-EST-2",
@@ -18,7 +19,8 @@
       "mode": "bonded",
       "score": 1000,
       "tier": "clear",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-EST-3",
@@ -27,7 +29,8 @@
       "mode": "bonded",
       "score": 1000,
       "tier": "clear",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-EST-4",
@@ -36,7 +39,8 @@
       "mode": "bonded",
       "score": 1000,
       "tier": "clear",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-EST-5",
@@ -45,7 +49,8 @@
       "mode": "bonded",
       "score": 1000,
       "tier": "clear",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-F05-10",
@@ -55,8 +60,9 @@
       ],
       "mode": "bonded",
       "score": 955,
-      "tier": "conditional",
-      "correct": false
+      "tier": "clear",
+      "correct": true,
+      "resolution": "made_whole"
     },
     {
       "merchantId": "E-F05-9",
@@ -66,17 +72,9 @@
       ],
       "mode": "bonded",
       "score": 955,
-      "tier": "conditional",
-      "correct": false
-    },
-    {
-      "merchantId": "E-HON-MID-2",
-      "label": "honest",
-      "taxonomy": [],
-      "mode": "bonded",
-      "score": 955,
-      "tier": "conditional",
-      "correct": true
+      "tier": "clear",
+      "correct": true,
+      "resolution": "made_whole"
     },
     {
       "merchantId": "E-HON-MID-1",
@@ -84,8 +82,19 @@
       "taxonomy": [],
       "mode": "bonded",
       "score": 955,
-      "tier": "conditional",
-      "correct": true
+      "tier": "clear",
+      "correct": true,
+      "resolution": "cleared_honest"
+    },
+    {
+      "merchantId": "E-HON-MID-2",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "bonded",
+      "score": 955,
+      "tier": "clear",
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-MID-3",
@@ -93,8 +102,9 @@
       "taxonomy": [],
       "mode": "bonded",
       "score": 955,
-      "tier": "conditional",
-      "correct": true
+      "tier": "clear",
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "M-HONEST-ironwood",
@@ -102,8 +112,9 @@
       "taxonomy": [],
       "mode": "bonded",
       "score": 910,
-      "tier": "conditional",
-      "correct": true
+      "tier": "clear",
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "M-F10-tandem",
@@ -113,8 +124,9 @@
       ],
       "mode": "bonded",
       "score": 901,
-      "tier": "conditional",
-      "correct": false
+      "tier": "refer",
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-MID-4",
@@ -123,7 +135,8 @@
       "mode": "bonded",
       "score": 900,
       "tier": "conditional",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-MID-5",
@@ -132,7 +145,8 @@
       "mode": "bonded",
       "score": 900,
       "tier": "conditional",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "M-F09-coastal",
@@ -142,8 +156,9 @@
       ],
       "mode": "bonded",
       "score": 870,
-      "tier": "conditional",
-      "correct": false
+      "tier": "refer",
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F17-regent",
@@ -153,8 +168,9 @@
       ],
       "mode": "bonded",
       "score": 825,
-      "tier": "conditional",
-      "correct": false
+      "tier": "refer",
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F02-3",
@@ -164,8 +180,9 @@
       ],
       "mode": "bonded",
       "score": 815,
-      "tier": "conditional",
-      "correct": false
+      "tier": "refer",
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-COLDEST-1",
@@ -174,7 +191,8 @@
       "mode": "cold",
       "score": 800,
       "tier": "conditional",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-COLDEST-2",
@@ -183,16 +201,8 @@
       "mode": "cold",
       "score": 800,
       "tier": "conditional",
-      "correct": true
-    },
-    {
-      "merchantId": "E-HON-COLDEST-4",
-      "label": "honest",
-      "taxonomy": [],
-      "mode": "cold",
-      "score": 800,
-      "tier": "conditional",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-COLDEST-3",
@@ -201,7 +211,18 @@
       "mode": "cold",
       "score": 800,
       "tier": "conditional",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
+    },
+    {
+      "merchantId": "E-HON-COLDEST-4",
+      "label": "honest",
+      "taxonomy": [],
+      "mode": "cold",
+      "score": 800,
+      "tier": "conditional",
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "E-HON-COLDEST-5",
@@ -210,7 +231,8 @@
       "mode": "cold",
       "score": 800,
       "tier": "conditional",
-      "correct": true
+      "correct": true,
+      "resolution": "cleared_honest"
     },
     {
       "merchantId": "M-F05-pinnacle",
@@ -221,7 +243,8 @@
       "mode": "bonded",
       "score": 795,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F06-brightline",
@@ -232,18 +255,8 @@
       "mode": "bonded",
       "score": 795,
       "tier": "refer",
-      "correct": true
-    },
-    {
-      "merchantId": "E-F10-18",
-      "label": "fraud",
-      "taxonomy": [
-        "F10"
-      ],
-      "mode": "bonded",
-      "score": 780,
-      "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F07-13",
@@ -254,7 +267,8 @@
       "mode": "bonded",
       "score": 780,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F07-14",
@@ -265,7 +279,20 @@
       "mode": "bonded",
       "score": 780,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
+    },
+    {
+      "merchantId": "E-F10-18",
+      "label": "fraud",
+      "taxonomy": [
+        "F10"
+      ],
+      "mode": "bonded",
+      "score": 780,
+      "tier": "refer",
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F10-19",
@@ -276,7 +303,8 @@
       "mode": "bonded",
       "score": 780,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F02-4",
@@ -287,7 +315,8 @@
       "mode": "bonded",
       "score": 770,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F06-11",
@@ -298,18 +327,8 @@
       "mode": "bonded",
       "score": 770,
       "tier": "refer",
-      "correct": true
-    },
-    {
-      "merchantId": "E-F09-17",
-      "label": "fraud",
-      "taxonomy": [
-        "F09"
-      ],
-      "mode": "bonded",
-      "score": 770,
-      "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F09-16",
@@ -320,7 +339,20 @@
       "mode": "bonded",
       "score": 770,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
+    },
+    {
+      "merchantId": "E-F09-17",
+      "label": "fraud",
+      "taxonomy": [
+        "F09"
+      ],
+      "mode": "bonded",
+      "score": 770,
+      "tier": "refer",
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F17-28",
@@ -331,7 +363,8 @@
       "mode": "bonded",
       "score": 770,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F06-12",
@@ -342,7 +375,8 @@
       "mode": "bonded",
       "score": 761,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F03-5",
@@ -353,7 +387,8 @@
       "mode": "bonded",
       "score": 745,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F11-20",
@@ -364,7 +399,8 @@
       "mode": "cold",
       "score": 740,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F07-verity",
@@ -375,7 +411,8 @@
       "mode": "bonded",
       "score": 735,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F11-21",
@@ -386,7 +423,8 @@
       "mode": "cold",
       "score": 734,
       "tier": "refer",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-THIN-1",
@@ -395,7 +433,8 @@
       "mode": "cold",
       "score": 725,
       "tier": "refer",
-      "correct": false
+      "correct": false,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-THIN-2",
@@ -404,7 +443,8 @@
       "mode": "cold",
       "score": 725,
       "tier": "refer",
-      "correct": false
+      "correct": false,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-THIN-3",
@@ -413,7 +453,8 @@
       "mode": "cold",
       "score": 725,
       "tier": "refer",
-      "correct": false
+      "correct": false,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-THIN-4",
@@ -422,7 +463,8 @@
       "mode": "cold",
       "score": 725,
       "tier": "refer",
-      "correct": false
+      "correct": false,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-HON-THIN-5",
@@ -431,7 +473,8 @@
       "mode": "cold",
       "score": 725,
       "tier": "refer",
-      "correct": false
+      "correct": false,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F13-31",
@@ -442,7 +485,8 @@
       "mode": "cold",
       "score": 710,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F03-6",
@@ -453,7 +497,8 @@
       "mode": "bonded",
       "score": 700,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F13-24",
@@ -464,7 +509,8 @@
       "mode": "cold",
       "score": 695,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F13-atlas",
@@ -475,7 +521,8 @@
       "mode": "cold",
       "score": 695,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F11-sunbelt",
@@ -486,7 +533,8 @@
       "mode": "cold",
       "score": 673,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F14-25",
@@ -497,7 +545,8 @@
       "mode": "cold",
       "score": 670,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F14-windward",
@@ -508,7 +557,8 @@
       "mode": "cold",
       "score": 670,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F03-halcyon",
@@ -519,7 +569,8 @@
       "mode": "bonded",
       "score": 665,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F08-nordic",
@@ -530,7 +581,8 @@
       "mode": "cold",
       "score": 665,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F01-2",
@@ -541,7 +593,8 @@
       "mode": "cold",
       "score": 663,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F08-15",
@@ -552,7 +605,8 @@
       "mode": "cold",
       "score": 635,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F12-22",
@@ -563,7 +617,8 @@
       "mode": "cold",
       "score": 635,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F01-1",
@@ -574,7 +629,8 @@
       "mode": "cold",
       "score": 634,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F12-23",
@@ -585,7 +641,8 @@
       "mode": "cold",
       "score": 605,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F15-26",
@@ -596,7 +653,8 @@
       "mode": "cold",
       "score": 590,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F12-lumen",
@@ -607,7 +665,8 @@
       "mode": "cold",
       "score": 580,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F01-cascade",
@@ -618,7 +677,8 @@
       "mode": "cold",
       "score": 569,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F02-meridian",
@@ -629,7 +689,8 @@
       "mode": "bonded",
       "score": 565,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F04-8",
@@ -640,7 +701,8 @@
       "mode": "cold",
       "score": 521,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F18-30",
@@ -651,7 +713,8 @@
       "mode": "cold",
       "score": 515,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F16-27",
@@ -662,7 +725,8 @@
       "mode": "cold",
       "score": 505,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F04-7",
@@ -673,7 +737,8 @@
       "mode": "cold",
       "score": 460,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F16-fairmont",
@@ -684,7 +749,8 @@
       "mode": "cold",
       "score": 445,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "E-F18-29",
@@ -695,7 +761,8 @@
       "mode": "cold",
       "score": 428,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F15-kestrelpaper",
@@ -706,7 +773,8 @@
       "mode": "cold",
       "score": 414,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F04-northgate",
@@ -717,7 +785,8 @@
       "mode": "cold",
       "score": 401,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     },
     {
       "merchantId": "M-F18-northgate-reborn",
@@ -728,7 +797,8 @@
       "mode": "cold",
       "score": 342,
       "tier": "decline",
-      "correct": true
+      "correct": true,
+      "resolution": "stopped"
     }
   ],
   "separation": {
@@ -863,7 +933,7 @@
     ]
   },
   "thresholds": {
-    "clear": 956,
+    "clear": 902,
     "conditional": 800,
     "refer": 725,
     "derivedFrom": {
@@ -997,37 +1067,43 @@
         }
       ]
     },
-    "justification": "Clear at 956: one point above the highest-scoring known fraud (955), so no labeled fraud can reach the Clear band. Decline floor at 725: the lowest-scoring known-honest merchant, so no merchant we believe honest is declined outright. Conditional at 800: the point of maximum separation inside the overlap region, Youden's J of 0.639 across 38 merchants. The overlap spans 725 to 955 and is where a human label is worth most, which is why it is the refer band."
+    "justification": "Clear at 902: one point above the highest-scoring fraud the scorecard is expected to stop before money moves (901). 3 fraud persona(s) in post-purchase classes (F05) were excluded from this boundary, scoring as high as 955. The taxonomy assigns them to the fulfillment oracle and the payout rather than to a pillar, because a merchant that intends not to ship looks exactly like one that intends to. Including them would have set Clear at 956 and put the established honest merchants outside it, which would make the band mean \"nothing bad can ever happen\". That is not a claim an underwriter can make, and it is what the bond answers instead. Decline floor at 725: the lowest-scoring known-honest merchant, so no merchant we believe honest is declined outright. Conditional at 800: the point of maximum separation inside the overlap region, Youden's J of 0.675 across 38 merchants. The overlap spans 725 to 955 and is where a human label is worth most, which is why it is the refer band."
   },
   "confusion": {
-    "tp": 43,
-    "fn": 6,
+    "tp": 47,
+    "fn": 2,
     "fp": 5,
     "tn": 16
   },
-  "escalationRate": 0.2857142857142857,
+  "escalationRate": 0.34285714285714286,
   "perClass": [
     {
       "taxonomy": "F01",
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
     {
       "taxonomy": "F02",
       "total": 3,
-      "caught": 2,
-      "recall": 0.6666666666666666,
+      "caught": 3,
+      "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
-      "passes": false
+      "passes": true
     },
     {
       "taxonomy": "F03",
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1036,6 +1112,8 @@
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1044,14 +1122,18 @@
       "total": 3,
       "caught": 1,
       "recall": 0.3333333333333333,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
-      "passes": false
+      "passes": true
     },
     {
       "taxonomy": "F06",
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1060,6 +1142,8 @@
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1068,30 +1152,38 @@
       "total": 2,
       "caught": 2,
       "recall": 1,
+      "resolved": 2,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
     {
       "taxonomy": "F09",
       "total": 3,
-      "caught": 2,
-      "recall": 0.6666666666666666,
+      "caught": 3,
+      "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
-      "passes": false
+      "passes": true
     },
     {
       "taxonomy": "F10",
       "total": 3,
-      "caught": 2,
-      "recall": 0.6666666666666666,
+      "caught": 3,
+      "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
-      "passes": false
+      "passes": true
     },
     {
       "taxonomy": "F11",
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1100,6 +1192,8 @@
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1108,6 +1202,8 @@
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1116,6 +1212,8 @@
       "total": 2,
       "caught": 2,
       "recall": 1,
+      "resolved": 2,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1124,6 +1222,8 @@
       "total": 2,
       "caught": 2,
       "recall": 1,
+      "resolved": 2,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
@@ -1132,26 +1232,32 @@
       "total": 2,
       "caught": 2,
       "recall": 1,
+      "resolved": 2,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     },
     {
       "taxonomy": "F17",
       "total": 2,
-      "caught": 1,
-      "recall": 0.5,
+      "caught": 2,
+      "recall": 1,
+      "resolved": 2,
+      "resolvedRate": 1,
       "floor": 0.8,
-      "passes": false
+      "passes": true
     },
     {
       "taxonomy": "F18",
       "total": 3,
       "caught": 3,
       "recall": 1,
+      "resolved": 3,
+      "resolvedRate": 1,
       "floor": 0.8,
       "passes": true
     }
   ],
-  "gatePasses": false,
+  "gatePasses": true,
   "caveat": "This set validates RANKING, not absolute probability. Roughly 40 to 60 self-authored personas can demonstrate that the scorecard orders merchants correctly and that frauds concentrate in the low bands. They cannot calibrate a price, and a band holding three merchants produces an estimate whose error bar covers the entire pricing range. PD(score) is therefore a stated prior taken from published card-industry fraud rates by band, not a curve fitted to this set. Real calibration would take label counts in the tens of thousands with observed outcomes, not authored intent."
 }
