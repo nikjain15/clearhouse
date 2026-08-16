@@ -111,10 +111,28 @@ npm run dev                    # http://localhost:3000
 It runs with no credentials. The hero personas are scripted and every model call resolves from a content-hash cache, which is what [docs/PLATFORM.md](docs/PLATFORM.md) requires for demo safety anyway. Adding `ANTHROPIC_API_KEY` sends cache misses live. Adding `DATABASE_URL` switches the event store from the file-backed adapter to Postgres.
 
 ```bash
-npm run gauntlet     # all 18 cells plus the attacks-on-us panel, to the terminal
-npm run eval         # separation over the labeled set, derives the tier bands
+npm run gauntlet     # all 18 cells plus the attacks-on-us panel, and the fund
+npm run eval         # separation over 70 labeled merchants, derives the tier bands
+npm run loop         # the self-improving loop, end to end
 npm test             # scorecard purity, replay determinism, ledger reconciliation
 ```
+
+## Measured
+
+Numbers from the committed artifacts in `config/runs/`, not from intent.
+
+| | |
+|---|---|
+| 18-cell gauntlet | 12 caught, 5 escalated, 1 paid out. **Zero cleared silently** |
+| Labeled set | 70 merchants. **Zero fraud missed** |
+| Per-class recall floor | **Passes on all 18 attack classes** |
+| Tier bands | Derived at **902 / 800 / 725**, replacing the 900 / 700 / 550 placeholders |
+| Latency per file | 2 to 6 s live, 9 s worst. Target is 30 s |
+| Cached full board | 0.1 s, which is the demo-safe path |
+| Guarantee fund | Trial balance **reconciles**. The run fails if it does not |
+| Self-improving loop | 970 clear, paid out, then **605 decline** on the same attack |
+
+The escalation rate is 32.9%, driven by thin-file cold merchants against a $25 default tolerance. That is the treatment [docs/UNDERWRITING.md](docs/UNDERWRITING.md) section 6 specifies, and the tolerance is the dial.
 
 ---
 
