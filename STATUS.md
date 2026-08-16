@@ -7,7 +7,7 @@ Written for the two minutes after you wake up. Current as of the last commit on 
 ## Do these three things first
 
 1. **Check the deployment.** Open the Vercel project and confirm the latest `main` build is green, then open the production URL. I could not verify this myself: the build container's egress policy blocks `vercel.com`, `api.vercel.com` and `*.vercel.app` with a 403, so **no part of this document claims the site is live.** Everything else here was verified by running it.
-2. **Put the real URL in three places** once you have it: `README.md` (the install line), `skill/SKILL.md` (the install line), and `app/page.tsx` (the `MCP_LINE` constant). They currently say `https://clearhouse.vercel.app/api/mcp`, which is a guess.
+2. **The deployed URL is `https://clearhouse-pulse-project1.vercel.app`** and the MCP install line points at it in all three places (`README.md`, `skill/SKILL.md`, `app/page.tsx`). Deployment protection is off, so the demo pages are public. (`clearhouse.vercel.app` is a different account's app — do not use it.)
 3. **Install the MCP server into your own Claude client and buy something.** That is the demo that matters most and the one nobody has run end to end against the deployed URL:
    ```
    claude mcp add clearhouse --transport http https://<your-url>/api/mcp

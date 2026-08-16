@@ -23,7 +23,7 @@ Sources for every claim on this page are in [docs/EVIDENCE.md](docs/EVIDENCE.md)
 ## Add it to your agent, one line
 
 ```
-claude mcp add clearhouse --transport http https://clearhouse.vercel.app/api/mcp
+claude mcp add clearhouse --transport http https://clearhouse-pulse-project1.vercel.app/api/mcp
 ```
 
 That is the entire integration. No SDK, no new protocol.

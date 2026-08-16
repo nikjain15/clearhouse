@@ -3,7 +3,7 @@ import { loadHeroRun } from '../src/board/heroRun';
 
 export const dynamic = 'force-static';
 
-const MCP_LINE = 'claude mcp add clearhouse --transport http https://clearhouse.vercel.app/api/mcp';
+const MCP_LINE = 'claude mcp add clearhouse --transport http https://clearhouse-pulse-project1.vercel.app/api/mcp';
 
 export default function Home() {
   const hero = loadHeroRun();

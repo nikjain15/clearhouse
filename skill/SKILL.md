@@ -67,5 +67,5 @@ Clearhouse is called by you. It does not intercept. An agent that never calls is
 ## Install
 
 ```
-claude mcp add clearhouse --transport http https://clearhouse.vercel.app/api/mcp
+claude mcp add clearhouse --transport http https://clearhouse-pulse-project1.vercel.app/api/mcp
 ```
