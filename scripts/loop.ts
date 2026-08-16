@@ -41,7 +41,10 @@ const C = {
   purple: (s: string) => `\x1b[35m${s}\x1b[0m`,
 };
 
-const TARGET = process.argv[2] ?? 'M-F05-pinnacle';
+const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const TARGET = args[0] ?? 'M-F05-pinnacle';
+/** Stop before promoting, so /promote has a pending candidate to show on stage. */
+const NO_PROMOTE = process.argv.includes('--no-promote');
 
 async function main() {
   const rt = getRuntime();
@@ -151,6 +154,15 @@ async function main() {
     taxonomy: persona.taxonomy[0] ?? null,
   });
   console.log(`   candidate ${caseId}  ${C.dim('created automatically by the payout')}`);
+  if (NO_PROMOTE) {
+    console.log(
+      C.dim(
+        `   stopping here. ${caseId} is pending on /promote, waiting for a human.\n` +
+          '   Run without --no-promote, or click Promote on the page, to continue.',
+      ),
+    );
+    process.exit(0);
+  }
   await promoteCase(rt.store, caseId, persona.taxonomy[0] ?? 'F24');
   console.log(`   promoted by a human  ${C.dim('nothing enters the eval set without this step')}`);
 

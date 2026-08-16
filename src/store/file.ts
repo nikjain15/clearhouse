@@ -10,7 +10,7 @@
  * suite runs against both adapters.
  */
 
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { EventType, NewEvent, StoredEvent } from '../contracts/events';
 import type { CachedModelCall, EventStore } from '../contracts/ports';
@@ -22,6 +22,7 @@ export class FileEventStore implements EventStore {
   private events: StoredEvent[] | null = null;
   private cache: Map<string, CachedModelCall> | null = null;
   private seenIds = new Set<string>();
+  private loadedAt = -1;
 
   constructor(private dir: string) {
     this.eventsPath = join(dir, 'events.jsonl');
@@ -34,9 +35,20 @@ export class FileEventStore implements EventStore {
     if (!existsSync(this.cachePath)) writeFileSync(this.cachePath, '{}');
   }
 
+  /**
+   * Re-read when the file changed underneath us.
+   *
+   * Without this, a dev server holds its first read forever and never sees
+   * events written by `npm run loop` in another terminal. That is exactly the
+   * shape of a live demo, so it is worth the stat() call. Postgres does not
+   * have the problem, which is one more reason it is the production path.
+   */
   private load(): StoredEvent[] {
-    if (this.events) return this.events;
     this.migrate();
+    const mtime = statSync(this.eventsPath).mtimeMs;
+    if (this.events && mtime === this.loadedAt) return this.events;
+    this.loadedAt = mtime;
+    this.seenIds.clear();
     const raw = readFileSync(this.eventsPath, 'utf8');
     this.events = raw
       .split('\n')
@@ -72,6 +84,7 @@ export class FileEventStore implements EventStore {
     if (lines) {
       appendFileSync(this.eventsPath, lines);
       all.push(...written);
+      this.loadedAt = statSync(this.eventsPath).mtimeMs;
     }
     return written;
   }
