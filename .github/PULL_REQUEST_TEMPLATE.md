@@ -26,6 +26,7 @@
 - [ ] No canary string or holdout question entered the repository
 - [ ] Versioned config was added as a new version rather than edited in place
 - [ ] Any new number on screen traces to `docs/EVIDENCE.md` or is computed from the formula
+- [ ] Every URL and install line in changed files was verified against the live host
 
 ## If this changes scoring
 

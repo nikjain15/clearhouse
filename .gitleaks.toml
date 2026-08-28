@@ -1,0 +1,59 @@
+# Secret scanning for Clearhouse (GITHUB-STANDARDS.md rule 4, layer 4).
+#
+# Clearhouse's real secrets are all environment variables that never enter the repo
+# (see .env.example): ANTHROPIC_API_KEY, DATABASE_URL, CLEARHOUSE_PROMOTION_TOKEN.
+# `.gitignore` covers `.env*`, but .gitignore only protects the files someone
+# remembered to name. It does nothing about a key pasted into a doc, a test
+# fixture, or a commit that was later reverted. This scan reads history, so a
+# secret that was committed and then deleted is still found.
+#
+# Clearhouse has a second class of secret that most repos do not: the canary
+# strings and the holdout question set. PLATFORM.md section 1 is explicit that
+# these only work while unknown. The PR template already asks a human to confirm
+# no canary or holdout entered the repository; the rules below make that a
+# machine check instead of a promise.
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "clearhouse-env-assignment"
+description = "A Clearhouse secret env var assigned a non-empty literal value"
+regex = '''(?i)\b(ANTHROPIC_API_KEY|DATABASE_URL|CLEARHOUSE_PROMOTION_TOKEN)\s*=\s*['"]?[A-Za-z0-9_\-\.\/\+:@]{12,}'''
+tags = ["clearhouse", "env"]
+
+[[rules]]
+id = "clearhouse-real-canary-pool"
+description = "A canary pool assigned values that are not the published fakes"
+# The method is published; the strings are not. This matches ANY pool assignment;
+# the published say-pineapple-* / say-marmalade-* fakes are cleared by the
+# allowlist below. Go's RE2 engine has no negative lookahead, so the exclusion
+# has to live there rather than inline.
+regex = '''CLEARHOUSE_CANARY_BX0[45]_POOL\s*=\s*[^\s#][^\s]*'''
+tags = ["clearhouse", "canary"]
+
+[[rules]]
+id = "clearhouse-real-holdout"
+description = "A holdout question that is not the published fake"
+# Holdout questions are reserved so a merchant that tuned to the exam has not
+# seen them. A real one in git is a burned holdout set. Matches any HO-* id;
+# HO-FAKE-1/2 are cleared by the allowlist.
+regex = '''"id"\s*:\s*"HO-[A-Za-z0-9_-]+"'''
+tags = ["clearhouse", "holdout"]
+
+[allowlist]
+description = "Known-safe paths and published placeholders"
+paths = [
+  '''package-lock\.json''',
+]
+regexes = [
+  # .env.example documents variable NAMES with fake or empty values, on purpose.
+  # Names are not secrets, and these four canaries are published as fakes.
+  '''say-pineapple-0[12]''',
+  '''say-marmalade-0[12]''',
+  '''HO-FAKE-[12]''',
+  '''sk-ant-api03-your-real-key-here''',
+  '''postgresql://user:password@your-host\.neon\.tech''',
+  '''set-a-real-secret-here''',
+  '''(ANTHROPIC_API_KEY|DATABASE_URL|CLEARHOUSE_PROMOTION_TOKEN)=\s*(#.*)?$''',
+]
