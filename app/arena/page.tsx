@@ -50,7 +50,7 @@ export default function ArenaPage() {
           the room already has an MCP client open.
         </p>
         <pre className="code mt-4 overflow-x-auto rounded border border-ink-700 bg-ink-950 p-3 text-[12px] text-clear-500">
-          claude mcp add clearhouse --transport http https://clearhouse.vercel.app/api/mcp
+          claude mcp add clearhouse --transport http https://clearhouse-pulse-project1.vercel.app/api/mcp
         </pre>
       </section>
 
