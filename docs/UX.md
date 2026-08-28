@@ -66,13 +66,13 @@ is already in the immune system.
 | Visible focus | ✅ **corrected** — an earlier draft called this missing. There is no custom focus style, but nothing sets `outline: none` either, so the browser default ring is intact |
 | Selection state exposed | ✅ **fixed** — the chosen merchant was conveyed by border colour and shadow only; now `aria-pressed` |
 | Progress and verdict announced | ✅ **fixed** — the theatre advances on timers and previously updated silently; now `aria-live="polite"` with `aria-busy` while running |
-| WCAG AA contrast | ❓ unverified — several greys on white (`#8593a6`, `#7a8aa0`) are worth checking |
+| WCAG AA contrast | ✅ **verified and fixed** — three muted greys failed AA for normal text; all now pass. Every text colour in `app/` was measured, not sampled |
 
 **Corrected assessment.** The first draft called this the weakest part of the surface and said
 keyboard users were unsupported. Measured, that was too harsh: the controls are semantic buttons and
 focus rings were never suppressed, so the flow was always keyboard-operable. The real gap was narrower
 and worth fixing — a screen-reader user could not tell which merchant was selected, and got silence
-while the underwrite progressed. Both are closed. Contrast remains unverified.
+while the underwrite progressed. Both are closed. Contrast has since been measured and fixed — see below.
 
 ## Critique
 
@@ -80,7 +80,19 @@ while the underwrite progressed. Both are closed. Contrast remains unverified.
   network call. See the correction above.
 - ~~**P1 — no visible focus, effectively no ARIA.**~~ **Half withdrawn, half fixed.** Focus rings were
   never suppressed. The genuine gaps — unannounced selection and unannounced progress — are closed.
-- **P1 — contrast unverified.** The muted greys on white have not been checked against WCAG AA.
+- ~~**P1 — contrast unverified.**~~ **Fixed.** Every text colour in `app/` was measured against its
+  actual background. Three failed AA for normal text and were darkened by the smallest amount that
+  clears 4.5:1, so the muted look survives:
+
+  | Colour | Was | Now | Used for |
+  |---|---|---|---|
+  | `#8593a6` → `#6a7685` | 3.12:1 ❌ | 4.62:1 ✅ | secondary body text, 11.5–12.5px |
+  | `#7a8aa0` → `#687588` | 3.52:1 ❌ | 4.68:1 ✅ | uppercase section labels, 11px |
+  | `#8b93a6` → `#6e7483` | 3.08:1 ❌ | 4.68:1 ✅ | uppercase label, 12px |
+
+  One colour that looks like a failure is not one: `#e6ecf5` reads 1.19:1 against white, but it is
+  only ever used on `#0A2540` (the code block), where it measures **13.08:1**. Contrast is a property
+  of a pair, not of a colour — checking against white alone would have produced a wrong fix.
 - **P2 — eight pages, one narrative.** `/board`, `/ledger`, `/eval`, `/registry`, `/arena`,
   `/adjudicate`, `/promote` each make sense when narrated live. `[inferred]` Without narration, it is
   not obvious which to visit after the landing page, or in what order.

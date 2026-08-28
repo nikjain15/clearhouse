@@ -145,7 +145,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-5 pt-10 sm:px-8 sm:pt-16">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#8b93a6]">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#6e7483]">
           Sundai Hack 136 · Agents that buy
         </p>
         <h1 className="mt-4 text-[clamp(44px,8vw,84px)] font-bold leading-[0.98] tracking-[-0.02em] text-[#0A2540]">
@@ -235,7 +235,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="mx-auto mt-20 max-w-6xl px-5 pb-14 sm:px-8">
-        <div className="border-t border-[#e7ebf1] pt-6 text-[12.5px] leading-relaxed text-[#8593a6]">
+        <div className="border-t border-[#e7ebf1] pt-6 text-[12.5px] leading-relaxed text-[#6a7685]">
           <p className="max-w-3xl">
             <span className="text-[#54617a]">Honest labels.</span> The guarantee fund is simulated — the double-entry
             ledger reconciles, but no money is real. The fulfillment oracle is simulated, with real state transitions.
