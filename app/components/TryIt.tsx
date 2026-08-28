@@ -96,8 +96,11 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
   return (
     <div className="grid gap-5 lg:grid-cols-[300px_1fr]">
       {/* Merchant chooser */}
-      <div className="flex flex-col gap-2">
-        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7a8aa0]">
+      <div className="flex flex-col gap-2" role="group" aria-labelledby="merchant-chooser-label">
+        <p
+          id="merchant-chooser-label"
+          className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7a8aa0]"
+        >
           Point your agent at a store
         </p>
         {merchants.map((m) => {
@@ -106,6 +109,7 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
             <button
               key={m.key}
               onClick={() => pick(m)}
+              aria-pressed={active}
               className="rounded-2xl border p-3.5 text-left transition-all"
               style={{
                 borderColor: active ? '#635BFF' : '#e7ebf1',
@@ -166,7 +170,13 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
           <span className="text-[12px] leading-snug text-[#4a5a70]">{MODE_INFO[selected.mode].line}</span>
         </div>
 
-        <div className="mt-6 min-h-[280px]">
+        {/*
+          The underwrite advances on timers, so a sighted visitor watches the
+          evidence arrive and everyone else previously got silence. Polite so it
+          waits for a pause rather than interrupting, and aria-busy so the
+          verdict is not announced while the file is still being built.
+        */}
+        <div className="mt-6 min-h-[280px]" aria-live="polite" aria-busy={running}>
           {phase === 'idle' && (
             <div className="flex h-[240px] flex-col items-center justify-center rounded-2xl border border-dashed text-center" style={{ borderColor: '#e3e8ef' }}>
               <p className="text-[14px] font-medium text-[#54617a]">Press “Check this merchant.”</p>
