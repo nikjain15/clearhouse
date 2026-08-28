@@ -20,12 +20,12 @@ not a gap. Four artifacts are genuinely absent.
 | `PRD.md` | ⚠️ partial | `docs/STRATEGY.md` carries the product in four sentences, the locked decisions, and why this wins. What a PRD adds and this does not: the user, the problem statement, and success metrics stated as targets rather than as pitch framing. |
 | `ENGINEERING.md` | ⚠️ partial | Split across `AGENTS.md` (conventions, testing, PR rules) and `docs/PLATFORM.md` (runtime shape, extensibility). No single document, which is survivable — but the split means a newcomer reads two files to learn one thing. |
 | `DECISION_LOG.md` | ⚠️ partial | `STATUS.md` (170 lines) and `docs/STRATEGY.md` §1 "Locked decisions" record *what* was decided. Neither records *what was rejected and why*, which is the half a decision log exists for. |
-| `adr` | ❌ missing | No ADRs. The decisions are real and consequential — Postgres as event store, fail-closed on cold intake, exposure caps binding cumulatively, scoring out of 1000 — but they are recorded as conclusions, not with context, options considered, and consequences. |
-| `UX.md` | ❌ missing | The landing page was redesigned as a guided underwrite and the arena has a live window, so UX decisions were clearly made. None are written down. |
-| `COST.md` | ❌ missing | `ARCHITECTURE.md` §6 covers **pricing of the guarantee** — product economics. It does not cover **run economics**: token cost per underwriting file, cost of the Opus adjudication path, or what the cache saves. `CLEARHOUSE_LATENCY_TARGET_MS` exists, so latency has a target and cost does not. |
-| `STAKEHOLDERS.md` | ❌ missing | The four-way team split is encoded in the PR template's module ownership. Nothing records who the external stakeholders are or what they need. |
+| `adr` | ⚠️ drafted | `docs/adr/` — five ADRs reconstructed from `STRATEGY.md` §1 on 2026-08-28. Decision and Rejected are sourced; **Reversal trigger is marked `[inferred]` and needs confirmation**. |
+| `UX.md` | ⚠️ drafted | `docs/UX.md` — flow and states read from the code. Found two real gaps: **no error state** and **effectively no accessibility support**. No user has been observed. |
+| `COST.md` | ⚠️ drafted | `docs/COST.md` — 12 model calls per file, ≈5.4¢ cold. **Token counts are `[assumed]`, not measured.** Found that no `cache_control` exists anywhere in `src/`, and that `usage` is never read, so cost is never recorded. |
+| `STAKEHOLDERS.md` | ⚠️ drafted | `docs/STAKEHOLDERS.md` — internal split is sourced from the PR template; **every external row is `[inferred]` from team-written documents, not from talking to anyone.** |
 
-**Score: 6 present, 3 partial, 4 missing.**
+**Score: 6 present, 3 partial, 4 drafted-pending-your-review** (was 4 missing; drafted 2026-08-28 from repo evidence, with every inferred claim marked).
 
 ## The larger gap
 
