@@ -46,3 +46,33 @@ jobs:
           # The build must succeed with no credentials. That is the same
           # property the demo depends on: the hero path never needs a network.
           CLEARHOUSE_REPLAY_ONLY: '1'
+
+  supply-chain:
+    name: secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # gitleaks reads history: a secret that was committed and then
+          # deleted is still a secret.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Clearhouse's secrets are env vars, plus a second class most repos do not
+      # have: the canary pool and the holdout question set, which only work while
+      # unknown. Rules and allowlisted fakes live in .gitleaks.toml.
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
