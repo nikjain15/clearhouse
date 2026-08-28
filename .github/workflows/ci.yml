@@ -48,7 +48,7 @@ jobs:
           CLEARHOUSE_REPLAY_ONLY: '1'
 
   supply-chain:
-    name: secret scan
+    name: dependency audit · secret scan
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -66,6 +66,14 @@ jobs:
 
       - name: Install
         run: npm ci
+
+      # High and critical only. Gating on everything would fail on the first
+      # unfixable transitive advisory and stay red forever, which trains people
+      # to ignore the one signal that matters. This passes today at 0 findings
+      # (PR #8); if it ever goes red, the fix is an upgrade or a dated
+      # exception, not a lowered threshold.
+      - name: Dependency audit (high/critical)
+        run: npm audit --audit-level=high
 
       # Clearhouse's secrets are env vars, plus a second class most repos do not
       # have: the canary pool and the holdout question set, which only work while
