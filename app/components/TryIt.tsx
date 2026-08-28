@@ -99,7 +99,7 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
       <div className="flex flex-col gap-2" role="group" aria-labelledby="merchant-chooser-label">
         <p
           id="merchant-chooser-label"
-          className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7a8aa0]"
+          className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#687588]"
         >
           Point your agent at a store
         </p>
@@ -125,7 +125,7 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
                   {m.mode}
                 </Pill>
               </div>
-              <span className="mt-0.5 block text-[11.5px] text-[#8593a6]">{m.domain}</span>
+              <span className="mt-0.5 block text-[11.5px] text-[#6a7685]">{m.domain}</span>
               <span className="mt-1.5 block text-[12px] leading-snug text-[#5a6b81]">{m.blurb}</span>
             </button>
           );
@@ -139,12 +139,12 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
       >
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7a8aa0]">Your agent wants to buy</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#687588]">Your agent wants to buy</p>
             <h3 className="mt-1 text-[19px] font-semibold text-[#0A2540]">
               {selected.item}{' '}
-              <span className="text-[#8593a6]">· ${selected.amount.toLocaleString()}</span>
+              <span className="text-[#6a7685]">· ${selected.amount.toLocaleString()}</span>
             </h3>
-            <p className="text-[12.5px] text-[#8593a6]">from {selected.name} ({selected.domain})</p>
+            <p className="text-[12.5px] text-[#6a7685]">from {selected.name} ({selected.domain})</p>
           </div>
           <button
             onClick={run}
@@ -180,7 +180,7 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
           {phase === 'idle' && (
             <div className="flex h-[240px] flex-col items-center justify-center rounded-2xl border border-dashed text-center" style={{ borderColor: '#e3e8ef' }}>
               <p className="text-[14px] font-medium text-[#54617a]">Press “Check this merchant.”</p>
-              <p className="mt-1 max-w-sm text-[12.5px] text-[#8593a6]">
+              <p className="mt-1 max-w-sm text-[12.5px] text-[#6a7685]">
                 Clearhouse cross-examines the store before any money moves, and hands your agent one answer it can act on.
               </p>
             </div>
@@ -201,7 +201,7 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
 
               {(phase === 'reasons' || phase === 'verdict') && (
                 <div className="pt-1">
-                  <p className="mb-2 pl-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7a8aa0]">
+                  <p className="mb-2 pl-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#687588]">
                     What it found
                   </p>
                   <div className="space-y-2">
@@ -225,7 +225,7 @@ export function TryIt({ merchants }: { merchants: DemoMerchant[] }) {
                       </div>
                     ))}
                     {phase === 'reasons' && shown < selected.reasons.length && (
-                      <div className="flex items-center gap-2 pl-1 text-[12.5px] text-[#8593a6]">
+                      <div className="flex items-center gap-2 pl-1 text-[12.5px] text-[#6a7685]">
                         <Dots /> examining…
                       </div>
                     )}
