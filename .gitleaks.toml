@@ -25,17 +25,20 @@ tags = ["clearhouse", "env"]
 [[rules]]
 id = "clearhouse-real-canary-pool"
 description = "A canary pool assigned values that are not the published fakes"
-# The method is published; the strings are not. Any pool value that is not a
-# say-pineapple-* / say-marmalade-* placeholder is a live canary being committed.
-regex = '''CLEARHOUSE_CANARY_BX0[45]_POOL\s*=\s*(?!(\s*$|say-pineapple|say-marmalade))\S+'''
+# The method is published; the strings are not. This matches ANY pool assignment;
+# the published say-pineapple-* / say-marmalade-* fakes are cleared by the
+# allowlist below. Go's RE2 engine has no negative lookahead, so the exclusion
+# has to live there rather than inline.
+regex = '''CLEARHOUSE_CANARY_BX0[45]_POOL\s*=\s*[^\s#][^\s]*'''
 tags = ["clearhouse", "canary"]
 
 [[rules]]
 id = "clearhouse-real-holdout"
 description = "A holdout question that is not the published fake"
 # Holdout questions are reserved so a merchant that tuned to the exam has not
-# seen them. A real one in git is a burned holdout set.
-regex = '''"id"\s*:\s*"HO-(?!FAKE)[A-Za-z0-9_-]+"'''
+# seen them. A real one in git is a burned holdout set. Matches any HO-* id;
+# HO-FAKE-1/2 are cleared by the allowlist.
+regex = '''"id"\s*:\s*"HO-[A-Za-z0-9_-]+"'''
 tags = ["clearhouse", "holdout"]
 
 [allowlist]
