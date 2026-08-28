@@ -31,12 +31,14 @@ to caught / escalated / paid-out), `/registry`, `/ledger`, `/eval`, `/arena`, `/
 | Empty | **[code]** Not a state. `TryIt` opens with `merchants[0]` preselected, so the first paint is a live example, not a blank form. |
 | Loading | **[code]** The four working phases *are* the loading state — progressive disclosure instead of a spinner. The submit button carries `disabled={running}` with `disabled:opacity-60`. |
 | Success | **[code]** A verdict with a score shown `/ 1000` (`TryIt.tsx:249`) and reason codes. |
-| Error | **[gap]** No error branch is visible in `TryIt.tsx` — no `catch`, no error state in `Phase`. |
+| Error | **[code]** Handled where failure is possible. `ArenaClient.tsx` catches and renders `error: 'network'`; `PromoteClient.tsx` holds an error state and explains the missing token. `TryIt.tsx` has no error branch because **it makes no network call** — the landing demo is a scripted `setTimeout` sequence over pre-baked reasons, so there is nothing to fail. |
 | Slow / unsure model | **[code]** Handled below the UI rather than in it: `CLEARHOUSE_LATENCY_TARGET_MS=30000`, anything slower served from the content-hash cache, and `CLEARHOUSE_REPLAY_ONLY=1` as the switch to throw if conference wifi dies. The degradation ladder is real; it just never surfaces a message. |
 
-**The honest gap:** the demo path is well defended, and the failure path is undefined. Because the
-hero path is scripted and cached, an error is unlikely in the demo — which is exactly why nobody has
-had to design what it looks like.
+**Correction.** An earlier draft of this file called the missing error state a P0. That was wrong on
+two counts: the components that can fail already handle it, and the one that does not — `TryIt` —
+cannot fail, because it never touches the network. The landing page is an illustration of an
+underwrite, not an underwrite. That is a defensible choice for a demo whose worst enemy is conference
+wifi, and it should be stated plainly rather than discovered by a reader.
 
 ## Feedback loop
 
@@ -60,22 +62,25 @@ is already in the immune system.
 
 | Check | State |
 |---|---|
-| Semantic buttons, `disabled` state | ✅ present |
-| ARIA labels | ❌ one `aria-hidden` in the entire app (`app/page.tsx:116`) |
-| Visible focus styles | ❌ no `focus` rule in `app/globals.css` |
-| Keyboard path through the underwrite | ❓ untested |
-| WCAG AA contrast | ❓ unverified |
+| Semantic buttons, `disabled` state | ✅ present — the chooser and the run control are real `<button>`s, so the flow is keyboard-operable |
+| Visible focus | ✅ **corrected** — an earlier draft called this missing. There is no custom focus style, but nothing sets `outline: none` either, so the browser default ring is intact |
+| Selection state exposed | ✅ **fixed** — the chosen merchant was conveyed by border colour and shadow only; now `aria-pressed` |
+| Progress and verdict announced | ✅ **fixed** — the theatre advances on timers and previously updated silently; now `aria-live="polite"` with `aria-busy` while running |
+| WCAG AA contrast | ❓ unverified — several greys on white (`#8593a6`, `#7a8aa0`) are worth checking |
 
-**This is the weakest part of the product's surface.** A keyboard-only or screen-reader user has not
-been considered. It is also cheap to fix relative to everything else here: focus-visible styles and
-labels on the merchant selector and submit control would close most of it.
+**Corrected assessment.** The first draft called this the weakest part of the surface and said
+keyboard users were unsupported. Measured, that was too harsh: the controls are semantic buttons and
+focus rings were never suppressed, so the flow was always keyboard-operable. The real gap was narrower
+and worth fixing — a screen-reader user could not tell which merchant was selected, and got silence
+while the underwrite progressed. Both are closed. Contrast remains unverified.
 
 ## Critique
 
-- **P0 — no error state.** Any failure outside the cached path has no defined appearance. The
-  degradation ladder protects the demo; it does not protect a real user.
-- **P1 — no visible focus, effectively no ARIA.** Keyboard and assistive-technology users are
-  currently unsupported.
+- ~~**P0 — no error state.**~~ **Withdrawn.** The components that can fail handle it; `TryIt` makes no
+  network call. See the correction above.
+- ~~**P1 — no visible focus, effectively no ARIA.**~~ **Half withdrawn, half fixed.** Focus rings were
+  never suppressed. The genuine gaps — unannounced selection and unannounced progress — are closed.
+- **P1 — contrast unverified.** The muted greys on white have not been checked against WCAG AA.
 - **P2 — eight pages, one narrative.** `/board`, `/ledger`, `/eval`, `/registry`, `/arena`,
   `/adjudicate`, `/promote` each make sense when narrated live. `[inferred]` Without narration, it is
   not obvious which to visit after the landing page, or in what order.

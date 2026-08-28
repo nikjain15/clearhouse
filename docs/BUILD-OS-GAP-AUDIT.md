@@ -21,7 +21,7 @@ not a gap. Four artifacts are genuinely absent.
 | `ENGINEERING.md` | ⚠️ partial | Split across `AGENTS.md` (conventions, testing, PR rules) and `docs/PLATFORM.md` (runtime shape, extensibility). No single document, which is survivable — but the split means a newcomer reads two files to learn one thing. |
 | `DECISION_LOG.md` | ⚠️ partial | `STATUS.md` (170 lines) and `docs/STRATEGY.md` §1 "Locked decisions" record *what* was decided. Neither records *what was rejected and why*, which is the half a decision log exists for. |
 | `adr` | ⚠️ drafted | `docs/adr/` — five ADRs reconstructed from `STRATEGY.md` §1 on 2026-08-28. Decision and Rejected are sourced; **Reversal trigger is marked `[inferred]` and needs confirmation**. |
-| `UX.md` | ⚠️ drafted | `docs/UX.md` — flow and states read from the code. Found two real gaps: **no error state** and **effectively no accessibility support**. No user has been observed. |
+| `UX.md` | ⚠️ drafted | `docs/UX.md` — flow and states read from the code. Two of its first-draft findings did not survive checking and are withdrawn in the document; the genuine accessibility gaps (unannounced selection and progress) are fixed. No user has been observed. |
 | `COST.md` | ⚠️ drafted | `docs/COST.md` — 12 model calls per file, ≈5.4¢ cold. **Token counts are `[assumed]` until a live run.** Cost is now recorded per call (`src/model/pricing.ts`); the prompt-caching finding in the first draft was wrong and is corrected in the document. |
 | `STAKEHOLDERS.md` | ⚠️ drafted | `docs/STAKEHOLDERS.md` — internal split is sourced from the PR template; **every external row is `[inferred]` from team-written documents, not from talking to anyone.** |
 
