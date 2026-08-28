@@ -21,7 +21,8 @@
  */
 
 import { createHash } from 'node:crypto';
-import type { EventStore, Judged, JudgeRequest, ModelClient } from '../contracts/ports';
+import type { EventStore, Judged, JudgeRequest, ModelClient, ModelUsage } from '../contracts/ports';
+import { priceCall } from './pricing';
 
 const API = 'https://api.anthropic.com/v1/messages';
 
@@ -61,8 +62,16 @@ export interface ModelClientOptions {
   checksModel?: string;
   adjudicationModel?: string;
   replayOnly?: boolean;
-  /** Called on every resolution, so latency is measured rather than assumed. */
-  onCall?: (info: { checkId: string; served: 'live' | 'cache'; latencyMs: number }) => void;
+  /**
+   * Called on every resolution, so latency and cost are measured rather than
+   * assumed. `usage` is present only on a live call; a cache hit is free.
+   */
+  onCall?: (info: {
+    checkId: string;
+    served: 'live' | 'cache';
+    latencyMs: number;
+    usage?: ModelUsage;
+  }) => void;
 }
 
 export class AnthropicModelClient implements ModelClient {
@@ -128,23 +137,58 @@ export class AnthropicModelClient implements ModelClient {
       throw new ModelCallError(`Anthropic API ${res.status}: ${body.slice(0, 300)}`, res.status, hash);
     }
 
-    const json = (await res.json()) as { content: Array<{ type: string; input?: unknown }> };
+    const json = (await res.json()) as {
+      content: Array<{ type: string; input?: unknown }>;
+      usage?: {
+        input_tokens?: number;
+        output_tokens?: number;
+        cache_read_input_tokens?: number;
+        cache_creation_input_tokens?: number;
+      };
+    };
     const block = json.content.find((c) => c.type === 'tool_use');
     if (!block || block.input === undefined) {
       throw new ModelCallError('Model did not return the forced tool call.', 502, hash);
     }
 
     const latencyMs = Date.now() - started;
+    const usage = readUsage(model, json.usage);
     await this.opts.store.cachePut(hash, {
       model,
       response: block.input,
       latencyMs,
       createdAt: new Date().toISOString(),
+      usage,
     });
-    this.opts.onCall?.({ checkId: req.checkId, served: 'live', latencyMs });
+    this.opts.onCall?.({ checkId: req.checkId, served: 'live', latencyMs, usage });
 
-    return { value: block.input as T, latencyMs, served: 'live', model, hash };
+    return { value: block.input as T, latencyMs, served: 'live', model, hash, usage };
   }
+}
+
+/**
+ * Read the API's usage block and price it.
+ *
+ * Every field is defaulted to 0: a response missing `usage` must not fail an
+ * underwrite over accounting. A zero cost on a live call is visibly wrong in
+ * the ledger, which is the right way for this to fail.
+ */
+function readUsage(
+  model: string,
+  usage: {
+    input_tokens?: number;
+    output_tokens?: number;
+    cache_read_input_tokens?: number;
+    cache_creation_input_tokens?: number;
+  } | undefined,
+): ModelUsage {
+  const tokens = {
+    inputTokens: usage?.input_tokens ?? 0,
+    outputTokens: usage?.output_tokens ?? 0,
+    cacheReadTokens: usage?.cache_read_input_tokens ?? 0,
+    cacheWriteTokens: usage?.cache_creation_input_tokens ?? 0,
+  };
+  return { ...tokens, costUsd: priceCall(model, tokens) };
 }
 
 export class ModelUnavailableError extends Error {

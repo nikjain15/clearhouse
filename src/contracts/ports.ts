@@ -26,6 +26,27 @@ export interface CachedModelCall {
   response: unknown;
   latencyMs: number;
   createdAt: string;
+  /**
+   * What the live call cost. Absent on entries written before cost was
+   * measured, and absent on a cache hit, which costs nothing by construction.
+   */
+  usage?: ModelUsage;
+}
+
+/**
+ * Token counts as reported by the API, plus the price they came to.
+ *
+ * Latency was measured from the first commit; cost was not, in a product whose
+ * thesis is pricing risk. COST.md carried estimates because nothing recorded
+ * the real numbers. This is what makes them real.
+ */
+export interface ModelUsage {
+  inputTokens: number;
+  outputTokens: number;
+  cacheReadTokens: number;
+  cacheWriteTokens: number;
+  /** Priced with the rate table in src/model/pricing.ts, at call time. */
+  costUsd: number;
 }
 
 export interface EventStore {
@@ -72,6 +93,8 @@ export interface Judged<T> {
   served: 'live' | 'cache';
   model: string;
   hash: string;
+  /** Present on a live call. A cache hit is free, so it carries none. */
+  usage?: ModelUsage;
 }
 
 export interface ModelClient {

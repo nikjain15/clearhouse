@@ -56,22 +56,51 @@ lever in the system and it is already built.
 **[code]** `CLEARHOUSE_REPLAY_ONLY=1` refuses live calls entirely and serves only the cache. CI sets
 it on the build step, so the production build costs nothing to run.
 
-## The gap: no API-level prompt caching
+## Prompt caching does not apply here — a correction
 
-**[code]** The request body in `src/model/client.ts` sets `model`, `max_tokens`, `system`,
-`messages`, `tools`, and `tool_choice`. There is **no `cache_control` block anywhere in `src/`**.
+**An earlier draft of this file claimed that twelve calls share one system prompt, which is re-sent
+and re-billed twelve times, and that a `cache_control` breakpoint would cut most of it. Both halves
+were wrong.** The correction, measured:
 
-The content-hash cache only helps on an exact repeat. Within a single underwriting file, twelve calls
-share the same system prompt and differ only in instruction and merchant content — so the shared
-prefix is re-sent and re-billed twelve times at full input rate.
+**[code]** Each of the twelve checks has its **own** system prompt — 12 distinct `system:` sites
+across `pillar1.ts` (1), `pillar2.ts` (4), `pillar3.ts` (6), `pillar456.ts` (1). Nothing is shared
+between them.
 
-**[priced]** Cached input reads at roughly 0.1× and cache writes at roughly 1.25×. If the system
-prompt is a meaningful share of the ~1,500 input tokens per call, a `cache_control` breakpoint after
-the system block would cut most of that repetition on eleven of the twelve calls.
+**[code]** Those prompts are **8 to 45 tokens** each:
 
-**[assumed]** This is worth doing, but the size of the win depends on how large the system prompts
-actually are relative to merchant content — which nobody has measured. Measure first; the fix is one
-field.
+| File | System prompts | Range |
+|---|---|---|
+| `pillar1.ts` | 1 | ~12 tokens |
+| `pillar2.ts` | 4 | 36–45 tokens |
+| `pillar3.ts` | 6 | 17–45 tokens |
+| `pillar456.ts` | 1 | ~8 tokens |
+
+**[priced]** The minimum cacheable prefix is 512–4096 tokens depending on the model. These prompts are
+one to two orders of magnitude below the floor, so a `cache_control` block on them would cache nothing
+at all — and silently, with no error.
+
+**[code]** Nor is there a shared prefix further down. The user message is
+`instruction + envelope(untrusted)`, and the instruction differs per check, so the merchant content
+that follows it never lands at a common prefix position across calls.
+
+**Conclusion: API-level prompt caching is not applicable to this workload as it is built.** It would
+become applicable only if the checks were restructured to share a large common preamble — which is a
+design change to justify on its own merits, not a cost optimisation to slip in.
+
+**The caching that does work here is the one already built:** the content-hash cache makes a repeated
+underwrite of an unchanged merchant cost exactly $0. For a demo that runs the same personas
+repeatedly, that is the dominant effect, and it is a stronger result than prefix caching would give.
+
+## Cost is now measured
+
+**[code]** `src/model/client.ts` reads the `usage` block off every response and prices it with the
+rate table in `src/model/pricing.ts`. The result is persisted on the cache entry
+(`CachedModelCall.usage`) and returned on `Judged.usage`, so cost lands in the event store next to
+latency instead of being estimated in this document.
+
+A cache hit carries no usage, because it costs nothing. The estimates above stay marked `[assumed]`
+until a live run replaces them with recorded totals — at which point this section should quote the
+real number and the estimate should be deleted.
 
 ## Operating point and caps
 

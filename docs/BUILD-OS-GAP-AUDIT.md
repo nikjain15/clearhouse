@@ -22,7 +22,7 @@ not a gap. Four artifacts are genuinely absent.
 | `DECISION_LOG.md` | ⚠️ partial | `STATUS.md` (170 lines) and `docs/STRATEGY.md` §1 "Locked decisions" record *what* was decided. Neither records *what was rejected and why*, which is the half a decision log exists for. |
 | `adr` | ⚠️ drafted | `docs/adr/` — five ADRs reconstructed from `STRATEGY.md` §1 on 2026-08-28. Decision and Rejected are sourced; **Reversal trigger is marked `[inferred]` and needs confirmation**. |
 | `UX.md` | ⚠️ drafted | `docs/UX.md` — flow and states read from the code. Found two real gaps: **no error state** and **effectively no accessibility support**. No user has been observed. |
-| `COST.md` | ⚠️ drafted | `docs/COST.md` — 12 model calls per file, ≈5.4¢ cold. **Token counts are `[assumed]`, not measured.** Found that no `cache_control` exists anywhere in `src/`, and that `usage` is never read, so cost is never recorded. |
+| `COST.md` | ⚠️ drafted | `docs/COST.md` — 12 model calls per file, ≈5.4¢ cold. **Token counts are `[assumed]` until a live run.** Cost is now recorded per call (`src/model/pricing.ts`); the prompt-caching finding in the first draft was wrong and is corrected in the document. |
 | `STAKEHOLDERS.md` | ⚠️ drafted | `docs/STAKEHOLDERS.md` — internal split is sourced from the PR template; **every external row is `[inferred]` from team-written documents, not from talking to anyone.** |
 
 **Score: 6 present, 3 partial, 4 drafted-pending-your-review** (was 4 missing; drafted 2026-08-28 from repo evidence, with every inferred claim marked).
